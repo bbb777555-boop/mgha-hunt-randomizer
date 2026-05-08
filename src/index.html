@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MGHA - Make Hunt Great Again!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════ SPLASH ══ -->
+  <div id="view-splash" class="view active">
+    <div class="splash-bg"></div>
+    <div class="splash-content">
+      <div class="splash-logo-wrap">
+        <img class="splash-logo-svg" src="../assets/logo.svg" alt="MGHA Logo" draggable="false"/>
+      </div>
+      <h1 class="splash-title">MGHA</h1>
+      <p class="splash-subtitle">Make Hunt Great Again!</p>
+      <div class="splash-loading">
+        <div class="loading-bar"><div class="loading-fill"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ STATS BAR ══ -->
+  <div id="stats-bar" class="hidden">
+    <div class="stats-bar-inner">
+      <span class="stat-item"><span class="stat-label">TOTAL SCORE</span><span class="stat-value" id="sb-total-score">0</span></span>
+      <span class="stat-sep">✦</span>
+      <span class="stat-item"><span class="stat-label">K/D</span><span class="stat-value" id="sb-kd">—</span></span>
+      <span class="stat-sep">✦</span>
+      <span class="stat-item"><span class="stat-label">RUNDEN</span><span class="stat-value" id="sb-rounds">0</span></span>
+      <span class="stat-sep">✦</span>
+      <span class="stat-item"><span class="stat-label">Ø SCORE</span><span class="stat-value" id="sb-avg">0</span></span>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════ NAVIGATION ══ -->
+  <nav id="main-nav" class="hidden">
+    <button class="nav-btn" onclick="showView('home')" data-view="home">
+      <span class="nav-icon">⚔</span> HOME
+    </button>
+    <button class="nav-btn" onclick="showView('history')" data-view="history">
+      <span class="nav-icon">📜</span> HISTORIK
+    </button>
+    <button class="nav-btn" onclick="showView('settings')" data-view="settings">
+      <span class="nav-icon">⚙</span> EINSTELLUNGEN
+    </button>
+  </nav>
+
+  <!-- ════════════════════════════════════════════════════════ HOME ══ -->
+  <div id="view-home" class="view hidden">
+    <div class="view-content home-content">
+      <div class="home-header">
+        <div class="ornament-line"></div>
+        <h1 class="home-title">HUNT<br><span class="title-accent">RANDOMIZER</span></h1>
+        <p class="home-flavor" id="home-flavor-text"></p>
+        <div class="ornament-line"></div>
+      </div>
+      <div class="home-actions">
+        <div id="active-run-banner" class="active-run-banner hidden">
+          <span class="active-run-label">✦ AKTIVER LAUF ✦</span>
+          <span class="active-run-rounds" id="active-run-info">0 Runden gespielt</span>
+        </div>
+        <button class="btn-primary btn-huge" onclick="handleRandomize()">
+          <span class="btn-skull">☠</span>
+          <span class="btn-text">RANDOMIZE</span>
+          <span class="btn-subtitle">Loadout auswürfeln</span>
+        </button>
+        <div class="home-secondary-btns">
+          <button class="btn-secondary" onclick="handleEndRun()" id="btn-end-run" style="display:none">
+            LAUF BEENDEN
+          </button>
+        </div>
+      </div>
+      <div class="home-quick-stats" id="home-quick-stats"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ LOADOUT VIEW ══ -->
+  <div id="view-loadout" class="view hidden">
+    <div class="view-content">
+      <div class="view-header">
+        <div class="ornament-line"></div>
+        <h2 class="view-title">DEIN LOADOUT</h2>
+        <p class="view-subtitle" id="loadout-round-label">Runde 1</p>
+        <div class="ornament-line"></div>
+      </div>
+
+      <div class="loadout-grid" id="loadout-display">
+        <!-- rendered by JS -->
+      </div>
+
+      <div class="loadout-score-banner">
+        <span class="score-label">LOADOUT SCHWIERIGKEIT</span>
+        <span class="score-value" id="loadout-base-score">0</span>
+        <span class="score-label">PUNKTE</span>
+      </div>
+
+      <div class="loadout-actions">
+        <button class="btn-primary" onclick="confirmLoadout()">
+          ✦ LOADOUT BESTÄTIGEN
+        </button>
+        <button class="btn-ghost" onclick="handleRandomize()">
+          ↺ NEU WÜRFELN
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ RESULTS VIEW ══ -->
+  <div id="view-results" class="view hidden">
+    <div class="view-content">
+      <div class="view-header">
+        <div class="ornament-line"></div>
+        <h2 class="view-title">RUNDEN ERGEBNIS</h2>
+        <p class="view-subtitle" id="results-round-label">Runde 1</p>
+        <div class="ornament-line"></div>
+      </div>
+
+      <div class="results-loadout-summary" id="results-loadout-summary">
+        <!-- short loadout recap -->
+      </div>
+
+      <div class="results-grid">
+        <!-- Counter row -->
+        <div class="result-row">
+          <span class="result-label">Headshots</span>
+          <div class="result-counter">
+            <button class="counter-btn" onclick="adjustResult('headshots', -1)">−</button>
+            <span class="counter-val" id="res-headshots">0</span>
+            <button class="counter-btn" onclick="adjustResult('headshots', 1)">+</button>
+          </div>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Kills</span>
+          <div class="result-counter">
+            <button class="counter-btn" onclick="adjustResult('kills', -1)">−</button>
+            <span class="counter-val" id="res-kills">0</span>
+            <button class="counter-btn" onclick="adjustResult('kills', 1)">+</button>
+          </div>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Tode</span>
+          <div class="result-counter">
+            <button class="counter-btn" onclick="adjustResult('deaths', -1)">−</button>
+            <span class="counter-val" id="res-deaths">0</span>
+            <button class="counter-btn" onclick="adjustResult('deaths', 1)">+</button>
+          </div>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Wiederbelebungen</span>
+          <div class="result-counter">
+            <button class="counter-btn" onclick="adjustResult('revives', -1)">−</button>
+            <span class="counter-val" id="res-revives">0</span>
+            <button class="counter-btn" onclick="adjustResult('revives', 1)">+</button>
+          </div>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Bounties extrahiert</span>
+          <div class="result-counter">
+            <button class="counter-btn" onclick="adjustResult('bounties', -1)">−</button>
+            <span class="counter-val" id="res-bounties">0</span>
+            <button class="counter-btn" onclick="adjustResult('bounties', 1)">+</button>
+          </div>
+        </div>
+        <!-- Toggle rows -->
+        <div class="result-row result-row-toggle">
+          <span class="result-label">Erster Tod</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="res-first-death" onchange="updateToggle('firstDeath', this.checked)">
+            <span class="toggle-slider"></span>
+            <span class="toggle-label-on">JA</span>
+            <span class="toggle-label-off">NEIN</span>
+          </label>
+        </div>
+        <div class="result-row result-row-toggle">
+          <span class="result-label">Extraktion erfolgreich</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="res-extracted" onchange="updateToggle('extracted', this.checked)">
+            <span class="toggle-slider"></span>
+            <span class="toggle-label-on">JA</span>
+            <span class="toggle-label-off">NEIN</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="results-preview">
+        <span class="preview-label">VORAUSSICHTLICHE PUNKTE:</span>
+        <span class="preview-score" id="preview-score">0</span>
+      </div>
+
+      <div class="loadout-actions">
+        <button class="btn-primary" onclick="submitResults()">
+          ✦ ERGEBNIS BESTÄTIGEN
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ ROUND COMPLETE ══ -->
+  <div id="view-round-complete" class="view hidden">
+    <div class="view-content round-complete-content">
+      <div class="view-header">
+        <div class="ornament-line"></div>
+        <h2 class="view-title">RUNDE ABGESCHLOSSEN</h2>
+        <div class="ornament-line"></div>
+      </div>
+      <div class="round-score-display">
+        <div class="round-score-label">RUNDEN SCORE</div>
+        <div class="round-score-value" id="rc-round-score">0</div>
+        <div class="round-score-breakdown" id="rc-breakdown"></div>
+      </div>
+      <div class="run-total-display">
+        <span class="run-total-label">LAUF GESAMT:</span>
+        <span class="run-total-value" id="rc-run-total">0</span>
+      </div>
+      <div class="loadout-actions">
+        <button class="btn-primary" onclick="handleNextRound()">
+          ↺ NÄCHSTE RUNDE
+        </button>
+        <button class="btn-secondary" onclick="handleEndRun()">
+          ✓ LAUF BEENDEN
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ HISTORY ══ -->
+  <div id="view-history" class="view hidden">
+    <div class="view-content">
+      <div class="view-header">
+        <div class="ornament-line"></div>
+        <h2 class="view-title">VERGANGENE LÄUFE</h2>
+        <div class="ornament-line"></div>
+      </div>
+      <div id="history-list" class="history-list">
+        <!-- rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ RUN DETAIL ══ -->
+  <div id="view-run-detail" class="view hidden">
+    <div class="view-content">
+      <div class="view-header">
+        <button class="btn-back" onclick="showView('history')">← ZURÜCK</button>
+        <div class="ornament-line"></div>
+        <h2 class="view-title" id="rd-title">LAUF DETAILS</h2>
+        <p class="view-subtitle" id="rd-subtitle"></p>
+        <div class="ornament-line"></div>
+      </div>
+      <div id="run-detail-content" class="run-detail-content">
+        <!-- rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ SETTINGS ══ -->
+  <div id="view-settings" class="view hidden">
+    <div class="view-content">
+      <div class="view-header">
+        <div class="ornament-line"></div>
+        <h2 class="view-title">EINSTELLUNGEN</h2>
+        <div class="ornament-line"></div>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-section-title">PFLICHTAUSRÜSTUNG</h3>
+        <p class="settings-section-desc">Beeinflusst den Loadout und den Score-Multiplikator</p>
+
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-name">Medkit verpflichtend</span>
+            <span class="setting-desc">Medkit wird immer ins Loadout aufgenommen (−2 Pts)</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="set-medkit" onchange="saveSetting('medkitRequired', this.checked)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-name">Nahkampfwaffe verpflichtend</span>
+            <span class="setting-desc">Nahkampf wird immer ins Loadout aufgenommen</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="set-melee" onchange="saveSetting('meleeRequired', this.checked)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-name">Choke-Bombe verpflichtend</span>
+            <span class="setting-desc">Choke Bomb wird immer eingeschlossen (−1 Pt)</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="set-choke" onchange="saveSetting('chokeRequired', this.checked)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-name">Heilspritze verpflichtend</span>
+            <span class="setting-desc">Healing Syringe wird immer eingeschlossen (−1 Pt)</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="set-healsyringe" onchange="saveSetting('healSyringeRequired', this.checked)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-name">Regenshot verpflichtend</span>
+            <span class="setting-desc">Regen Shot wird immer eingeschlossen (−1 Pt)</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="set-regenshot" onchange="saveSetting('regenShotRequired', this.checked)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-section-title">SPIELMODUS</h3>
+
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-name">Solo-Modus</span>
+            <span class="setting-desc">Spiele alleine — alle Scores werden mit ×1.5 multipliziert</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="set-solo" onchange="saveSetting('soloMode', this.checked)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="settings-section settings-score-info">
+        <h3 class="settings-section-title">SCORING ÜBERSICHT</h3>
+        <div class="score-legend">
+          <div class="score-legend-col">
+            <span class="sl-header">POSITIV</span>
+            <span class="sl-row good">Headshot<span>+10 Pts</span></span>
+            <span class="sl-row good">Kill<span>+15 Pts</span></span>
+            <span class="sl-row good">Wiederbelebung<span>+5 Pts</span></span>
+            <span class="sl-row good">Extraktion<span>+30 Pts</span></span>
+            <span class="sl-row good">Bounty extrahiert<span>+25 Pts</span></span>
+          </div>
+          <div class="score-legend-col">
+            <span class="sl-header">NEGATIV</span>
+            <span class="sl-row bad">Tod<span>−10 Pts</span></span>
+            <span class="sl-row bad">Erster Tod<span>−20 Pts</span></span>
+            <span class="sl-row bad">Spitzer-Munition<span>−2 Pts</span></span>
+            <span class="sl-row bad">FMJ-Munition<span>−1 Pt</span></span>
+            <span class="sl-row bad">High Velocity<span>−1 Pt</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-danger-zone">
+        <h3 class="settings-section-title danger-title">GEFAHRENZONE</h3>
+        <button class="btn-danger" onclick="confirmResetData()">
+          ☠ ALLE DATEN LÖSCHEN
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ MODAL ══ -->
+  <div id="modal-overlay" class="modal-overlay hidden" onclick="closeModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <h3 class="modal-title" id="modal-title">Bestätigung</h3>
+      <p class="modal-body" id="modal-body"></p>
+      <div class="modal-actions">
+        <button class="btn-danger" id="modal-confirm-btn">Bestätigen</button>
+        <button class="btn-ghost" onclick="closeModal()">Abbrechen</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
