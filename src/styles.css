@@ -3,27 +3,28 @@
    ═══════════════════════════════════════════════════════════════════════ */
 
 :root {
-  --bg-void:      #060402;
-  --bg-deep:      #0d0a06;
-  --bg-panel:     #181008;
-  --bg-card:      #201408;
-  --bg-raised:    #2a1c0c;
-  --accent-red:   #8b1a1a;
-  --accent-red2:  #a82020;
-  --accent-gold:  #c8962a;
-  --accent-gold2: #e0b040;
-  --text-bright:  #e8d0a0;
-  --text-main:    #c8a870;
-  --text-dim:     #8a6840;
-  --text-muted:   #5a4428;
-  --border-dark:  #2e1e0e;
-  --border-mid:   #4a2e14;
-  --border-light: #6a4820;
-  --good:         #4a8a3a;
-  --good-text:    #80c870;
-  --bad:          #8b1a1a;
-  --bad-text:     #d06050;
-  --neutral:      #5a4428;
+  /* Hunt: Showdown palette — near-black backgrounds, sepia panels, dark burgundy accents */
+  --bg-void:      #050403;
+  --bg-deep:      #0b0907;
+  --bg-panel:     #141009;
+  --bg-card:      #1a1410;
+  --bg-raised:    #221a13;
+  --accent-red:   #7a1212;
+  --accent-red2:  #962020;
+  --accent-gold:  #8a6e38;       /* muted aged bronze — NOT orange */
+  --accent-gold2: #a8863c;       /* slightly lighter bronze */
+  --text-bright:  #d4c4a0;       /* aged parchment */
+  --text-main:    #a89070;       /* worn sepia text */
+  --text-dim:     #705840;
+  --text-muted:   #4a3828;
+  --border-dark:  #251a10;
+  --border-mid:   #3a2818;
+  --border-light: #503820;
+  --good:         #3a6e2e;
+  --good-text:    #6a9a58;
+  --bad:          #7a1212;
+  --bad-text:     #b85040;
+  --neutral:      #4a3828;
 
   --radius:       4px;
   --transition:   0.25s ease;

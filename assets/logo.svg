@@ -1,272 +1,252 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="400" height="600">
   <defs>
-    <!-- Backgrounds -->
-    <radialGradient id="bg" cx="50%" cy="38%" r="65%">
-      <stop offset="0%" stop-color="#2e1a08"/>
-      <stop offset="70%" stop-color="#0d0704"/>
-      <stop offset="100%" stop-color="#030202"/>
+    <!-- Aged paper/poster background -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#0f0c09"/>
+      <stop offset="100%" stop-color="#070504"/>
+    </linearGradient>
+    <!-- Skin tone – desaturated, dark -->
+    <radialGradient id="skin" cx="48%" cy="40%" r="55%">
+      <stop offset="0%"   stop-color="#8a7060"/>
+      <stop offset="55%"  stop-color="#5e4838"/>
+      <stop offset="100%" stop-color="#2e2018"/>
     </radialGradient>
-    <!-- Face skin gradient -->
-    <radialGradient id="skin" cx="45%" cy="42%" r="58%">
-      <stop offset="0%" stop-color="#9a6030"/>
-      <stop offset="60%" stop-color="#6a3a14"/>
-      <stop offset="100%" stop-color="#3a1a06"/>
-    </radialGradient>
-    <!-- Hat gradient -->
-    <linearGradient id="hatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#181008"/>
-      <stop offset="50%" stop-color="#0e0804"/>
-      <stop offset="100%" stop-color="#060402"/>
+    <!-- Hat gradient – very dark, worn leather -->
+    <linearGradient id="hat" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%"   stop-color="#1c1610"/>
+      <stop offset="50%"  stop-color="#100d08"/>
+      <stop offset="100%" stop-color="#070504"/>
     </linearGradient>
     <!-- Coat gradient -->
-    <linearGradient id="coatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1a1208"/>
+    <linearGradient id="coat" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#181410"/>
       <stop offset="100%" stop-color="#080604"/>
     </linearGradient>
-    <!-- Glow behind face -->
-    <radialGradient id="faceGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#c87820" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#c87820" stop-opacity="0"/>
+    <!-- Vignette overlay -->
+    <radialGradient id="vig" cx="50%" cy="50%" r="70%">
+      <stop offset="35%"  stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.65"/>
     </radialGradient>
-    <!-- Vignette -->
-    <radialGradient id="vig" cx="50%" cy="50%" r="72%">
-      <stop offset="40%" stop-color="#000" stop-opacity="0"/>
-      <stop offset="100%" stop-color="#000" stop-opacity="0.75"/>
+    <!-- Subtle warm glow center -->
+    <radialGradient id="glow" cx="50%" cy="42%" r="45%">
+      <stop offset="0%"   stop-color="#7a5828" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#7a5828" stop-opacity="0"/>
     </radialGradient>
-    <!-- Lens gradient for sunglasses -->
-    <radialGradient id="lens" cx="38%" cy="35%" r="55%">
-      <stop offset="0%" stop-color="#1a2830"/>
-      <stop offset="100%" stop-color="#050a0c"/>
-    </radialGradient>
-    <!-- Red text gradient -->
-    <linearGradient id="redText" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#c02020"/>
-      <stop offset="100%" stop-color="#6a0808"/>
+    <!-- Red text gradient – dark blood red, poster-style -->
+    <linearGradient id="redTxt" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#a01818"/>
+      <stop offset="100%" stop-color="#600808"/>
     </linearGradient>
+    <!-- Lens gradient -->
+    <radialGradient id="lens" cx="35%" cy="30%" r="60%">
+      <stop offset="0%"   stop-color="#1a2028"/>
+      <stop offset="100%" stop-color="#040608"/>
+    </radialGradient>
   </defs>
 
-  <!-- ═══ BACKGROUND ════════════════════════════════════════════════════ -->
+  <!-- ═══ BACKGROUND ═══════════════════════════════════════════════════ -->
   <rect width="400" height="600" fill="url(#bg)"/>
+  <!-- Warm center glow -->
+  <ellipse cx="200" cy="260" rx="180" ry="230" fill="url(#glow)"/>
+  <!-- Ground atmosphere -->
+  <ellipse cx="200" cy="590" rx="210" ry="35" fill="#0d0a07" opacity="0.7"/>
 
-  <!-- Atmospheric fog / ground haze -->
-  <ellipse cx="200" cy="580" rx="220" ry="40" fill="#100c06" opacity="0.6"/>
-  <ellipse cx="100" cy="470" rx="100" ry="35" fill="#0a0804" opacity="0.3"/>
-  <ellipse cx="320" cy="440" rx="90" ry="30" fill="#0a0804" opacity="0.25"/>
+  <!-- ═══ HAT ═══════════════════════════════════════════════════════════ -->
+  <!-- Crown right shadow face -->
+  <path d="M 265,172 L 272,22 Q 274,20 272,22 L 265,172 Z" fill="#050402"/>
+  <!-- Crown main face -->
+  <path d="M 137,172 L 130,22 Q 200,13 270,22 L 263,172 Z" fill="url(#hat)"/>
+  <!-- Crown left highlight edge (light catching worn leather) -->
+  <path d="M 130,22 L 137,172" stroke="#261e14" stroke-width="2" fill="none"/>
+  <!-- Crown top edge -->
+  <path d="M 130,22 Q 200,13 270,22" fill="none" stroke="#2a2018" stroke-width="2.5"/>
+  <!-- Wear crease on crown -->
+  <path d="M 170,170 Q 172,90 174,26" fill="none" stroke="#0a0806" stroke-width="2" opacity="0.6"/>
+  <path d="M 230,170 Q 228,90 226,26" fill="none" stroke="#0a0806" stroke-width="2" opacity="0.5"/>
 
-  <!-- Warm glow behind figure -->
-  <ellipse cx="200" cy="290" rx="165" ry="220" fill="url(#faceGlow)"/>
+  <!-- Hat band – dark burgundy, worn -->
+  <rect x="132" y="148" width="136" height="22" rx="1" fill="#4e0e0e"/>
+  <!-- Band top highlight -->
+  <rect x="132" y="148" width="136" height="3" fill="#6a1414" opacity="0.8"/>
+  <!-- Band bottom shadow -->
+  <rect x="132" y="167" width="136" height="3" fill="#2a0606" opacity="0.9"/>
+  <!-- Stars on band – muted, aged gold -->
+  <text x="153" y="164" fill="#706040" font-size="11" font-family="serif">★</text>
+  <text x="197" y="164" fill="#706040" font-size="11" font-family="serif">★</text>
+  <text x="241" y="164" fill="#706040" font-size="11" font-family="serif">★</text>
 
-  <!-- ═══ HAT ════════════════════════════════════════════════════════════ -->
-  <!-- Hat crown – left shadow face -->
-  <path d="M 137,172 L 130,22 Q 200,13 270,22 L 263,172 Z" fill="#060402"/>
-  <!-- Hat crown – front face -->
-  <path d="M 140,172 L 133,24 Q 200,15 267,24 L 260,172 Z" fill="url(#hatGrad)"/>
-  <!-- Hat crown – right highlight strip -->
-  <path d="M 260,172 L 267,24 Q 270,26 268,28 L 262,172 Z" fill="#1a1208" opacity="0.5"/>
-  <!-- Worn crease lines on crown -->
-  <path d="M 165,170 Q 168,100 170,28" fill="none" stroke="#0a0804" stroke-width="1.5" opacity="0.5"/>
-  <path d="M 235,170 Q 232,100 230,28" fill="none" stroke="#0a0804" stroke-width="1.5" opacity="0.5"/>
-  <!-- Hat crown top edge -->
-  <path d="M 133,24 Q 200,15 267,24" fill="none" stroke="#2a1a0a" stroke-width="2"/>
+  <!-- Hat brim top -->
+  <path d="M 66,174 Q 200,162 334,174 Q 316,193 200,198 Q 84,193 66,174 Z" fill="#0e0b08"/>
+  <!-- Hat brim bottom / shadow underside -->
+  <path d="M 68,176 Q 200,194 332,176 Q 328,200 200,204 Q 72,200 68,176 Z" fill="#060402"/>
+  <!-- Brim front edge -->
+  <path d="M 66,174 Q 200,162 334,174" fill="none" stroke="#1e1810" stroke-width="2.5"/>
 
-  <!-- Hat band – red/burgundy with gold edge -->
-  <rect x="134" y="148" width="132" height="22" rx="2" fill="#5a0a0a"/>
-  <rect x="134" y="148" width="132" height="4" rx="1" fill="#8a1a1a" opacity="0.7"/>
-  <rect x="134" y="166" width="132" height="3" rx="1" fill="#3a0606" opacity="0.8"/>
-  <!-- Stars on band -->
-  <text x="152" y="164" fill="#c8962a" font-size="11" font-family="serif">★</text>
-  <text x="196" y="164" fill="#c8962a" font-size="11" font-family="serif">★</text>
-  <text x="240" y="164" fill="#c8962a" font-size="11" font-family="serif">★</text>
+  <!-- ═══ UNDER-HAT SHADOW (forehead) ══════════════════════════════════ -->
+  <path d="M 122,202 Q 200,193 278,202 Q 274,228 200,233 Q 126,228 122,202 Z" fill="#080604" opacity="0.85"/>
 
-  <!-- Hat brim – top surface -->
-  <path d="M 68,174 Q 200,162 332,174 Q 314,194 200,199 Q 86,194 68,174 Z" fill="#0c0806"/>
-  <!-- Hat brim – bottom shadow -->
-  <path d="M 70,176 Q 200,196 330,176 Q 326,198 200,203 Q 74,198 70,176 Z" fill="#060402"/>
-  <!-- Brim front edge highlight -->
-  <path d="M 68,174 Q 200,162 332,174" fill="none" stroke="#1a1008" stroke-width="2.5"/>
-  <!-- Brim outer edge shadow -->
-  <path d="M 68,174 Q 87,188 200,195 Q 313,188 332,174" fill="none" stroke="#040302" stroke-width="1" opacity="0.8"/>
+  <!-- ═══ FACE ═══════════════════════════════════════════════════════ -->
+  <!-- Face shape – angular, strong jawline, Hunter build -->
+  <path d="M 132,260 Q 130,212 150,200 Q 174,189 200,189 Q 226,189 250,200 Q 270,212 268,260 Q 266,308 248,327 Q 230,342 200,344 Q 170,342 152,327 Q 134,308 132,260 Z" fill="url(#skin)"/>
 
-  <!-- ═══ UNDER-HAT SHADOW on forehead ════════════════════════════════ -->
-  <path d="M 122,202 Q 200,193 278,202 Q 274,230 200,235 Q 126,230 122,202 Z" fill="#0a0604" opacity="0.8"/>
+  <!-- Left cheek shadow -->
+  <path d="M 132,255 Q 136,230 148,216 Q 140,238 137,268 Q 134,290 136,312 Z" fill="#2a1a10" opacity="0.55"/>
+  <!-- Right cheek shadow -->
+  <path d="M 268,255 Q 264,230 252,216 Q 260,238 263,268 Q 266,290 264,312 Z" fill="#2a1a10" opacity="0.55"/>
+  <!-- Temple area darker -->
+  <ellipse cx="143" cy="225" rx="14" ry="18" fill="#301e12" opacity="0.5"/>
+  <ellipse cx="257" cy="225" rx="14" ry="18" fill="#301e12" opacity="0.5"/>
 
-  <!-- ═══ FACE ════════════════════════════════════════════════════════ -->
-  <!-- Face base shape -->
-  <path d="M 130,258 Q 128,210 148,200 Q 175,190 200,190 Q 225,190 252,200 Q 272,210 270,258 Q 268,308 248,326 Q 230,340 200,342 Q 170,340 152,326 Q 132,308 130,258 Z" fill="url(#skin)"/>
+  <!-- Heavy brow ridge – thick, Hunter intensity -->
+  <path d="M 144,232 Q 166,223 195,226 Q 205,225 234,223 Q 258,224 262,232 Q 256,244 200,248 Q 144,246 144,232 Z" fill="#201008"/>
+  <path d="M 148,228 Q 170,221 196,224" fill="none" stroke="#301808" stroke-width="1.5" opacity="0.5"/>
+  <path d="M 252,225 Q 234,221 204,224" fill="none" stroke="#301808" stroke-width="1.5" opacity="0.5"/>
 
-  <!-- Cheekbone shadow (left) -->
-  <path d="M 130,260 Q 138,240 148,230 Q 140,250 135,275 Q 132,290 134,310 Z" fill="#3a1a08" opacity="0.5"/>
-  <!-- Cheekbone shadow (right) -->
-  <path d="M 270,260 Q 262,240 252,230 Q 260,250 265,275 Q 268,290 266,310 Z" fill="#3a1a08" opacity="0.5"/>
-
-  <!-- Heavy brow ridge -->
-  <path d="M 143,233 Q 168,226 195,228 Q 205,227 232,226 Q 257,227 262,233 Q 256,244 200,247 Q 144,246 143,233 Z" fill="#2a1206"/>
-  <!-- Brow highlights -->
-  <path d="M 148,229 Q 168,224 195,226" fill="none" stroke="#3a1a08" stroke-width="1.5" opacity="0.6"/>
-
-  <!-- ═══ SUNGLASSES ══════════════════════════════════════════════════ -->
-  <!-- Frame (slightly thick dark frames, round – Hunt hunter style) -->
-  <!-- Left lens outer frame -->
-  <ellipse cx="172" cy="264" rx="33" ry="28" fill="#1a1212" stroke="#222" stroke-width="2.5"/>
-  <!-- Right lens outer frame -->
-  <ellipse cx="228" cy="264" rx="33" ry="28" fill="#1a1212" stroke="#222" stroke-width="2.5"/>
-  <!-- Left lens glass -->
-  <ellipse cx="172" cy="264" rx="29" ry="24" fill="url(#lens)"/>
-  <!-- Right lens glass -->
-  <ellipse cx="228" cy="264" rx="29" ry="24" fill="url(#lens)"/>
-  <!-- Lens reflection (subtle) -->
-  <ellipse cx="159" cy="254" rx="9" ry="7" fill="#1e3040" opacity="0.55"/>
-  <ellipse cx="215" cy="254" rx="9" ry="7" fill="#1e3040" opacity="0.55"/>
-  <!-- Lens lower glare -->
-  <path d="M 165,276 Q 172,282 179,276" fill="none" stroke="#0a1820" stroke-width="1.5" opacity="0.4"/>
-  <path d="M 221,276 Q 228,282 235,276" fill="none" stroke="#0a1820" stroke-width="1.5" opacity="0.4"/>
-  <!-- Nose bridge between lenses -->
-  <path d="M 201,261 Q 199,258 200,256 Q 201,258 199,261" fill="none" stroke="#2a2020" stroke-width="3" stroke-linecap="round"/>
+  <!-- ═══ SUNGLASSES – round, dark, Hunt hunter signature ══════════════ -->
+  <!-- Frame rims -->
+  <ellipse cx="172" cy="263" rx="34" ry="29" fill="#181010" stroke="#2a1e18" stroke-width="2.5"/>
+  <ellipse cx="228" cy="263" rx="34" ry="29" fill="#181010" stroke="#2a1e18" stroke-width="2.5"/>
+  <!-- Lenses -->
+  <ellipse cx="172" cy="263" rx="30" ry="25" fill="url(#lens)"/>
+  <ellipse cx="228" cy="263" rx="30" ry="25" fill="url(#lens)"/>
+  <!-- Reflection highlight – subtle, realistic -->
+  <ellipse cx="159" cy="252" rx="9" ry="7" fill="#1a2a38" opacity="0.5"/>
+  <ellipse cx="215" cy="252" rx="9" ry="7" fill="#1a2a38" opacity="0.5"/>
+  <!-- Lower reflection -->
+  <path d="M 164,274 Q 172,280 180,274" fill="none" stroke="#0c1820" stroke-width="1.5" opacity="0.35"/>
+  <path d="M 220,274 Q 228,280 236,274" fill="none" stroke="#0c1820" stroke-width="1.5" opacity="0.35"/>
+  <!-- Nose bridge -->
+  <path d="M 202,260 Q 200,256 198,260" fill="none" stroke="#222018" stroke-width="3.5" stroke-linecap="round"/>
   <!-- Temple arms -->
-  <path d="M 139,261 Q 122,259 114,253" fill="none" stroke="#282020" stroke-width="3" stroke-linecap="round"/>
-  <path d="M 261,261 Q 278,259 286,253" fill="none" stroke="#282020" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 138,260 Q 120,258 112,251" fill="none" stroke="#242018" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 262,260 Q 280,258 288,251" fill="none" stroke="#242018" stroke-width="3" stroke-linecap="round"/>
 
-  <!-- ═══ NOSE ══════════════════════════════════════════════════════ -->
-  <!-- Nose bridge to tip -->
-  <path d="M 196,280 Q 193,290 191,304 Q 195,314 200,316 Q 205,314 209,304 Q 207,290 204,280 Z" fill="#5a2e10"/>
-  <!-- Nose tip / nostrils -->
-  <path d="M 188,308 Q 193,316 200,318 Q 207,316 212,308 Q 208,314 200,316 Q 192,314 188,308 Z" fill="#4a2208"/>
-  <!-- Nose bridge shadow -->
-  <path d="M 198,282 Q 195,295 193,307" fill="none" stroke="#3a1a08" stroke-width="1.5" opacity="0.4"/>
+  <!-- ═══ NOSE ══════════════════════════════════════════════════════════ -->
+  <path d="M 197,282 Q 194,296 192,308 Q 196,316 200,317 Q 204,316 208,308 Q 206,296 203,282 Z" fill="#4a2e18"/>
+  <path d="M 187,308 Q 192,317 200,319 Q 208,317 213,308 Q 209,314 200,316 Q 191,314 187,308 Z" fill="#3a2010"/>
+  <path d="M 200,284 Q 197,298 195,310" fill="none" stroke="#381808" stroke-width="1.5" opacity="0.4"/>
 
-  <!-- ═══ MUSTACHE ══════════════════════════════════════════════════ -->
-  <path d="M 178,318 Q 188,312 200,315 Q 212,312 222,318 Q 218,326 210,323 Q 205,320 200,322 Q 195,320 190,323 Q 182,326 178,318 Z" fill="#1a1008"/>
+  <!-- ═══ MUSTACHE ═══════════════════════════════════════════════════ -->
+  <path d="M 179,317 Q 188,311 200,314 Q 212,311 221,317 Q 217,325 210,322 Q 205,319 200,321 Q 195,319 190,322 Q 183,325 179,317 Z" fill="#180e06"/>
 
-  <!-- ═══ BEARD ══════════════════════════════════════════════════════ -->
-  <!-- Beard main mass -->
-  <path d="M 133,308 Q 140,318 148,328 Q 158,345 164,365 Q 172,388 180,402 Q 190,414 200,417 Q 210,414 220,402 Q 228,388 236,365 Q 242,345 252,328 Q 260,318 267,308 Q 272,330 268,354 Q 260,382 246,400 Q 228,416 200,420 Q 172,416 154,400 Q 140,382 132,354 Q 128,330 133,308 Z" fill="#181008"/>
-  <!-- Beard texture lines (lighter strands) -->
-  <path d="M 155,330 Q 162,352 168,376 Q 174,396 180,408" fill="none" stroke="#281808" stroke-width="1.5" opacity="0.7"/>
-  <path d="M 163,326 Q 170,350 176,375 Q 182,398 188,412" fill="none" stroke="#281808" stroke-width="1.2" opacity="0.5"/>
-  <path d="M 175,322 Q 180,348 184,374 Q 188,398 196,414" fill="none" stroke="#301a0a" stroke-width="1" opacity="0.4"/>
-  <path d="M 245,330 Q 238,352 232,376 Q 226,396 220,408" fill="none" stroke="#281808" stroke-width="1.5" opacity="0.7"/>
-  <path d="M 237,326 Q 230,350 224,375 Q 218,398 212,412" fill="none" stroke="#281808" stroke-width="1.2" opacity="0.5"/>
-  <!-- Beard edge / jaw wisps -->
-  <path d="M 133,308 Q 125,324 122,340 Q 120,358 126,374 Q 132,390 140,402 Q 148,412 156,418" fill="none" stroke="#181008" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
-  <path d="M 267,308 Q 275,324 278,340 Q 280,358 274,374 Q 268,390 260,402 Q 252,412 244,418" fill="none" stroke="#181008" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
-  <!-- Beard highlight (center light) -->
-  <path d="M 200,415 Q 196,404 194,392" fill="none" stroke="#2a1a0a" stroke-width="2" opacity="0.5"/>
+  <!-- ═══ BEARD – full, dense, Hunter ═══════════════════════════════ -->
+  <!-- Main beard mass -->
+  <path d="M 135,307 Q 143,320 150,332 Q 160,350 166,372 Q 174,395 182,410 Q 191,422 200,425 Q 209,422 218,410 Q 226,395 234,372 Q 240,350 250,332 Q 257,320 265,307 Q 270,330 266,356 Q 258,386 243,404 Q 225,420 200,424 Q 175,420 157,404 Q 142,386 134,356 Q 130,330 135,307 Z" fill="#161008"/>
+  <!-- Beard strand highlights -->
+  <path d="M 157,330 Q 163,355 168,380 Q 174,400 180,413" fill="none" stroke="#221608" stroke-width="1.5" opacity="0.7"/>
+  <path d="M 165,326 Q 171,352 176,378 Q 182,400 188,416" fill="none" stroke="#221608" stroke-width="1.2" opacity="0.5"/>
+  <path d="M 243,330 Q 237,355 232,380 Q 226,400 220,413" fill="none" stroke="#221608" stroke-width="1.5" opacity="0.7"/>
+  <path d="M 235,326 Q 229,352 224,378 Q 218,400 212,416" fill="none" stroke="#221608" stroke-width="1.2" opacity="0.5"/>
+  <!-- Jaw wisps -->
+  <path d="M 135,307 Q 126,324 123,344 Q 120,364 127,382 Q 135,400 145,413" fill="none" stroke="#161008" stroke-width="5" stroke-linecap="round" opacity="0.75"/>
+  <path d="M 265,307 Q 274,324 277,344 Q 280,364 273,382 Q 265,400 255,413" fill="none" stroke="#161008" stroke-width="5" stroke-linecap="round" opacity="0.75"/>
+  <!-- Center beard highlight -->
+  <path d="M 200,423 Q 197,412 196,400" fill="none" stroke="#281808" stroke-width="2" opacity="0.4"/>
 
-  <!-- ═══ NECK ═══════════════════════════════════════════════════════ -->
-  <path d="M 168,408 L 172,428 L 178,438 Q 200,443 222,438 L 228,428 L 232,408" fill="#6a3a14"/>
-  <!-- Neck shadow -->
-  <path d="M 168,408 L 172,428 L 178,438" fill="none" stroke="#3a1a08" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+  <!-- ═══ NECK ════════════════════════════════════════════════════════ -->
+  <path d="M 170,410 L 173,430 L 180,440 Q 200,445 220,440 L 227,430 L 230,410" fill="#5a3818"/>
+  <path d="M 170,410 L 173,430 L 180,440" fill="none" stroke="#382010" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
 
-  <!-- ═══ COAT COLLAR / SHOULDERS ══════════════════════════════════ -->
-  <!-- Collar left lapel -->
-  <path d="M 110,448 Q 135,432 168,422 L 178,438 L 185,450 Q 175,460 160,464 Q 138,464 110,448 Z" fill="#100c06"/>
-  <!-- Collar right lapel -->
-  <path d="M 290,448 Q 265,432 232,422 L 222,438 L 215,450 Q 225,460 240,464 Q 262,464 290,448 Z" fill="#100c06"/>
-  <!-- Coat chest center button line -->
-  <line x1="200" y1="450" x2="200" y2="530" stroke="#0a0806" stroke-width="2"/>
+  <!-- ═══ COAT COLLAR ════════════════════════════════════════════════ -->
+  <!-- Left lapel -->
+  <path d="M 108,450 Q 132,435 170,423 L 180,440 L 187,452 Q 176,464 160,466 Q 138,467 108,450 Z" fill="#0e0a07"/>
+  <!-- Right lapel -->
+  <path d="M 292,450 Q 268,435 230,423 L 220,440 L 213,452 Q 224,464 240,466 Q 262,467 292,450 Z" fill="#0e0a07"/>
   <!-- Collar fold lines -->
-  <path d="M 168,422 L 178,438 L 185,450" fill="none" stroke="#1a1208" stroke-width="1.5" opacity="0.7"/>
-  <path d="M 232,422 L 222,438 L 215,450" fill="none" stroke="#1a1208" stroke-width="1.5" opacity="0.7"/>
-  <!-- White/light collar detail (cravat/necktie area) -->
-  <path d="M 182,440 Q 200,436 218,440 L 215,450 Q 200,445 185,450 Z" fill="#1e1608" opacity="0.7"/>
+  <path d="M 170,423 L 180,440 L 187,452" fill="none" stroke="#181208" stroke-width="1.5" opacity="0.6"/>
+  <path d="M 230,423 L 220,440 L 213,452" fill="none" stroke="#181208" stroke-width="1.5" opacity="0.6"/>
+  <!-- Cravat/neckwear area -->
+  <path d="M 183,441 Q 200,437 217,441 L 214,453 Q 200,448 186,453 Z" fill="#1a1408" opacity="0.6"/>
 
-  <!-- ═══ COAT BODY ═════════════════════════════════════════════════ -->
-  <!-- Left shoulder/body -->
-  <path d="M 0,530 L 0,460 Q 40,452 90,455 Q 130,458 165,462 L 172,530 Z" fill="#0e0a06"/>
-  <!-- Right shoulder/body -->
-  <path d="M 400,530 L 400,460 Q 360,452 310,455 Q 270,458 235,462 L 228,530 Z" fill="#0e0a06"/>
-  <!-- Coat front center panel -->
-  <path d="M 165,462 Q 200,459 235,462 L 240,530 L 160,530 Z" fill="#100c06"/>
-  <!-- Coat texture (subtle creases) -->
-  <path d="M 80,462 Q 88,490 92,530" fill="none" stroke="#080604" stroke-width="2" opacity="0.5"/>
-  <path d="M 320,462 Q 312,490 308,530" fill="none" stroke="#080604" stroke-width="2" opacity="0.5"/>
+  <!-- ═══ COAT BODY ══════════════════════════════════════════════════ -->
+  <!-- Left body panel -->
+  <path d="M 0,535 L 0,462 Q 38,455 88,458 Q 130,460 165,465 L 170,535 Z" fill="url(#coat)"/>
+  <!-- Right body panel -->
+  <path d="M 400,535 L 400,462 Q 362,455 312,458 Q 270,460 235,465 L 230,535 Z" fill="url(#coat)"/>
+  <!-- Center front panel -->
+  <path d="M 165,465 Q 200,462 235,465 L 240,535 L 160,535 Z" fill="#120e0a"/>
+  <!-- Center button line -->
+  <line x1="200" y1="463" x2="200" y2="535" stroke="#0a0806" stroke-width="2"/>
+  <!-- Coat crease lines -->
+  <path d="M 78,464 Q 85,495 88,535" fill="none" stroke="#0a0806" stroke-width="1.5" opacity="0.5"/>
+  <path d="M 322,464 Q 315,495 312,535" fill="none" stroke="#0a0806" stroke-width="1.5" opacity="0.5"/>
 
-  <!-- ═══ POINTING ARM (Hunter's right = viewer's left) ════════════ -->
-  <!-- This arm is foreshortened — comes from left shoulder toward viewer -->
+  <!-- ═══ POINTING ARM – left side of image (Hunter's right), foreshortened ═ -->
+  <!-- The arm comes from the left shoulder, sleeve widens toward viewer -->
+  <!-- Upper sleeve -->
+  <path d="M 112,453 Q 90,463 70,484 Q 53,503 42,524 Q 38,530 40,535 L 66,535 Q 70,528 84,514 Q 100,496 118,480 Q 134,465 148,460 Z" fill="url(#coat)"/>
+  <!-- Forearm/sleeve foreshortened (widens) -->
+  <path d="M 42,524 Q 58,518 78,512 Q 98,507 114,502 Q 128,497 138,494 Q 132,510 120,521 Q 106,533 88,537 Q 68,539 48,533 Z" fill="#100c08"/>
+  <!-- Hand/glove – large, close to viewer -->
+  <path d="M 114,502 Q 130,496 148,494 Q 166,494 179,501 Q 189,508 187,521 Q 184,534 171,539 Q 156,544 140,541 Q 124,536 114,526 Q 108,517 114,502 Z" fill="#483018"/>
+  <!-- Glove leather detail -->
+  <path d="M 120,506 Q 138,500 158,500 Q 172,502 180,510" fill="none" stroke="#342010" stroke-width="1.5" opacity="0.5"/>
+  <!-- Pointing finger – extends upward-right (toward viewer) -->
+  <path d="M 150,494 Q 160,477 171,463 Q 179,452 185,450 Q 192,453 190,464 Q 184,474 175,485 Q 166,494 158,500 Z" fill="#583820"/>
+  <!-- Finger knuckles -->
+  <path d="M 160,478 Q 165,472 171,466" fill="none" stroke="#3a2010" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <path d="M 155,485 Q 160,479 166,473" fill="none" stroke="#3a2010" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+  <!-- Fingernail (subtle) -->
+  <path d="M 180,453 Q 186,449 191,453 Q 189,460 184,462 Q 180,459 180,453 Z" fill="#382010"/>
+  <!-- Cuff -->
+  <path d="M 112,504 Q 130,498 150,498 Q 164,498 174,504 Q 170,510 158,512 Q 140,515 120,511 Q 112,508 112,504 Z" fill="#1a1410"/>
+  <!-- Cuff buttons -->
+  <circle cx="118" cy="507" r="3.5" fill="#221810"/>
+  <circle cx="118" cy="507" r="1.5" fill="#140e08"/>
+  <circle cx="125" cy="505" r="3" fill="#1e1610"/>
 
-  <!-- Coat sleeve – upper arm -->
-  <path d="M 114,452 Q 95,460 78,480 Q 62,500 50,518 Q 46,526 48,530 L 72,530 Q 76,522 90,510 Q 106,492 122,476 Q 136,462 148,458 Z" fill="#0c0806"/>
+  <!-- ═══ RIGHT ARM – partially visible at side ══════════════════════ -->
+  <path d="M 288,453 Q 308,463 322,480 Q 334,496 340,514 L 322,518 Q 318,502 306,488 Q 295,475 276,465 Z" fill="url(#coat)"/>
 
-  <!-- Coat sleeve – lower arm coming forward (foreshortening) -->
-  <!-- The arm widens as it comes toward viewer -->
-  <path d="M 50,518 Q 62,514 80,508 Q 98,504 112,498 Q 126,492 136,488 Q 130,506 118,518 Q 104,530 86,534 Q 66,536 50,530 Z" fill="#0e0a06"/>
-
-  <!-- Glove / hand -->
-  <path d="M 112,498 Q 128,492 145,490 Q 162,490 175,496 Q 185,502 183,515 Q 180,528 168,533 Q 154,538 138,535 Q 122,530 112,520 Q 106,512 112,498 Z" fill="#4a2a10"/>
-  <!-- Hand leather texture -->
-  <path d="M 118,502 Q 135,496 155,496 Q 168,498 175,506" fill="none" stroke="#3a1a08" stroke-width="1.5" opacity="0.5"/>
-
-  <!-- Pointing finger (extending toward viewer-right) -->
-  <!-- The finger points at the viewer — appearing foreshortened, slightly upward-right -->
-  <path d="M 148,490 Q 158,474 168,460 Q 176,450 182,448 Q 190,452 188,462 Q 182,472 174,482 Q 165,492 158,498 Z" fill="#5a3018"/>
-  <!-- Finger knuckle detail -->
-  <path d="M 158,476 Q 162,470 168,464" fill="none" stroke="#3a1a08" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
-  <path d="M 154,482 Q 158,476 164,470" fill="none" stroke="#3a1a08" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-  <!-- Fingernail -->
-  <path d="M 178,452 Q 183,448 188,452 Q 186,458 182,460 Q 178,458 178,452 Z" fill="#3a1a08"/>
-  <!-- Knuckle hump -->
-  <ellipse cx="165" cy="466" rx="7" ry="5" fill="#5a3018" transform="rotate(-30,165,466)"/>
-
-  <!-- Coat cuff at wrist -->
-  <path d="M 110,500 Q 128,494 148,494 Q 162,494 172,500 Q 168,506 156,508 Q 138,510 118,507 Q 110,504 110,500 Z" fill="#1a1208"/>
-  <!-- Cuff button -->
-  <circle cx="116" cy="503" r="3.5" fill="#2a1808"/>
-  <circle cx="116" cy="503" r="1.5" fill="#1a1006"/>
-
-  <!-- ═══ SECOND ARM (right side, partially visible) ═══════════════ -->
-  <path d="M 286,452 Q 305,460 318,475 Q 330,490 336,510 L 318,514 Q 314,496 302,484 Q 292,472 276,462 Z" fill="#0c0806"/>
-
-  <!-- ═══ VIGNETTE ══════════════════════════════════════════════════ -->
+  <!-- ═══ VIGNETTE ═══════════════════════════════════════════════════ -->
   <rect width="400" height="600" fill="url(#vig)"/>
 
-  <!-- ═══ DECORATIVE BORDER ════════════════════════════════════════ -->
-  <rect x="8" y="8" width="384" height="584" fill="none" stroke="#4a2a10" stroke-width="2.5"/>
-  <rect x="13" y="13" width="374" height="574" fill="none" stroke="#1e1008" stroke-width="1"/>
+  <!-- ═══ POSTER BORDER ═════════════════════════════════════════════ -->
+  <!-- Outer border -->
+  <rect x="7" y="7" width="386" height="586" fill="none" stroke="#3a2818" stroke-width="2.5"/>
+  <!-- Inner thin border -->
+  <rect x="12" y="12" width="376" height="576" fill="none" stroke="#1a1208" stroke-width="1"/>
   <!-- Corner ornaments -->
-  <text x="14" y="30" fill="#c8962a" font-size="14" font-family="serif">✦</text>
-  <text x="370" y="30" fill="#c8962a" font-size="14" font-family="serif">✦</text>
-  <text x="14" y="594" fill="#c8962a" font-size="14" font-family="serif">✦</text>
-  <text x="370" y="594" fill="#c8962a" font-size="14" font-family="serif">✦</text>
-  <!-- Side decorative ticks -->
-  <line x1="8" y1="300" x2="18" y2="300" stroke="#4a2a10" stroke-width="1.5"/>
-  <line x1="382" y1="300" x2="392" y2="300" stroke="#4a2a10" stroke-width="1.5"/>
-  <line x1="200" y1="8" x2="200" y2="18" stroke="#4a2a10" stroke-width="1.5"/>
+  <text x="14" y="30"  fill="#5a4828" font-size="14" font-family="serif">✦</text>
+  <text x="372" y="30"  fill="#5a4828" font-size="14" font-family="serif">✦</text>
+  <text x="14" y="595" fill="#5a4828" font-size="14" font-family="serif">✦</text>
+  <text x="372" y="595" fill="#5a4828" font-size="14" font-family="serif">✦</text>
 
-  <!-- ═══ ATMOSPHERIC DUST / PARTICLES ════════════════════════════ -->
-  <circle cx="55"  cy="130" r="1.5" fill="#c87820" opacity="0.25"/>
-  <circle cx="340" cy="160" r="1.5" fill="#c87820" opacity="0.2"/>
-  <circle cx="72"  cy="280" r="1"   fill="#c87820" opacity="0.2"/>
-  <circle cx="355" cy="320" r="1"   fill="#c87820" opacity="0.15"/>
-  <circle cx="45"  cy="220" r="2"   fill="#c87820" opacity="0.12"/>
-  <circle cx="365" cy="250" r="1.5" fill="#c87820" opacity="0.12"/>
-  <circle cx="88"  cy="400" r="1"   fill="#c87820" opacity="0.1"/>
-  <circle cx="325" cy="420" r="1"   fill="#c87820" opacity="0.1"/>
+  <!-- ═══ PARTICLES ════════════════════════════════════════════════ -->
+  <circle cx="50"  cy="140" r="1.5" fill="#604830" opacity="0.25"/>
+  <circle cx="345" cy="170" r="1.5" fill="#604830" opacity="0.2"/>
+  <circle cx="68"  cy="290" r="1"   fill="#604830" opacity="0.18"/>
+  <circle cx="358" cy="330" r="1"   fill="#604830" opacity="0.15"/>
+  <circle cx="42"  cy="230" r="2"   fill="#604830" opacity="0.12"/>
+  <circle cx="370" cy="260" r="1.5" fill="#604830" opacity="0.1"/>
 
   <!-- ═══ TEXT SECTION ══════════════════════════════════════════════ -->
-  <!-- Separator line above text -->
-  <path d="M 22,536 Q 150,533 200,535 Q 250,533 378,536" fill="none" stroke="#4a2810" stroke-width="1.5"/>
-  <text x="200" y="534" text-anchor="middle" fill="#2a1a0a" font-size="10" font-family="serif">— ✦ —</text>
+  <!-- Separator line -->
+  <path d="M 20,540 Q 200,537 380,540" fill="none" stroke="#3a2818" stroke-width="1.5"/>
+  <text x="200" y="538" text-anchor="middle" fill="#221808" font-size="10" font-family="serif">— ✦ —</text>
 
-  <!-- Main text: "I WANT YOU" – blood red, heavy, Uncle Sam style -->
-  <text x="200" y="564"
+  <!-- "I WANT YOU" – same bold poster style as original, dark blood red -->
+  <!-- Shadow pass -->
+  <text x="202" y="572"
         text-anchor="middle"
         font-family="Cinzel, 'Palatino Linotype', 'Times New Roman', serif"
-        font-size="52"
-        font-weight="900"
-        letter-spacing="2"
-        fill="url(#redText)"
-        stroke="#3a0404"
-        stroke-width="1">I WANT YOU</text>
+        font-size="50" font-weight="900" letter-spacing="1"
+        fill="#300606" opacity="0.6">I WANT YOU</text>
+  <!-- Main text -->
+  <text x="200" y="570"
+        text-anchor="middle"
+        font-family="Cinzel, 'Palatino Linotype', 'Times New Roman', serif"
+        font-size="50" font-weight="900" letter-spacing="1"
+        fill="url(#redTxt)"
+        stroke="#280404" stroke-width="0.8">I WANT YOU</text>
 
-  <!-- Subtext -->
-  <text x="200" y="586"
+  <!-- Subtext: "TO MAKE HUNT GREAT AGAIN!" – muted aged bronze/sepia, NOT orange -->
+  <text x="200" y="590"
         text-anchor="middle"
         font-family="Cinzel, 'Palatino Linotype', serif"
-        font-size="13.5"
-        font-weight="700"
-        letter-spacing="2.5"
-        fill="#c8962a">TO MAKE HUNT GREAT AGAIN!</text>
+        font-size="13.5" font-weight="700" letter-spacing="2.5"
+        fill="#786040">TO MAKE HUNT GREAT AGAIN!</text>
 
-  <!-- Bottom line -->
-  <path d="M 22,592 Q 200,589 378,592" fill="none" stroke="#2a1808" stroke-width="1"/>
+  <!-- Bottom border line -->
+  <path d="M 20,596 Q 200,593 380,596" fill="none" stroke="#1a1208" stroke-width="1"/>
 </svg>
