@@ -127,49 +127,36 @@
         <!-- short loadout recap -->
       </div>
 
-      <div class="results-grid">
-        <!-- Counter row -->
-        <div class="result-row">
-          <span class="result-label">Headshots</span>
-          <div class="result-counter">
-            <button class="counter-btn" onclick="adjustResult('headshots', -1)">−</button>
-            <span class="counter-val" id="res-headshots">0</span>
-            <button class="counter-btn" onclick="adjustResult('headshots', 1)">+</button>
-          </div>
+      <p class="ric-hint">Linksklick = +1 · Rechtsklick = −1</p>
+      <div class="ric-grid">
+        <div class="ric" onclick="adjustResult('headshots',1)" oncontextmenu="ctxResult(event,'headshots')">
+          <div class="ric-icon">🎯</div>
+          <div class="ric-count" id="res-headshots">0</div>
+          <div class="ric-label">Headshots</div>
         </div>
-        <div class="result-row">
-          <span class="result-label">Kills</span>
-          <div class="result-counter">
-            <button class="counter-btn" onclick="adjustResult('kills', -1)">−</button>
-            <span class="counter-val" id="res-kills">0</span>
-            <button class="counter-btn" onclick="adjustResult('kills', 1)">+</button>
-          </div>
+        <div class="ric" onclick="adjustResult('kills',1)" oncontextmenu="ctxResult(event,'kills')">
+          <div class="ric-icon">☠</div>
+          <div class="ric-count" id="res-kills">0</div>
+          <div class="ric-label">Kills</div>
         </div>
-        <div class="result-row">
-          <span class="result-label">Tode</span>
-          <div class="result-counter">
-            <button class="counter-btn" onclick="adjustResult('deaths', -1)">−</button>
-            <span class="counter-val" id="res-deaths">0</span>
-            <button class="counter-btn" onclick="adjustResult('deaths', 1)">+</button>
-          </div>
+        <div class="ric" onclick="adjustResult('deaths',1)" oncontextmenu="ctxResult(event,'deaths')">
+          <div class="ric-icon">💀</div>
+          <div class="ric-count" id="res-deaths">0</div>
+          <div class="ric-label">Tode</div>
         </div>
-        <div class="result-row">
-          <span class="result-label">Wiederbelebungen</span>
-          <div class="result-counter">
-            <button class="counter-btn" onclick="adjustResult('revives', -1)">−</button>
-            <span class="counter-val" id="res-revives">0</span>
-            <button class="counter-btn" onclick="adjustResult('revives', 1)">+</button>
-          </div>
+        <div class="ric" onclick="adjustResult('revives',1)" oncontextmenu="ctxResult(event,'revives')">
+          <div class="ric-icon">✚</div>
+          <div class="ric-count" id="res-revives">0</div>
+          <div class="ric-label">Wiederbelebungen</div>
         </div>
-        <div class="result-row">
-          <span class="result-label">Bounties extrahiert</span>
-          <div class="result-counter">
-            <button class="counter-btn" onclick="adjustResult('bounties', -1)">−</button>
-            <span class="counter-val" id="res-bounties">0</span>
-            <button class="counter-btn" onclick="adjustResult('bounties', 1)">+</button>
-          </div>
+        <div class="ric" onclick="adjustResult('bounties',1)" oncontextmenu="ctxResult(event,'bounties')">
+          <div class="ric-icon">★</div>
+          <div class="ric-count" id="res-bounties">0</div>
+          <div class="ric-label">Bounties</div>
         </div>
-        <!-- Toggle rows -->
+      </div>
+
+      <div class="results-toggles">
         <div class="result-row result-row-toggle">
           <span class="result-label">Erster Tod</span>
           <label class="toggle-switch">
@@ -351,6 +338,55 @@
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="set-quartermaster" onchange="saveSetting('quartermasterEnabled', this.checked)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-section-title">WAFFENPOOL</h3>
+        <p class="settings-section-desc">Event- und optionale Waffen in den Zufalls-Pool einschließen</p>
+
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-name">Shredder einschließen</span>
+            <span class="setting-desc">Shredder (Event-Waffe) im Waffenpool verfügbar</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="set-shredder" onchange="saveSetting('includeShredder', this.checked)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-name">Flame Rifle einschließen</span>
+            <span class="setting-desc">Flame Rifle (Event-Waffe) im Waffenpool verfügbar</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="set-flamerifle" onchange="saveSetting('includeFlameRifle', this.checked)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-name">Wildland &amp; Homestead einschließen</span>
+            <span class="setting-desc">Wildland und Homestead im Waffenpool verfügbar</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="set-wildland" onchange="saveSetting('includeWildlandHomestead', this.checked)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-name">Tarot-Karten einschließen</span>
+            <span class="setting-desc">Tarot-Karten als Verbrauchsgüter in den Loadout-Pool aufnehmen</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="set-tarotcards" onchange="saveSetting('includeTarotCards', this.checked)">
             <span class="toggle-slider"></span>
           </label>
         </div>
