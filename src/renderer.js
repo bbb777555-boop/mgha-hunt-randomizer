@@ -1,95 +1,157 @@
 'use strict'
 
 // ═══════════════════════════════════════════════════════════════════════════
+// AMMO FACTORY
+// ═══════════════════════════════════════════════════════════════════════════
+
+const A = {
+  std:  (pts=0)   => ({ key:'standard',     label:'Standard',      pts }),
+  spit: (pts=-5)  => ({ key:'spitzer',       label:'Spitzer',       pts }),
+  fmj:  (pts=-5)  => ({ key:'fmj',           label:'FMJ',           pts }),
+  dum:  (pts=-10) => ({ key:'dumdum',         label:'Dumdum',        pts }),
+  hv:   (pts=-5)  => ({ key:'highvelocity',  label:'High Velocity', pts }),
+  poi:  (pts=20)  => ({ key:'poisonous',     label:'Vergiftet',     pts }),
+  exp:  (pts=30)  => ({ key:'explosive',     label:'Explosiv',      pts }),
+  inc:  (pts=15)  => ({ key:'incendiary',    label:'Brandmunition', pts }),
+  slug: (pts=10)  => ({ key:'slugs',         label:'Slugs',         pts }),
+}
+
+const ALL_AMMO_KEYS   = ['standard','spitzer','fmj','dumdum','highvelocity','poisonous','explosive','incendiary','slugs']
+const AMMO_LABELS     = { standard:'Standard', spitzer:'Spitzer', fmj:'FMJ', dumdum:'Dumdum', highvelocity:'High Velocity', poisonous:'Vergiftet', explosive:'Explosiv', incendiary:'Brandmunition', slugs:'Slugs' }
+
+// ═══════════════════════════════════════════════════════════════════════════
 // WEAPON DATABASE
 // ═══════════════════════════════════════════════════════════════════════════
 
 const WEAPON_DATA = {
-  ammoModifiers: {
-    standard:    { label: 'Standard',      pts: 0  },
-    spitzer:     { label: 'Spitzer',       pts: -2 },
-    fmj:         { label: 'FMJ',           pts: -1 },
-    dumdum:      { label: 'Dumdum',        pts: 0  },
-    highvelocity:{ label: 'High Velocity', pts: -1 },
-    poisonous:   { label: 'Vergiftet',     pts: 1  },
-    explosive:   { label: 'Explosiv',      pts: 2  },
-    incendiary:  { label: 'Brandmunition', pts: 1  },
-    slugs:       { label: 'Slugs',         pts: 1  },
-  },
 
   primaries: [
-    // ─ Rifles / Long Ammo ─
-    { id:'springfield_1866',      name:'Springfield 1866',            category:'rifle',          slots:3, ammoType:'long',   pts:4, ammo:['standard','spitzer','fmj','poisonous'],              fireMode:'Einzelschuss' },
-    { id:'springfield_1866c',     name:'Springfield 1866 Compact',    category:'rifle',          slots:2, ammoType:'long',   pts:3, ammo:['standard','spitzer','fmj','poisonous'],              fireMode:'Einzelschuss' },
-    { id:'winfield_m1873',        name:'Winfield M1873',              category:'rifle',          slots:3, ammoType:'long',   pts:3, ammo:['standard','highvelocity','dumdum','poisonous'],      fireMode:'Hebel-Repetier' },
-    { id:'winfield_m1873c',       name:'Winfield M1873C',             category:'rifle',          slots:2, ammoType:'long',   pts:3, ammo:['standard','highvelocity','dumdum','poisonous'],      fireMode:'Hebel-Repetier' },
-    { id:'winfield_m1873_marks',  name:'Winfield M1873 Marksman',     category:'rifle',          slots:3, ammoType:'long',   pts:4, ammo:['standard','highvelocity','spitzer','fmj'],           fireMode:'Hebel-Repetier' },
-    { id:'winfield_centennial',   name:'Winfield Centennial',         category:'rifle',          slots:3, ammoType:'long',   pts:3, ammo:['standard','highvelocity','dumdum'],                  fireMode:'Hebel-Repetier' },
-    { id:'winfield_cent_shorty',  name:'Winfield Centennial Shorty',  category:'rifle',          slots:2, ammoType:'long',   pts:3, ammo:['standard','highvelocity','dumdum'],                  fireMode:'Hebel-Repetier' },
-    { id:'lebel_1886',            name:'Lebel Model 1886',            category:'rifle',          slots:3, ammoType:'long',   pts:4, ammo:['standard','spitzer','fmj','poisonous'],              fireMode:'Repetier' },
-    { id:'mosin_1891',            name:'Mosin-Nagant M1891',          category:'rifle',          slots:3, ammoType:'long',   pts:5, ammo:['standard','spitzer','fmj','explosive'],             fireMode:'Repetier' },
-    { id:'mosin_1891_obrez',      name:'Mosin-Nagant Obrez',          category:'rifle',          slots:2, ammoType:'long',   pts:3, ammo:['standard','fmj','dumdum'],                          fireMode:'Einzelschuss' },
-    { id:'nitro_express',         name:'Nitro Express Rifle',         category:'rifle',          slots:3, ammoType:'nitro',  pts:5, ammo:['standard'],                                         fireMode:'Einzelschuss' },
-    { id:'sparks_lrr',            name:'Sparks LRR',                  category:'rifle',          slots:3, ammoType:'long',   pts:5, ammo:['standard','spitzer','incendiary','explosive'],       fireMode:'Einzelschuss' },
-    { id:'krag_jorgensen',        name:'Krag-Jørgensen',              category:'rifle',          slots:3, ammoType:'long',   pts:4, ammo:['standard','spitzer','fmj','poisonous'],              fireMode:'Repetier' },
-    // ─ Shotguns / Medium Ammo ─
-    { id:'specter_1882',          name:'Specter 1882',                category:'shotgun',        slots:3, ammoType:'medium', pts:2, ammo:['standard','incendiary','fmj','slugs'],               fireMode:'Pump-Action' },
-    { id:'specter_1882c',         name:'Specter 1882 Compact',        category:'shotgun',        slots:2, ammoType:'medium', pts:2, ammo:['standard','incendiary','fmj','slugs'],               fireMode:'Pump-Action' },
-    { id:'romero_1877',           name:'Romero 1877',                 category:'shotgun',        slots:2, ammoType:'medium', pts:3, ammo:['standard','incendiary','explosive','slugs'],         fireMode:'Einzelschuss' },
-    { id:'romero_1877_talon',     name:'Romero 1877 Talon',           category:'shotgun',        slots:2, ammoType:'medium', pts:3, ammo:['standard','incendiary','explosive','slugs'],         fireMode:'Einzelschuss' },
-    { id:'winfield_1887',         name:'Winfield 1887',               category:'shotgun',        slots:3, ammoType:'medium', pts:3, ammo:['standard','incendiary','fmj'],                       fireMode:'Hebel-Repetier' },
-    { id:'winfield_1887_terminus',name:'Winfield 1887 Terminus',      category:'shotgun',        slots:3, ammoType:'medium', pts:3, ammo:['standard','incendiary','explosive'],                 fireMode:'Hebel-Repetier' },
-    { id:'crown_king_auto5',      name:'Crown & King Auto-5',         category:'shotgun',        slots:3, ammoType:'medium', pts:2, ammo:['standard','incendiary','fmj'],                       fireMode:'Halbautomatik' },
-    // ─ Other Primaries ─
-    { id:'bornheim_no3',          name:'Bornheim No. 3',              category:'pistol_primary', slots:2, ammoType:'medium', pts:3, ammo:['standard','fmj','dumdum'],                          fireMode:'Vollautomat' },
-    { id:'caldwell_rival_78',     name:'Caldwell Rival 78',           category:'pistol_primary', slots:2, ammoType:'medium', pts:3, ammo:['standard','incendiary','explosive','slugs'],         fireMode:'Einzelschuss' },
+    // ─── Long Ammo ────────────────────────────────────────────────────────
+    { id:'springfield_1866',       name:'Springfield 1866',           category:'rifle',          slots:3, ammoType:'long',   pts:100,
+      ammo:[A.std(), A.dum(-20), A.hv(-5), A.poi(30), A.exp(50)],                                    fireMode:'Einzelschuss' },
+    { id:'springfield_1866c',      name:'Springfield 1866 Compact',   category:'rifle',          slots:2, ammoType:'long',   pts:100,
+      ammo:[A.std(), A.dum(-20), A.hv(-5), A.poi(30), A.exp(50)],                                    fireMode:'Einzelschuss' },
+    { id:'winfield_m1873',         name:'Winfield M1873',             category:'rifle',          slots:3, ammoType:'long',   pts:100,
+      ammo:[A.std(), A.hv(), A.dum(), A.poi()],                                                       fireMode:'Hebel-Repetier' },
+    { id:'winfield_m1873c',        name:'Winfield M1873C',            category:'rifle',          slots:2, ammoType:'long',   pts:100,
+      ammo:[A.std(), A.hv(), A.dum(), A.poi()],                                                       fireMode:'Hebel-Repetier' },
+    { id:'winfield_m1873_marks',   name:'Winfield M1873 Marksman',    category:'rifle',          slots:3, ammoType:'long',   pts:100,
+      ammo:[A.std(), A.hv(), A.spit(), A.fmj()],                                                      fireMode:'Hebel-Repetier' },
+    { id:'winfield_centennial',    name:'Winfield Centennial',        category:'rifle',          slots:3, ammoType:'long',   pts:100,
+      ammo:[A.std(), A.hv(), A.dum()],                                                                fireMode:'Hebel-Repetier' },
+    { id:'winfield_cent_shorty',   name:'Winfield Centennial Shorty', category:'rifle',          slots:2, ammoType:'long',   pts:100,
+      ammo:[A.std(), A.hv(), A.dum()],                                                                fireMode:'Hebel-Repetier' },
+    { id:'lebel_1886',             name:'Lebel Model 1886',           category:'rifle',          slots:3, ammoType:'long',   pts:100,
+      ammo:[A.std(), A.spit(), A.fmj(), A.poi()],                                                     fireMode:'Repetier' },
+    { id:'mosin_1891',             name:'Mosin-Nagant M1891',         category:'rifle',          slots:3, ammoType:'long',   pts:100,
+      ammo:[A.std(), A.spit(), A.fmj(), A.exp()],                                                     fireMode:'Repetier' },
+    { id:'mosin_1891_obrez',       name:'Mosin-Nagant Obrez',         category:'rifle',          slots:2, ammoType:'long',   pts:100,
+      ammo:[A.std(), A.fmj(), A.dum()],                                                               fireMode:'Einzelschuss' },
+    { id:'sparks_lrr',             name:'Sparks LRR',                 category:'rifle',          slots:3, ammoType:'long',   pts:100,
+      ammo:[A.std(), A.spit(), A.inc(), A.exp()],                                                     fireMode:'Einzelschuss' },
+    { id:'krag_jorgensen',         name:'Krag-Jørgensen',             category:'rifle',          slots:3, ammoType:'long',   pts:100,
+      ammo:[A.std(), A.spit(), A.fmj(), A.poi()],                                                     fireMode:'Repetier' },
+    { id:'martini_henry',          name:'Martini-Henry',              category:'rifle',          slots:3, ammoType:'long',   pts:100,
+      ammo:[A.std(), A.spit(), A.exp()],                                                               fireMode:'Einzelschuss' },
+    { id:'vetterli_71',            name:'Vetterli 71 Karabiner',      category:'rifle',          slots:3, ammoType:'long',   pts:100,
+      ammo:[A.std(), A.poi(), A.inc()],                                                                fireMode:'Repetier' },
+    { id:'nitro_express',          name:'Nitro Express Rifle',        category:'rifle',          slots:3, ammoType:'nitro',  pts:100,
+      ammo:[A.std()],                                                                                   fireMode:'Einzelschuss' },
+    // ─── Shotguns ─────────────────────────────────────────────────────────
+    { id:'specter_1882',           name:'Specter 1882',               category:'shotgun',        slots:3, ammoType:'medium', pts:100,
+      ammo:[A.std(), A.inc(), A.fmj(), A.slug()],                                                     fireMode:'Pump-Action' },
+    { id:'specter_1882c',          name:'Specter 1882 Compact',       category:'shotgun',        slots:2, ammoType:'medium', pts:100,
+      ammo:[A.std(), A.inc(), A.fmj(), A.slug()],                                                     fireMode:'Pump-Action' },
+    { id:'romero_1877',            name:'Romero 1877',                category:'shotgun',        slots:2, ammoType:'medium', pts:100,
+      ammo:[A.std(), A.inc(), A.exp(), A.slug()],                                                     fireMode:'Einzelschuss' },
+    { id:'romero_1877_talon',      name:'Romero 1877 Talon',          category:'shotgun',        slots:2, ammoType:'medium', pts:100,
+      ammo:[A.std(), A.inc(), A.exp(), A.slug()],                                                     fireMode:'Einzelschuss' },
+    { id:'winfield_1887',          name:'Winfield 1887',              category:'shotgun',        slots:3, ammoType:'medium', pts:100,
+      ammo:[A.std(), A.inc(), A.fmj()],                                                               fireMode:'Hebel-Repetier' },
+    { id:'winfield_1887_terminus', name:'Winfield 1887 Terminus',     category:'shotgun',        slots:3, ammoType:'medium', pts:100,
+      ammo:[A.std(), A.inc(), A.exp()],                                                               fireMode:'Hebel-Repetier' },
+    { id:'crown_king_auto5',       name:'Crown & King Auto-5',        category:'shotgun',        slots:3, ammoType:'medium', pts:100,
+      ammo:[A.std(), A.inc(), A.fmj()],                                                               fireMode:'Halbautomatik' },
+    // ─── Pistol-primary ───────────────────────────────────────────────────
+    { id:'bornheim_no3',           name:'Bornheim No. 3',             category:'pistol_primary', slots:2, ammoType:'medium', pts:100,
+      ammo:[A.std(), A.fmj(), A.dum()],                                                               fireMode:'Vollautomat' },
+    { id:'caldwell_rival_78',      name:'Caldwell Rival 78',          category:'pistol_primary', slots:2, ammoType:'medium', pts:100,
+      ammo:[A.std(), A.inc(), A.exp(), A.slug()],                                                     fireMode:'Einzelschuss' },
   ],
 
   secondaries: [
-    { id:'nagant_m1895',          name:'Nagant M1895',                category:'pistol', slots:1, ammoType:'small', pts:2, ammo:['standard','fmj','dumdum','poisonous'],          fireMode:'Revolver' },
-    { id:'nagant_officer',        name:'Nagant M1895 Officer',        category:'pistol', slots:1, ammoType:'small', pts:3, ammo:['standard','fmj','dumdum','poisonous'],          fireMode:'Revolver' },
-    { id:'nagant_deadeye',        name:'Nagant M1895 Deadeye',        category:'pistol', slots:1, ammoType:'small', pts:3, ammo:['standard','fmj','spitzer'],                    fireMode:'Revolver' },
-    { id:'nagant_silencer',       name:'Nagant M1895 Silencer',       category:'pistol', slots:1, ammoType:'small', pts:3, ammo:['standard','fmj','dumdum'],                     fireMode:'Revolver (Silenced)' },
-    { id:'caldwell_pax',          name:'Caldwell Pax',                category:'pistol', slots:1, ammoType:'small', pts:2, ammo:['standard','dumdum','fmj','highvelocity'],       fireMode:'Revolver' },
-    { id:'caldwell_pax_trapper',  name:'Caldwell Pax Trapper',        category:'pistol', slots:1, ammoType:'small', pts:3, ammo:['standard','dumdum','fmj','highvelocity'],       fireMode:'Revolver' },
-    { id:'webley_mk6',            name:'Web-Ley Mk VI',               category:'pistol', slots:1, ammoType:'small', pts:2, ammo:['standard','dumdum','fmj','explosive'],          fireMode:'Revolver' },
-    { id:'webley_mk6_bayonet',    name:'Web-Ley Mk VI Bayonet',       category:'pistol', slots:1, ammoType:'small', pts:3, ammo:['standard','dumdum','fmj','explosive'],          fireMode:'Revolver' },
-    { id:'lemat_mark2',           name:'LeMat Mark II',               category:'pistol', slots:1, ammoType:'small', pts:2, ammo:['standard','fmj','dumdum'],            fireMode:'Revolver',
-      dualAmmo:true, secondAmmoLabel:'Schrotlauf', secondAmmo:['standard','incendiary','slugs'] },
-    { id:'lemat_mark2_inf',       name:'LeMat Mark II Infantry',      category:'pistol', slots:1, ammoType:'small', pts:3, ammo:['standard','fmj','dumdum'],            fireMode:'Revolver',
-      dualAmmo:true, secondAmmoLabel:'Schrotlauf', secondAmmo:['standard','incendiary','slugs'] },
-    { id:'lemat_mark2_cav',       name:'LeMat Mark II Cavalry',       category:'pistol', slots:1, ammoType:'small', pts:3, ammo:['standard','fmj','spitzer'],           fireMode:'Revolver',
-      dualAmmo:true, secondAmmoLabel:'Schrotlauf', secondAmmo:['standard','incendiary','slugs'] },
-    { id:'caldwell_conv_sec',     name:'Caldwell Conversion',         category:'pistol', slots:2, ammoType:'long',  pts:3, ammo:['standard','spitzer','fmj','dumdum'],             fireMode:'Einzelschuss' },
-    { id:'bornheim_sec',          name:'Bornheim No. 3',              category:'pistol', slots:1, ammoType:'medium',pts:3, ammo:['standard','fmj','dumdum'],                     fireMode:'Vollautomat' },
-    { id:'rival_78_sec',          name:'Caldwell Rival 78',           category:'pistol', slots:2, ammoType:'medium',pts:2, ammo:['standard','incendiary','slugs'],                fireMode:'Einzelschuss' },
-    { id:'scottfield_model3',     name:'Scottfield Model 3',          category:'pistol', slots:1, ammoType:'small', pts:2, ammo:['standard','fmj','dumdum','poisonous'],          fireMode:'Revolver' },
+    { id:'nagant_m1895',          name:'Nagant M1895',                category:'pistol', slots:1, ammoType:'small',  pts:100,
+      ammo:[A.std(), A.fmj(), A.dum(), A.poi()],                                               fireMode:'Revolver' },
+    { id:'nagant_officer',        name:'Nagant M1895 Officer',        category:'pistol', slots:1, ammoType:'small',  pts:100,
+      ammo:[A.std(), A.fmj(), A.dum(), A.poi()],                                               fireMode:'Revolver' },
+    { id:'nagant_deadeye',        name:'Nagant M1895 Deadeye',        category:'pistol', slots:1, ammoType:'small',  pts:100,
+      ammo:[A.std(), A.fmj(), A.spit()],                                                       fireMode:'Revolver' },
+    { id:'nagant_silencer',       name:'Nagant M1895 Silencer',       category:'pistol', slots:1, ammoType:'small',  pts:100,
+      ammo:[A.std(), A.fmj(), A.dum()],                                                        fireMode:'Silenced' },
+    { id:'caldwell_pax',          name:'Caldwell Pax',                category:'pistol', slots:1, ammoType:'small',  pts:100,
+      ammo:[A.std(), A.dum(), A.fmj(), A.hv()],                                                fireMode:'Revolver' },
+    { id:'caldwell_pax_trapper',  name:'Caldwell Pax Trapper',        category:'pistol', slots:1, ammoType:'small',  pts:100,
+      ammo:[A.std(), A.dum(), A.fmj(), A.hv()],                                                fireMode:'Revolver' },
+    { id:'webley_mk6',            name:'Webley Mk VI',                category:'pistol', slots:1, ammoType:'small',  pts:100,
+      ammo:[A.std(), A.dum(), A.fmj(), A.exp()],                                               fireMode:'Revolver' },
+    { id:'webley_mk6_bayonet',    name:'Webley Mk VI Bayonet',        category:'pistol', slots:1, ammoType:'small',  pts:100,
+      ammo:[A.std(), A.dum(), A.fmj(), A.exp()],                                               fireMode:'Revolver' },
+    { id:'lemat_mark2',           name:'LeMat Mark II',               category:'pistol', slots:1, ammoType:'small',  pts:100,
+      ammo:[A.std(), A.fmj(), A.dum()], fireMode:'Revolver',
+      dualAmmo:true, secondAmmoLabel:'Schrotlauf', secondAmmo:[A.std(), A.inc(), A.slug()] },
+    { id:'lemat_mark2_inf',       name:'LeMat Mark II Infantry',      category:'pistol', slots:1, ammoType:'small',  pts:100,
+      ammo:[A.std(), A.fmj(), A.dum()], fireMode:'Revolver',
+      dualAmmo:true, secondAmmoLabel:'Schrotlauf', secondAmmo:[A.std(), A.inc(), A.slug()] },
+    { id:'lemat_mark2_cav',       name:'LeMat Mark II Cavalry',       category:'pistol', slots:1, ammoType:'small',  pts:100,
+      ammo:[A.std(), A.fmj(), A.spit()], fireMode:'Revolver',
+      dualAmmo:true, secondAmmoLabel:'Schrotlauf', secondAmmo:[A.std(), A.inc(), A.slug()] },
+    { id:'caldwell_conv_sec',     name:'Caldwell Conversion',         category:'pistol', slots:2, ammoType:'long',   pts:100,
+      ammo:[A.std(), A.spit(), A.fmj(), A.dum()],                                              fireMode:'Einzelschuss' },
+    { id:'bornheim_sec',          name:'Bornheim No. 3',              category:'pistol', slots:1, ammoType:'medium', pts:100,
+      ammo:[A.std(), A.fmj(), A.dum()],                                                        fireMode:'Vollautomat' },
+    { id:'rival_78_sec',          name:'Caldwell Rival 78',           category:'pistol', slots:2, ammoType:'medium', pts:100,
+      ammo:[A.std(), A.inc(), A.slug()],                                                       fireMode:'Einzelschuss' },
+    { id:'scottfield_model3',     name:'Scottfield Model 3',          category:'pistol', slots:1, ammoType:'small',  pts:100,
+      ammo:[A.std(), A.fmj(), A.dum(), A.poi()],                                               fireMode:'Revolver' },
+    { id:'dolch_96',              name:'Dolch 96',                    category:'pistol', slots:1, ammoType:'medium', pts:100,
+      ammo:[A.std(), A.fmj()],                                                                 fireMode:'Vollautomat' },
+    { id:'uppercut',              name:'Conversion Uppercut',         category:'pistol', slots:1, ammoType:'long',   pts:100,
+      ammo:[A.std(), A.spit(), A.dum()],                                                       fireMode:'Einzelschuss' },
   ],
 
-  melee: [
-    { id:'knife',        name:'Messer',       category:'melee', pts:1 },
-    { id:'machete',      name:'Machete',      category:'melee', pts:2 },
-    { id:'cleaver',      name:'Hackmesser',   category:'melee', pts:2 },
-    { id:'axe',          name:'Axt',          category:'melee', pts:3 },
-    { id:'combat_axe',   name:'Kampfaxt',     category:'melee', pts:3 },
-    { id:'bomb_lance',   name:'Bomben-Lanze', category:'melee', pts:4 },
-    { id:'dusters',      name:'Schlagring',   category:'melee', pts:1 },
-    { id:'uppercut_bat', name:'Baseball-Bat', category:'melee', pts:2 },
+  slottedMelee: [
+    { id:'baseball_bat',     name:'Baseball Bat',   category:'slotMelee', slots:1, pts:100 },
+    { id:'katana',           name:'Katana',          category:'slotMelee', slots:1, pts:100 },
+    { id:'cavalry_saber',    name:'Cavalry Saber',   category:'slotMelee', slots:1, pts:100 },
+    { id:'combat_axe',       name:'Kampfaxt',        category:'slotMelee', slots:1, pts:100 },
+    { id:'machete_slot',     name:'Machete',         category:'slotMelee', slots:1, pts:100 },
+    { id:'railroad_hammer',  name:'Railroad Hammer', category:'slotMelee', slots:1, pts:100 },
+    { id:'bomb_lance',       name:'Bomben-Lanze',    category:'slotMelee', slots:1, pts:100 },
   ],
 
-  items: [
-    { id:'medkit',         name:'Medkit',               category:'consumable', required_setting:'medkitRequired' },
-    { id:'heal_syringe',   name:'Heilspritze',           category:'consumable', required_setting:'healSyringeRequired' },
-    { id:'regen_shot',     name:'Regenshot',             category:'consumable', required_setting:'regenShotRequired' },
-    { id:'choke_bomb',     name:'Choke-Bombe',           category:'tool',       required_setting:'chokeRequired' },
-    { id:'dyn_bundle',     name:'Dynamit-Bündel',        category:'consumable', required_setting:null },
-    { id:'dyn_small',      name:'Kleines Dynamit',       category:'consumable', required_setting:null },
-    { id:'poison_vial',    name:'Giftvial',              category:'tool',       required_setting:null },
-    { id:'flashbang',      name:'Blendgranate',          category:'tool',       required_setting:null },
-    { id:'decoy',          name:'Köder',                 category:'tool',       required_setting:null },
-    { id:'firebomb',       name:'Brandbombe',            category:'consumable', required_setting:null },
-    { id:'flare_pistol',   name:'Leuchtpistole',         category:'tool',       required_setting:null },
-    { id:'stalker_beetle', name:'Stalker-Käfer',         category:'tool',       required_setting:null },
+  tools: [
+    { id:'choke_bomb',      name:'Choke-Bombe',        required_setting:'chokeRequired' },
+    { id:'poison_vial',     name:'Giftvial',            required_setting:null },
+    { id:'flashbang',       name:'Blendgranate',        required_setting:null },
+    { id:'decoy',           name:'Köder',               required_setting:null },
+    { id:'flare_pistol',    name:'Leuchtpistole',       required_setting:null },
+    { id:'stalker_beetle',  name:'Stalker-Käfer',       required_setting:null },
+    { id:'knife',           name:'Messer',              required_setting:null },
+    { id:'heavy_knife',     name:'Schweres Messer',     required_setting:null },
+    { id:'dusters',         name:'Schlagring',          required_setting:null },
+    { id:'throwing_knives', name:'Wurfmesser',          required_setting:null },
+    { id:'throwing_axes',   name:'Wurfäxte',            required_setting:null },
+  ],
+
+  consumables: [
+    { id:'medkit',          name:'Medkit',              required_setting:'medkitRequired' },
+    { id:'heal_syringe',    name:'Heilspritze',         required_setting:'healSyringeRequired' },
+    { id:'regen_shot',      name:'Regenshot',           required_setting:'regenShotRequired' },
+    { id:'dyn_bundle',      name:'Dynamit-Bündel',      required_setting:null },
+    { id:'dyn_small',       name:'Kleines Dynamit',     required_setting:null },
+    { id:'firebomb',        name:'Brandbombe',          required_setting:null },
+    { id:'vitality_shot',   name:'Vitality Shot',       required_setting:null },
+    { id:'antidote_shot',   name:'Antidot Shot',        required_setting:null },
   ],
 }
 
@@ -113,21 +175,23 @@ const FLAVOR_TEXTS = [
 // ═══════════════════════════════════════════════════════════════════════════
 
 const DEFAULT_SETTINGS = {
-  medkitRequired:        false,
-  meleeRequired:         true,
-  chokeRequired:         false,
-  healSyringeRequired:   false,
-  regenShotRequired:     false,
-  soloMode:              false,
-  quartermasterEnabled:  false,
+  medkitRequired:       false,
+  meleeRequired:        true,
+  chokeRequired:        false,
+  healSyringeRequired:  false,
+  regenShotRequired:    false,
+  soloMode:             false,
+  quartermasterEnabled: false,
 }
 
 let state = {
-  settings:         { ...DEFAULT_SETTINGS },
-  currentRun:       null,
-  currentRoundData: null,
-  history:          [],
-  arsenalOverrides: {},
+  settings:             { ...DEFAULT_SETTINGS },
+  currentRun:           null,
+  currentRoundData:     null,
+  history:              [],
+  arsenalOverrides:     {},
+  rerolls:              2,
+  totalRoundsCompleted: 0,
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -140,14 +204,24 @@ async function loadAll() {
     window.huntAPI.readData('settings.json'),
     window.huntAPI.readData('arsenal.json'),
   ])
-  if (history)         state.history          = history
-  if (settings)        state.settings         = { ...DEFAULT_SETTINGS, ...settings }
+  if (history)          state.history          = history
   if (arsenalOverrides) state.arsenalOverrides = arsenalOverrides
+  if (settings) {
+    state.settings             = { ...DEFAULT_SETTINGS, ...settings }
+    state.rerolls              = settings._rerolls              ?? 2
+    state.totalRoundsCompleted = settings._totalRoundsCompleted ?? 0
+  }
 }
 
 async function saveHistory()  { await window.huntAPI.writeData('history.json',  state.history) }
-async function saveSettings() { await window.huntAPI.writeData('settings.json', state.settings) }
 async function saveArsenal()  { await window.huntAPI.writeData('arsenal.json',  state.arsenalOverrides) }
+async function saveSettings() {
+  await window.huntAPI.writeData('settings.json', {
+    ...state.settings,
+    _rerolls:              state.rerolls,
+    _totalRoundsCompleted: state.totalRoundsCompleted,
+  })
+}
 
 function getWeaponPts(weapon) {
   return state.arsenalOverrides[weapon.id]?.pts ?? weapon.pts
@@ -188,62 +262,72 @@ function updateNavActive(viewName) {
 // SCORING
 // ═══════════════════════════════════════════════════════════════════════════
 
+function getAmmoEntry(weapon, key) {
+  return weapon.ammo?.find(a => a.key === key) ?? null
+}
+
+function calcUsedSlots(loadout) {
+  let s = (loadout.primary?.slots || 0) + (loadout.secondary?.slots || 0)
+  if (loadout.melee?.slots) s += loadout.melee.slots
+  return s
+}
+
 function calcLoadoutScore(loadout) {
-  const amMods = WEAPON_DATA.ammoModifiers
   let pts = 0
 
   if (loadout.primary) {
     pts += getWeaponPts(loadout.primary)
-    pts += (amMods[loadout.primaryAmmo]?.pts ?? 0)
+    pts += getAmmoEntry(loadout.primary, loadout.primaryAmmo)?.pts ?? 0
   }
   if (loadout.secondary) {
     pts += getWeaponPts(loadout.secondary)
-    pts += (amMods[loadout.secondaryAmmo]?.pts ?? 0)
+    pts += getAmmoEntry(loadout.secondary, loadout.secondaryAmmo)?.pts ?? 0
     if (loadout.secondary.dualAmmo && loadout.secondaryAmmo2) {
-      pts += (amMods[loadout.secondaryAmmo2]?.pts ?? 0)
+      const e2 = loadout.secondary.secondAmmo?.find(a => a.key === loadout.secondaryAmmo2)
+      pts += e2?.pts ?? 0
     }
   }
   if (loadout.melee) pts += getWeaponPts(loadout.melee)
 
-  // Slot bonus: fewer total slots = harder challenge
-  const totalSlots = (loadout.primary?.slots || 2) + (loadout.secondary?.slots || 1)
-  if (totalSlots <= 3) pts += 3
-  else if (totalSlots === 4) pts += 1
-
-  if (state.settings.medkitRequired)      pts -= 2
-  if (state.settings.healSyringeRequired) pts -= 1
-  if (state.settings.regenShotRequired)   pts -= 1
+  // Empty slot bonus: +50 per unfilled slot (max 2), not for QM loadouts
+  if (!state.settings.quartermasterEnabled) {
+    const used  = calcUsedSlots(loadout)
+    const empty = Math.max(0, Math.min(2, 4 - used))
+    pts += empty * 50
+  }
 
   return pts
 }
 
 function calcRoundScore(loadout, results) {
   const breakdown = []
-
   const loadoutPts = calcLoadoutScore(loadout)
-  breakdown.push({ label: 'Loadout', pts: loadoutPts, type: loadoutPts >= 0 ? 'good' : 'bad' })
+  breakdown.push({ label:'Loadout', pts:loadoutPts, type: loadoutPts >= 0 ? 'good' : 'bad' })
 
-  const hsPts = results.headshots * 10
-  if (hsPts) breakdown.push({ label: `${results.headshots}× Headshot`, pts: hsPts, type: 'good' })
+  const hasC = id => loadout.consumables?.some(c => c.id === id)
 
-  const killPts = results.kills * 15
-  if (killPts) breakdown.push({ label: `${results.kills}× Kill`, pts: killPts, type: 'good' })
+  if (loadout.melee)              breakdown.push({ label:'Nahkampf',  pts:  50, type:'good' })
+  if (hasC('medkit'))             breakdown.push({ label:'Medkit',    pts:  50, type:'good' })
+  if (hasC('heal_syringe'))       breakdown.push({ label:'Heilspritze', pts:-20, type:'bad'  })
+  if (hasC('regen_shot'))         breakdown.push({ label:'Regenshot', pts: -30, type:'bad'  })
 
-  const revPts = results.revives * 5
-  if (revPts) breakdown.push({ label: `${results.revives}× Wiederbelebung`, pts: revPts, type: 'good' })
+  const hsPts     = results.headshots * 10
+  const killPts   = results.kills     * 15
+  const revPts    = results.revives   * 5
+  const deathPts  = results.deaths    * -10
+  const bountyPts = results.bounties  * 25
 
-  const deathPts = results.deaths * -10
-  if (deathPts) breakdown.push({ label: `${results.deaths}× Tod`, pts: deathPts, type: 'bad' })
-
-  if (results.firstDeath) breakdown.push({ label: 'Erster Tod', pts: -20, type: 'bad' })
-  if (results.extracted)  breakdown.push({ label: 'Extraktion',  pts:  30, type: 'good' })
-
-  const bountyPts = results.bounties * 25
-  if (bountyPts) breakdown.push({ label: `${results.bounties}× Bounty`, pts: bountyPts, type: 'good' })
+  if (hsPts)     breakdown.push({ label:`${results.headshots}× Headshot`,       pts:hsPts,     type:'good' })
+  if (killPts)   breakdown.push({ label:`${results.kills}× Kill`,               pts:killPts,   type:'good' })
+  if (revPts)    breakdown.push({ label:`${results.revives}× Wiederbelebung`,   pts:revPts,    type:'good' })
+  if (deathPts)  breakdown.push({ label:`${results.deaths}× Tod`,               pts:deathPts,  type:'bad'  })
+  if (results.firstDeath) breakdown.push({ label:'Erster Tod',  pts:-20, type:'bad'  })
+  if (results.extracted)  breakdown.push({ label:'Extraktion',  pts:  5, type:'good' })
+  if (bountyPts) breakdown.push({ label:`${results.bounties}× Bounty`,          pts:bountyPts, type:'good' })
 
   let total = breakdown.reduce((s, b) => s + b.pts, 0)
   if (state.settings.soloMode) {
-    breakdown.push({ label: 'Solo-Bonus ×1.5', pts: Math.round(total * 0.5), type: 'good' })
+    breakdown.push({ label:'Solo-Bonus ×1.5', pts: Math.round(total * 0.5), type:'good' })
     total = Math.round(total * 1.5)
   }
 
@@ -252,11 +336,12 @@ function calcRoundScore(loadout, results) {
 
 function calcTotalStats() {
   let totalScore = 0, totalKills = 0, totalDeaths = 0, totalRounds = 0
-  for (const run of state.history) {
-    for (const round of run.rounds) {
-      totalScore  += round.totalScore
-      totalKills  += round.results.kills
-      totalDeaths += round.results.deaths
+  const allRuns = [...state.history, ...(state.currentRun ? [state.currentRun] : [])]
+  for (const run of allRuns) {
+    for (const round of (run.rounds || [])) {
+      totalScore  += round.totalScore       || 0
+      totalKills  += round.results?.kills   || 0
+      totalDeaths += round.results?.deaths  || 0
       totalRounds += 1
     }
   }
@@ -269,10 +354,9 @@ function updateStatsBar() {
   document.getElementById('sb-kd').textContent = s.totalDeaths > 0
     ? (s.totalKills / s.totalDeaths).toFixed(2)
     : s.totalKills > 0 ? s.totalKills.toString() : '—'
-  document.getElementById('sb-rounds').textContent = s.totalRounds
-  document.getElementById('sb-avg').textContent = s.totalRounds > 0
-    ? Math.round(s.totalScore / s.totalRounds)
-    : 0
+  document.getElementById('sb-rounds').textContent  = s.totalRounds
+  document.getElementById('sb-avg').textContent     = s.totalRounds > 0 ? Math.round(s.totalScore / s.totalRounds) : 0
+  document.getElementById('sb-rerolls').textContent = state.rerolls
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -282,50 +366,50 @@ function updateStatsBar() {
 function pick(arr) { return arr[Math.floor(Math.random() * arr.length)] }
 
 function generateLoadout() {
-  let primary, primaryAmmo, secondary, secondaryAmmo, secondaryAmmo2
+  const qm     = state.settings.quartermasterEnabled
+  const budget = qm ? 5 : 4
 
-  if (state.settings.quartermasterEnabled) {
-    // QM: always Large (3-slot) primary + Medium (2-slot) secondary
-    const largePrimaries = WEAPON_DATA.primaries.filter(w => w.slots === 3)
-    primary = pick(largePrimaries.length > 0 ? largePrimaries : WEAPON_DATA.primaries)
-    primaryAmmo = pick(primary.ammo)
+  const primary     = pick(WEAPON_DATA.primaries)
+  const primaryAmmo = pick(primary.ammo).key
 
-    // 2-slot pool: medium secondaries + medium-slot primaries used as secondary
-    const qmPool = [
-      ...WEAPON_DATA.secondaries.filter(w => w.slots === 2),
-      ...WEAPON_DATA.primaries.filter(w => w.slots === 2),
-    ]
-    secondary = pick(qmPool.length > 0 ? qmPool : WEAPON_DATA.secondaries)
-  } else {
-    // Standard: any primary, secondary is always Small (1-slot)
-    primary = pick(WEAPON_DATA.primaries)
-    primaryAmmo = pick(primary.ammo)
+  // Valid secondaries: fit within budget; without QM, no Large(3)+Medium(2)
+  let validSec = WEAPON_DATA.secondaries.filter(s => {
+    const total = primary.slots + s.slots
+    if (total > budget) return false
+    if (!qm && primary.slots === 3 && s.slots === 2) return false
+    return true
+  })
+  if (!validSec.length) validSec = WEAPON_DATA.secondaries.filter(s => s.slots === 1)
 
-    const smallPool = WEAPON_DATA.secondaries.filter(w => w.slots === 1)
-    secondary = pick(smallPool.length > 0 ? smallPool : WEAPON_DATA.secondaries)
-  }
+  const secondary     = pick(validSec)
+  const secondaryAmmo = pick(secondary.ammo).key
+  const secondaryAmmo2 = secondary.dualAmmo && secondary.secondAmmo
+    ? pick(secondary.secondAmmo).key
+    : null
 
-  secondaryAmmo = pick(secondary.ammo)
-
-  // Dual ammo for LeMat
-  if (secondary.dualAmmo && secondary.secondAmmo) {
-    secondaryAmmo2 = pick(secondary.secondAmmo)
-  }
-
+  // Slotted melee: only if there's room
+  const usedByWeapons = primary.slots + secondary.slots
+  const hasRoom       = usedByWeapons < budget
   let melee = null
-  if (state.settings.meleeRequired || Math.random() < 0.5) {
-    melee = pick(WEAPON_DATA.melee)
+  if (state.settings.meleeRequired && hasRoom) {
+    melee = pick(WEAPON_DATA.slottedMelee)
+  } else if (hasRoom && Math.random() < 0.4) {
+    melee = pick(WEAPON_DATA.slottedMelee)
   }
 
-  const requiredItems = WEAPON_DATA.items.filter(i =>
-    i.required_setting && state.settings[i.required_setting]
-  )
-  const optionalItems = WEAPON_DATA.items.filter(i => !i.required_setting)
-  const extraCount = Math.floor(Math.random() * 3)
-  const extras = [...optionalItems].sort(() => Math.random() - 0.5).slice(0, extraCount)
-  const items = [...requiredItems, ...extras]
+  // Tools: required first, then 0–2 random extras; always ≥1
+  const reqTools  = WEAPON_DATA.tools.filter(t => t.required_setting && state.settings[t.required_setting])
+  const optTools  = WEAPON_DATA.tools.filter(t => !t.required_setting).sort(() => Math.random() - 0.5)
+  let tools       = [...reqTools, ...optTools.slice(0, Math.floor(Math.random() * 3))].slice(0, 4)
+  if (!tools.length) tools = [pick(WEAPON_DATA.tools)]
 
-  return { primary, primaryAmmo, secondary, secondaryAmmo, secondaryAmmo2, melee, items }
+  // Consumables: required first, then 0–2 random extras; always ≥1
+  const reqCons  = WEAPON_DATA.consumables.filter(c => c.required_setting && state.settings[c.required_setting])
+  const optCons  = WEAPON_DATA.consumables.filter(c => !c.required_setting).sort(() => Math.random() - 0.5)
+  let consumables = [...reqCons, ...optCons.slice(0, Math.floor(Math.random() * 3))].slice(0, 4)
+  if (!consumables.length) consumables = [pick(WEAPON_DATA.consumables)]
+
+  return { primary, primaryAmmo, secondary, secondaryAmmo, secondaryAmmo2, melee, tools, consumables }
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -363,7 +447,7 @@ const WEAPON_ICONS = {
     <polygon points="8,35 20,35 16,43 6,43" fill="currentColor" opacity="0.6"/>
     <circle cx="55" cy="21" r="3" fill="currentColor" opacity="0.5"/>
   </svg>`,
-  melee: `<svg class="weapon-svg-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+  slotMelee: `<svg class="weapon-svg-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
     <line x1="10" y1="50" x2="50" y2="10" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
     <polygon points="42,4 56,4 56,18" fill="currentColor"/>
     <rect x="18" y="38" width="8" height="8" rx="1" fill="currentColor" opacity="0.6" transform="rotate(45,22,42)"/>
@@ -377,35 +461,36 @@ const WEAPON_ICONS = {
   </svg>`,
 }
 
-function getWeaponIcon(category) {
-  return WEAPON_ICONS[category] || WEAPON_ICONS.item
-}
+function getWeaponIcon(category) { return WEAPON_ICONS[category] || WEAPON_ICONS.item }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// RENDER LOADOUT (Hunt:Showdown style)
+// RENDER LOADOUT
 // ═══════════════════════════════════════════════════════════════════════════
 
-function slotDotsHtml(slots, filled) {
-  const total = Math.max(slots, 3)
-  return Array.from({ length: total }, (_, i) =>
+function slotDotsHtml(slots) {
+  return Array.from({ length: 3 }, (_, i) =>
     `<span class="sd${i < slots ? ' filled' : ''}"></span>`
   ).join('')
 }
 
+function ammoTagHtml(weapon, ammoKey, isSecondAmmo) {
+  const arr    = isSecondAmmo ? weapon.secondAmmo : weapon.ammo
+  const entry  = arr?.find(a => a.key === ammoKey)
+  if (!entry) return ''
+  const sign   = entry.pts >= 0 ? '+' : ''
+  const ptsTxt = entry.pts !== 0 ? ` (${sign}${entry.pts})` : ''
+  return `<span class="weapon-ammo-tag ammo-${entry.key}">${entry.label}${ptsTxt}</span>`
+}
+
 function renderLoadout(loadout) {
-  const amMods = WEAPON_DATA.ammoModifiers
   const container = document.getElementById('loadout-display')
   container.innerHTML = ''
   container.className = 'hs-loadout'
 
-  const totalSlots = (loadout.primary?.slots || 2) + (loadout.secondary?.slots || 1)
-
-  // ── Primary weapon card ──
-  const primPts = getWeaponPts(loadout.primary) + (amMods[loadout.primaryAmmo]?.pts ?? 0)
-  const primAmmoMod = amMods[loadout.primaryAmmo]
-  const primAmmoSign = primAmmoMod?.pts >= 0 ? '+' : ''
-  const primAmmoPenalty = primAmmoMod?.pts !== 0 ? ` (${primAmmoSign}${primAmmoMod.pts})` : ''
-  const slotLabel = loadout.primary.slots === 3 ? 'LARGE SLOT' : 'MEDIUM SLOT'
+  // ── Primary ──
+  const primAmmoPts = getAmmoEntry(loadout.primary, loadout.primaryAmmo)?.pts ?? 0
+  const primPts     = getWeaponPts(loadout.primary) + primAmmoPts
+  const slotLabel   = loadout.primary.slots === 3 ? 'LARGE SLOT' : 'MEDIUM SLOT'
 
   const primCard = document.createElement('div')
   primCard.className = `hs-weapon-card hs-primary cat-${loadout.primary.category}`
@@ -420,28 +505,17 @@ function renderLoadout(loadout) {
       <div class="hs-weapon-details">
         <div class="hs-weapon-name">${loadout.primary.name}</div>
         <div class="hs-weapon-meta">${loadout.primary.fireMode} · ${loadout.primary.ammoType.toUpperCase()} AMMO</div>
-        <div class="hs-ammo-row">
-          <span class="weapon-ammo-tag ammo-${loadout.primaryAmmo}">${primAmmoMod?.label}${primAmmoPenalty}</span>
-        </div>
+        <div class="hs-ammo-row">${ammoTagHtml(loadout.primary, loadout.primaryAmmo)}</div>
       </div>
     </div>`
   container.appendChild(primCard)
 
-  // ── Secondary weapon card ──
-  const secPts = getWeaponPts(loadout.secondary) + (amMods[loadout.secondaryAmmo]?.pts ?? 0)
-    + (loadout.secondary.dualAmmo && loadout.secondaryAmmo2 ? (amMods[loadout.secondaryAmmo2]?.pts ?? 0) : 0)
-  const secAmmoMod = amMods[loadout.secondaryAmmo]
-  const secAmmoSign = secAmmoMod?.pts >= 0 ? '+' : ''
-  const secAmmoPenalty = secAmmoMod?.pts !== 0 ? ` (${secAmmoSign}${secAmmoMod.pts})` : ''
-
-  let dualAmmoHtml = ''
-  if (loadout.secondary.dualAmmo && loadout.secondaryAmmo2) {
-    const mod2 = amMods[loadout.secondaryAmmo2]
-    const sign2 = mod2?.pts >= 0 ? '+' : ''
-    const penalty2 = mod2?.pts !== 0 ? ` (${sign2}${mod2.pts})` : ''
-    dualAmmoHtml = `<span class="weapon-ammo-tag ammo-${loadout.secondaryAmmo2}" title="${loadout.secondary.secondAmmoLabel}">${mod2?.label}${penalty2} <span class="dual-ammo-label">· SCHROT</span></span>`
-  }
-
+  // ── Secondary ──
+  const secAmmoPts  = getAmmoEntry(loadout.secondary, loadout.secondaryAmmo)?.pts ?? 0
+  const secAmmo2Pts = (loadout.secondary.dualAmmo && loadout.secondaryAmmo2)
+    ? (loadout.secondary.secondAmmo?.find(a => a.key === loadout.secondaryAmmo2)?.pts ?? 0)
+    : 0
+  const secPts      = getWeaponPts(loadout.secondary) + secAmmoPts + secAmmo2Pts
   const secSlotLabel = loadout.secondary.slots === 2 ? 'MEDIUM SLOT' : 'SMALL SLOT'
 
   const secCard = document.createElement('div')
@@ -458,30 +532,31 @@ function renderLoadout(loadout) {
         <div class="hs-weapon-name">${loadout.secondary.name}</div>
         <div class="hs-weapon-meta">${loadout.secondary.fireMode} · ${loadout.secondary.ammoType.toUpperCase()} AMMO</div>
         <div class="hs-ammo-row">
-          <span class="weapon-ammo-tag ammo-${loadout.secondaryAmmo}">${secAmmoMod?.label}${secAmmoPenalty}</span>
-          ${dualAmmoHtml}
+          ${ammoTagHtml(loadout.secondary, loadout.secondaryAmmo)}
+          ${loadout.secondaryAmmo2 ? ammoTagHtml(loadout.secondary, loadout.secondaryAmmo2, true) + ' <span class="dual-ammo-label">· SCHROT</span>' : ''}
         </div>
       </div>
     </div>`
   container.appendChild(secCard)
 
-  // ── Melee ──
+  // ── Slotted Melee ──
   if (loadout.melee) {
-    const meleeEl = document.createElement('div')
+    const meleePts = getWeaponPts(loadout.melee)
+    const meleeEl  = document.createElement('div')
     meleeEl.className = 'hs-melee-row'
     meleeEl.innerHTML = `
-      <div class="hs-melee-icon">${getWeaponIcon('melee')}</div>
+      <div class="hs-melee-icon">${getWeaponIcon('slotMelee')}</div>
       <div class="hs-melee-info">
-        <span class="hs-melee-label">NAHKAMPF</span>
+        <span class="hs-melee-label">NAHKAMPF · SLOT</span>
         <span class="hs-melee-name">${loadout.melee.name}</span>
       </div>
-      <span class="hs-melee-pts">+${getWeaponPts(loadout.melee)} PTS</span>`
+      <span class="hs-melee-pts">+${meleePts} PTS</span>`
     container.appendChild(meleeEl)
   }
 
   // ── Tools & Consumables ──
-  const tools = loadout.items.filter(i => i.category === 'tool')
-  const consumables = loadout.items.filter(i => i.category === 'consumable')
+  const tools       = loadout.tools       || []
+  const consumables = loadout.consumables || []
 
   const utilSection = document.createElement('div')
   utilSection.className = 'hs-util-section'
@@ -492,9 +567,7 @@ function renderLoadout(loadout) {
         <span>TOOLS</span>
         <span class="hs-util-count">${tools.length}/4</span>
       </div>
-      <div class="hs-util-grid">
-        ${renderItemSlots(tools, 4)}
-      </div>
+      <div class="hs-util-grid">${renderItemSlots(tools, 4)}</div>
     </div>
     <div class="hs-util-col">
       <div class="hs-util-header">
@@ -502,33 +575,41 @@ function renderLoadout(loadout) {
         <span>CONSUMABLES</span>
         <span class="hs-util-count">${consumables.length}/4</span>
       </div>
-      <div class="hs-util-grid">
-        ${renderItemSlots(consumables, 4)}
-      </div>
+      <div class="hs-util-grid">${renderItemSlots(consumables, 4)}</div>
     </div>`
   container.appendChild(utilSection)
 
-  // ── Slot bonus indicator ──
-  if (totalSlots <= 4) {
-    const bonusEl = document.createElement('div')
-    bonusEl.className = 'hs-slot-bonus'
-    const bonus = totalSlots <= 3 ? 3 : 1
-    bonusEl.innerHTML = `
-      <span class="slot-bonus-label">SLOT BONUS</span>
-      <span class="slot-bonus-val">+${bonus} PTS</span>
-      <span class="slot-bonus-desc">${5 - totalSlots} freier Slot${5 - totalSlots !== 1 ? 's' : ''} · Erschwertes Loadout</span>`
-    container.appendChild(bonusEl)
+  // ── Slot bonus ──
+  if (!state.settings.quartermasterEnabled) {
+    const used  = calcUsedSlots(loadout)
+    const empty = Math.max(0, Math.min(2, 4 - used))
+    if (empty > 0) {
+      const bonusEl = document.createElement('div')
+      bonusEl.className = 'hs-slot-bonus'
+      bonusEl.innerHTML = `
+        <span class="slot-bonus-label">SLOT BONUS</span>
+        <span class="slot-bonus-val">+${empty * 50} PTS</span>
+        <span class="slot-bonus-desc">${empty} freier Slot${empty !== 1 ? 's' : ''}</span>`
+      container.appendChild(bonusEl)
+    }
   }
 
   const baseScore = calcLoadoutScore(loadout)
   document.getElementById('loadout-base-score').textContent = (baseScore >= 0 ? '+' : '') + baseScore
+
+  // Update reroll button
+  const rerollBtn = document.getElementById('btn-reroll')
+  if (rerollBtn) {
+    rerollBtn.textContent = `↺ NEU WÜRFELN (${state.rerolls})`
+    rerollBtn.disabled    = state.rerolls <= 0
+  }
 }
 
 function renderItemSlots(items, max) {
   const slots = []
   for (let i = 0; i < max; i++) {
     if (i < items.length) {
-      const item = items[i]
+      const item  = items[i]
       const isReq = item.required_setting && state.settings[item.required_setting]
       slots.push(`<div class="hs-item-slot filled${isReq ? ' required' : ''}">${item.name}</div>`)
     } else {
@@ -542,119 +623,106 @@ function renderItemSlots(items, max) {
 // ARSENAL TABLE
 // ═══════════════════════════════════════════════════════════════════════════
 
-const ALL_AMMO_KEYS = ['standard','spitzer','fmj','dumdum','highvelocity','poisonous','explosive','incendiary','slugs']
-
 function renderArsenalTable() {
   const container = document.getElementById('arsenal-content')
   if (!container) return
 
-  const amMods = WEAPON_DATA.ammoModifiers
   const ammoHeaders = ALL_AMMO_KEYS.map(k =>
-    `<th class="ammo-col" title="${amMods[k].label}">${amMods[k].label.replace(' ','<br>')}</th>`
+    `<th class="ammo-col">${AMMO_LABELS[k].replace(' ','<br>')}</th>`
   ).join('')
 
-  function weaponRow(w) {
-    const effectivePts = getWeaponPts(w)
-    const ammoCells = ALL_AMMO_KEYS.map(key => {
-      if (!w.ammo) return '<td class="ammo-na">—</td>'
-      if (!w.ammo.includes(key)) return '<td class="ammo-na">—</td>'
-      const mod = amMods[key]
-      const cls = mod.pts > 0 ? 'ammo-pos' : mod.pts < 0 ? 'ammo-neg' : 'ammo-zero'
-      return `<td class="${cls}">${mod.pts >= 0 ? '+' : ''}${mod.pts}</td>`
+  function ammoCells(weapon) {
+    return ALL_AMMO_KEYS.map(key => {
+      const entry = weapon.ammo?.find(a => a.key === key)
+      if (!entry) return '<td class="ammo-na">—</td>'
+      const cls = entry.pts > 0 ? 'ammo-pos' : entry.pts < 0 ? 'ammo-neg' : 'ammo-zero'
+      return `<td class="${cls}">${entry.pts >= 0 ? '+' : ''}${entry.pts}</td>`
     }).join('')
-
-    const dualBadge = w.dualAmmo
-      ? `<span class="arsenal-dual-badge" title="Dual Ammo">2x</span>`
-      : ''
-
-    return `<tr>
-      <td class="arsenal-weapon-name">${w.name}${dualBadge}</td>
-      <td class="arsenal-slots">${renderSlotPips(w.slots || 1)}</td>
-      <td class="arsenal-type">${w.ammoType?.toUpperCase() || '—'}</td>
-      <td class="arsenal-pts-cell">
-        <input type="number" class="pts-input" value="${effectivePts}"
-          data-id="${w.id}" data-default="${w.pts}"
-          onchange="updateArsenalPts(this)"
-          min="-10" max="20" step="1">
-      </td>
-      <td class="arsenal-firemode">${w.fireMode || '—'}</td>
-      ${ammoCells}
-    </tr>`
   }
 
   function renderSlotPips(slots) {
-    if (!slots) return '—'
     return Array.from({ length: 3 }, (_, i) =>
       `<span class="slot-pip${i < slots ? ' on' : ''}"></span>`
     ).join('')
   }
 
+  function weaponRow(w) {
+    const eff = getWeaponPts(w)
+    const dual = w.dualAmmo ? `<span class="arsenal-dual-badge" title="Dual Ammo">2x</span>` : ''
+    return `<tr>
+      <td class="arsenal-weapon-name">${w.name}${dual}</td>
+      <td class="arsenal-slots">${renderSlotPips(w.slots || 1)}</td>
+      <td class="arsenal-type">${(w.ammoType || '').toUpperCase() || '—'}</td>
+      <td class="arsenal-pts-cell">
+        <input type="number" class="pts-input" value="${eff}"
+          data-id="${w.id}" data-default="${w.pts}"
+          onchange="updateArsenalPts(this)" min="-200" max="500" step="10">
+      </td>
+      <td class="arsenal-firemode">${w.fireMode || '—'}</td>
+      ${ammoCells(w)}
+    </tr>`
+  }
+
   function meleeRow(w) {
-    const effectivePts = getWeaponPts(w)
+    const eff = getWeaponPts(w)
     return `<tr>
       <td class="arsenal-weapon-name">${w.name}</td>
-      <td class="arsenal-slots">—</td>
+      <td class="arsenal-slots">${renderSlotPips(w.slots || 1)}</td>
       <td class="arsenal-type">NAHKAMPF</td>
       <td class="arsenal-pts-cell">
-        <input type="number" class="pts-input" value="${effectivePts}"
+        <input type="number" class="pts-input" value="${eff}"
           data-id="${w.id}" data-default="${w.pts}"
-          onchange="updateArsenalPts(this)"
-          min="-10" max="20" step="1">
+          onchange="updateArsenalPts(this)" min="-200" max="500" step="10">
       </td>
       <td class="arsenal-firemode">—</td>
       ${ALL_AMMO_KEYS.map(() => '<td class="ammo-na">—</td>').join('')}
     </tr>`
   }
 
-  function itemRow(i) {
+  function itemRow(i, type) {
     return `<tr>
       <td class="arsenal-weapon-name">${i.name}</td>
       <td class="arsenal-slots">—</td>
-      <td class="arsenal-type">${i.category.toUpperCase()}</td>
+      <td class="arsenal-type">${type.toUpperCase()}</td>
       <td class="arsenal-pts-cell"><span class="arsenal-pts-static">—</span></td>
       <td class="arsenal-firemode">${i.required_setting ? '⚠ Pflicht' : 'Optional'}</td>
       ${ALL_AMMO_KEYS.map(() => '<td class="ammo-na">—</td>').join('')}
     </tr>`
   }
 
-  const tableHtml = (title, rows) => `
-    <div class="arsenal-section">
+  function section(title, rows) {
+    return `<div class="arsenal-section">
       <h3 class="arsenal-section-title">${title}</h3>
       <div class="arsenal-table-wrap">
         <table class="arsenal-table">
-          <thead>
-            <tr>
-              <th class="col-name">WAFFE</th>
-              <th class="col-slots">SLOTS</th>
-              <th class="col-type">TYP</th>
-              <th class="col-pts">BASIS PTS</th>
-              <th class="col-mode">FEUERMOD.</th>
-              ${ammoHeaders}
-            </tr>
-          </thead>
+          <thead><tr>
+            <th class="col-name">WAFFE</th>
+            <th class="col-slots">SLOTS</th>
+            <th class="col-type">TYP</th>
+            <th class="col-pts">BASIS PTS</th>
+            <th class="col-mode">FEUERMOD.</th>
+            ${ammoHeaders}
+          </tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
     </div>`
+  }
 
   container.innerHTML =
-    tableHtml('PRIMÄRWAFFEN',  WEAPON_DATA.primaries.map(weaponRow).join('')) +
-    tableHtml('SEKUNDÄRWAFFEN', WEAPON_DATA.secondaries.map(weaponRow).join('')) +
-    tableHtml('NAHKAMPF',      WEAPON_DATA.melee.map(meleeRow).join('')) +
-    tableHtml('ITEMS & TOOLS', WEAPON_DATA.items.map(itemRow).join(''))
+    section('PRIMÄRWAFFEN',   WEAPON_DATA.primaries.map(weaponRow).join('')) +
+    section('SEKUNDÄRWAFFEN', WEAPON_DATA.secondaries.map(weaponRow).join('')) +
+    section('NAHKAMPF (SLOT)',WEAPON_DATA.slottedMelee.map(meleeRow).join('')) +
+    section('TOOLS',          WEAPON_DATA.tools.map(t => itemRow(t, 'tool')).join('')) +
+    section('CONSUMABLES',    WEAPON_DATA.consumables.map(c => itemRow(c, 'consumable')).join(''))
 }
 
 async function updateArsenalPts(input) {
-  const id = input.dataset.id
+  const id         = input.dataset.id
   const defaultPts = Number(input.dataset.default)
-  const newPts = Number(input.value)
-
-  if (newPts === defaultPts) {
-    delete state.arsenalOverrides[id]
-  } else {
-    state.arsenalOverrides[id] = { pts: newPts }
-  }
-
+  const newPts     = Number(input.value)
+  if (newPts === defaultPts) delete state.arsenalOverrides[id]
+  else                        state.arsenalOverrides[id] = { pts: newPts }
   input.classList.toggle('pts-modified', newPts !== defaultPts)
   await saveArsenal()
 }
@@ -676,25 +744,24 @@ function updatePreviewScore() {
 // ═══════════════════════════════════════════════════════════════════════════
 
 function formatDate(iso) {
-  const d = new Date(iso)
-  return d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+  return new Date(iso).toLocaleDateString('de-DE', {
+    day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'
+  })
 }
 
 function renderHistory() {
   const container = document.getElementById('history-list')
-  if (state.history.length === 0) {
+  if (!state.history.length) {
     container.innerHTML = `<div class="history-empty">Noch keine Läufe gespeichert.<br>Starte deinen ersten Hunt.</div>`
     return
   }
-
   const sorted = [...state.history].sort((a, b) => new Date(b.date) - new Date(a.date))
   container.innerHTML = sorted.map(run => {
-    const totalKills  = run.rounds.reduce((s, r) => s + r.results.kills, 0)
-    const totalDeaths = run.rounds.reduce((s, r) => s + r.results.deaths, 0)
-    const extractions = run.rounds.filter(r => r.results.extracted).length
-    const kd = totalDeaths > 0 ? (totalKills / totalDeaths).toFixed(2) : totalKills
-    const sign = run.totalScore >= 0 ? '+' : ''
-
+    const totalKills  = run.rounds.reduce((s, r) => s + (r.results?.kills  || 0), 0)
+    const totalDeaths = run.rounds.reduce((s, r) => s + (r.results?.deaths || 0), 0)
+    const extractions = run.rounds.filter(r => r.results?.extracted).length
+    const kd    = totalDeaths > 0 ? (totalKills / totalDeaths).toFixed(2) : totalKills
+    const sign  = run.totalScore >= 0 ? '+' : ''
     return `
       <div class="history-card" onclick="showRunDetail('${run.id}')">
         <div class="history-card-header">
@@ -718,16 +785,15 @@ function showRunDetail(runId) {
   const run = state.history.find(r => r.id === runId)
   if (!run) return
 
-  document.getElementById('rd-title').textContent = 'LAUF DETAILS'
+  document.getElementById('rd-title').textContent    = 'LAUF DETAILS'
   document.getElementById('rd-subtitle').textContent = formatDate(run.date)
 
-  const totalKills  = run.rounds.reduce((s, r) => s + r.results.kills, 0)
-  const totalDeaths = run.rounds.reduce((s, r) => s + r.results.deaths, 0)
-  const totalHS     = run.rounds.reduce((s, r) => s + r.results.headshots, 0)
-  const kd = totalDeaths > 0 ? (totalKills / totalDeaths).toFixed(2) : totalKills
+  const totalKills  = run.rounds.reduce((s, r) => s + (r.results?.kills      || 0), 0)
+  const totalDeaths = run.rounds.reduce((s, r) => s + (r.results?.deaths     || 0), 0)
+  const totalHS     = run.rounds.reduce((s, r) => s + (r.results?.headshots  || 0), 0)
+  const kd          = totalDeaths > 0 ? (totalKills / totalDeaths).toFixed(2) : totalKills
 
-  const content = document.getElementById('run-detail-content')
-  content.innerHTML = `
+  document.getElementById('run-detail-content').innerHTML = `
     <div class="run-detail-header-stats">
       <div class="rd-stat"><span class="rd-stat-val">${run.totalScore >= 0 ? '+' : ''}${run.totalScore}</span><span class="rd-stat-label">Score</span></div>
       <div class="rd-stat"><span class="rd-stat-val">${run.rounds.length}</span><span class="rd-stat-label">Runden</span></div>
@@ -736,42 +802,50 @@ function showRunDetail(runId) {
       <div class="rd-stat"><span class="rd-stat-val">${kd}</span><span class="rd-stat-label">K/D</span></div>
       <div class="rd-stat"><span class="rd-stat-val">${totalHS}</span><span class="rd-stat-label">Headshots</span></div>
     </div>
-    ${run.rounds.map(round => renderRoundDetailCard(round)).join('')}
-  `
+    ${run.rounds.map(renderRoundDetailCard).join('')}`
 
   showView('run-detail')
 }
 
 function renderRoundDetailCard(round) {
-  const scoreSign = round.totalScore >= 0 ? '+' : ''
-  const amMods = WEAPON_DATA.ammoModifiers
-  const l = round.loadout
-  const r = round.results
+  const sign = round.totalScore >= 0 ? '+' : ''
+  const l    = round.loadout
+  const r    = round.results
 
-  const primaryAmmoLabel  = l.primaryAmmo  ? (amMods[l.primaryAmmo]?.label  ?? l.primaryAmmo)  : ''
-  const secAmmoLabel      = l.secondaryAmmo ? (amMods[l.secondaryAmmo]?.label ?? l.secondaryAmmo) : ''
-  const secAmmo2Label     = l.secondaryAmmo2 ? ` + ${amMods[l.secondaryAmmo2]?.label ?? l.secondaryAmmo2}` : ''
+  const primAmmoEntry = getAmmoEntry(l.primary, l.primaryAmmo)
+  const secAmmoEntry  = getAmmoEntry(l.secondary, l.secondaryAmmo)
+  const primAmmoLabel = primAmmoEntry?.label ?? l.primaryAmmo ?? ''
+  const secAmmoLabel  = secAmmoEntry?.label  ?? l.secondaryAmmo ?? ''
+  const sec2Entry     = l.secondaryAmmo2
+    ? l.secondary?.secondAmmo?.find(a => a.key === l.secondaryAmmo2)
+    : null
+  const sec2Label     = sec2Entry ? ` + ${sec2Entry.label}` : ''
+
+  // Support old loadout format with items array
+  const tools       = l.tools       || l.items?.filter(i => i.category === 'tool')       || []
+  const consumables = l.consumables || l.items?.filter(i => i.category === 'consumable') || []
+  const allItems    = [...tools, ...consumables]
 
   return `
     <div class="round-detail-card">
       <div class="round-detail-header">
         <span class="round-detail-num">RUNDE ${round.roundNumber}</span>
-        <span class="round-detail-score">${scoreSign}${round.totalScore} PTS</span>
+        <span class="round-detail-score">${sign}${round.totalScore} PTS</span>
       </div>
       <div class="round-detail-body">
         <div class="rd-loadout-col">
-          <span><strong>PRIMÄR</strong> ${l.primary?.name ?? '—'} · ${primaryAmmoLabel}</span>
-          <span><strong>SEKUNDÄR</strong> ${l.secondary?.name ?? '—'} · ${secAmmoLabel}${secAmmo2Label}</span>
+          <span><strong>PRIMÄR</strong> ${l.primary?.name ?? '—'} · ${primAmmoLabel}</span>
+          <span><strong>SEKUNDÄR</strong> ${l.secondary?.name ?? '—'} · ${secAmmoLabel}${sec2Label}</span>
           ${l.melee ? `<span><strong>NAHKAMPF</strong> ${l.melee.name}</span>` : ''}
-          ${l.items?.length > 0 ? `<span><strong>ITEMS</strong> ${l.items.map(i => i.name).join(', ')}</span>` : ''}
+          ${allItems.length ? `<span><strong>ITEMS</strong> ${allItems.map(i => i.name).join(', ')}</span>` : ''}
         </div>
         <div class="rd-results-col">
-          <div class="rd-result-item"><span>Headshots</span><span>${r.headshots}</span></div>
-          <div class="rd-result-item"><span>Kills</span><span>${r.kills}</span></div>
-          <div class="rd-result-item"><span>Tode</span><span>${r.deaths}</span></div>
-          <div class="rd-result-item"><span>Wiederbelebungen</span><span>${r.revives}</span></div>
-          <div class="rd-result-item"><span>Extraktion</span><span class="${r.extracted ? 'text-good' : 'text-bad'}">${r.extracted ? 'JA' : 'NEIN'}</span></div>
-          <div class="rd-result-item"><span>Bounties</span><span>${r.bounties}</span></div>
+          <div class="rd-result-item"><span>Headshots</span><span>${r?.headshots ?? 0}</span></div>
+          <div class="rd-result-item"><span>Kills</span><span>${r?.kills ?? 0}</span></div>
+          <div class="rd-result-item"><span>Tode</span><span>${r?.deaths ?? 0}</span></div>
+          <div class="rd-result-item"><span>Wiederbelebungen</span><span>${r?.revives ?? 0}</span></div>
+          <div class="rd-result-item"><span>Extraktion</span><span class="${r?.extracted ? 'text-good' : 'text-bad'}">${r?.extracted ? 'JA' : 'NEIN'}</span></div>
+          <div class="rd-result-item"><span>Bounties</span><span>${r?.bounties ?? 0}</span></div>
         </div>
       </div>
     </div>`
@@ -782,13 +856,13 @@ function renderRoundDetailCard(round) {
 // ═══════════════════════════════════════════════════════════════════════════
 
 function applySettingsToUI() {
-  document.getElementById('set-medkit').checked              = state.settings.medkitRequired
-  document.getElementById('set-melee').checked               = state.settings.meleeRequired
-  document.getElementById('set-choke').checked               = state.settings.chokeRequired
-  document.getElementById('set-healsyringe').checked         = state.settings.healSyringeRequired
-  document.getElementById('set-regenshot').checked           = state.settings.regenShotRequired
-  document.getElementById('set-solo').checked                = state.settings.soloMode
-  document.getElementById('set-quartermaster').checked       = state.settings.quartermasterEnabled
+  document.getElementById('set-medkit').checked         = state.settings.medkitRequired
+  document.getElementById('set-melee').checked          = state.settings.meleeRequired
+  document.getElementById('set-choke').checked          = state.settings.chokeRequired
+  document.getElementById('set-healsyringe').checked    = state.settings.healSyringeRequired
+  document.getElementById('set-regenshot').checked      = state.settings.regenShotRequired
+  document.getElementById('set-solo').checked           = state.settings.soloMode
+  document.getElementById('set-quartermaster').checked  = state.settings.quartermasterEnabled
 }
 
 async function saveSetting(key, value) {
@@ -817,42 +891,41 @@ function updateHomeUI() {
     endBtn.style.display = 'none'
   }
 
-  const s = calcTotalStats()
+  const s  = calcTotalStats()
   const qs = document.getElementById('home-quick-stats')
   if (state.history.length > 0) {
     const lastRun = [...state.history].sort((a, b) => new Date(b.date) - new Date(a.date))[0]
     qs.innerHTML = `
       <div class="quick-stat-card"><span class="qs-val">${s.totalScore}</span><span class="qs-label">Total Score</span></div>
       <div class="quick-stat-card"><span class="qs-val">${state.history.length}</span><span class="qs-label">Läufe</span></div>
-      <div class="quick-stat-card"><span class="qs-val">${lastRun.totalScore >= 0 ? '+' : ''}${lastRun.totalScore}</span><span class="qs-label">Letzter Lauf</span></div>
-    `
+      <div class="quick-stat-card"><span class="qs-val">${lastRun.totalScore >= 0 ? '+' : ''}${lastRun.totalScore}</span><span class="qs-label">Letzter Lauf</span></div>`
   } else {
     qs.innerHTML = ''
   }
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// GAME FLOW HANDLERS
+// GAME FLOW
 // ═══════════════════════════════════════════════════════════════════════════
 
 function handleRandomize() {
   if (!state.currentRun) {
     state.currentRun = {
-      id: `run_${Date.now()}`,
-      date: new Date().toISOString(),
-      rounds: [],
+      id:         `run_${Date.now()}`,
+      date:       new Date().toISOString(),
+      rounds:     [],
       totalScore: 0,
-      settings: { ...state.settings },
+      settings:   { ...state.settings },
     }
   }
 
-  const loadout = generateLoadout()
+  const loadout  = generateLoadout()
   const roundNum = state.currentRun.rounds.length + 1
 
   state.currentRoundData = {
     roundNumber: roundNum,
     loadout,
-    results: { headshots: 0, kills: 0, deaths: 0, revives: 0, firstDeath: false, extracted: false, bounties: 0 },
+    results: { headshots:0, kills:0, deaths:0, revives:0, firstDeath:false, extracted:false, bounties:0 },
   }
 
   document.getElementById('loadout-round-label').textContent = `Runde ${roundNum}`
@@ -860,30 +933,40 @@ function handleRandomize() {
   showView('loadout')
 }
 
+function handleReroll() {
+  if (state.rerolls <= 0 || !state.currentRoundData) return
+  state.rerolls--
+  const loadout = generateLoadout()
+  state.currentRoundData.loadout = loadout
+  renderLoadout(loadout)
+  updateStatsBar()
+  saveSettings()
+}
+
 function confirmLoadout() {
   if (!state.currentRoundData) return
   resetResultsForm()
-  const roundNum = state.currentRoundData.roundNumber
-  document.getElementById('results-round-label').textContent = `Runde ${roundNum}`
+  document.getElementById('results-round-label').textContent = `Runde ${state.currentRoundData.roundNumber}`
 
-  const l = state.currentRoundData.loadout
-  const amMods = WEAPON_DATA.ammoModifiers
-  const secAmmo2 = l.secondaryAmmo2 ? ` + ${amMods[l.secondaryAmmo2]?.label ?? l.secondaryAmmo2}` : ''
-  const summary = document.getElementById('results-loadout-summary')
-  summary.innerHTML = `
-    <span><span class="rls-label">PRIMÄR</span> <span class="rls-val">${l.primary.name}</span></span>
-    <span><span class="rls-label">SEKUNDÄR</span> <span class="rls-val">${l.secondary.name}${secAmmo2}</span></span>
-    ${l.melee ? `<span><span class="rls-label">NAHKAMPF</span> <span class="rls-val">${l.melee.name}</span></span>` : ''}
-  `
+  const l         = state.currentRoundData.loadout
+  const primLabel = getAmmoEntry(l.primary, l.primaryAmmo)?.label ?? l.primaryAmmo
+  const secLabel  = getAmmoEntry(l.secondary, l.secondaryAmmo)?.label ?? l.secondaryAmmo
+  const sec2Entry = l.secondaryAmmo2 ? l.secondary?.secondAmmo?.find(a => a.key === l.secondaryAmmo2) : null
+  const sec2Label = sec2Entry ? ` + ${sec2Entry.label}` : ''
+
+  document.getElementById('results-loadout-summary').innerHTML = `
+    <span><span class="rls-label">PRIMÄR</span> <span class="rls-val">${l.primary.name} · ${primLabel}</span></span>
+    <span><span class="rls-label">SEKUNDÄR</span> <span class="rls-val">${l.secondary.name} · ${secLabel}${sec2Label}</span></span>
+    ${l.melee ? `<span><span class="rls-label">NAHKAMPF</span> <span class="rls-val">${l.melee.name}</span></span>` : ''}`
 
   updatePreviewScore()
   showView('results')
 }
 
 function resetResultsForm() {
-  const res = { headshots: 0, kills: 0, deaths: 0, revives: 0, firstDeath: false, extracted: false, bounties: 0 }
-  if (state.currentRoundData) state.currentRoundData.results = res
-
+  if (state.currentRoundData) {
+    state.currentRoundData.results = { headshots:0, kills:0, deaths:0, revives:0, firstDeath:false, extracted:false, bounties:0 }
+  }
   ;['headshots','kills','deaths','revives','bounties'].forEach(k => {
     document.getElementById(`res-${k}`).textContent = '0'
   })
@@ -893,8 +976,7 @@ function resetResultsForm() {
 
 function adjustResult(key, delta) {
   if (!state.currentRoundData) return
-  const cur = state.currentRoundData.results[key]
-  const next = Math.max(0, cur + delta)
+  const next = Math.max(0, state.currentRoundData.results[key] + delta)
   state.currentRoundData.results[key] = next
   document.getElementById(`res-${key}`).textContent = next
   updatePreviewScore()
@@ -910,14 +992,14 @@ async function submitResults() {
   if (!state.currentRoundData || !state.currentRun) return
 
   const { loadout, results, roundNumber } = state.currentRoundData
-  const { total, breakdown } = calcRoundScore(loadout, results)
+  const { total, breakdown }             = calcRoundScore(loadout, results)
 
   const round = {
-    id: `round_${Date.now()}`,
+    id:           `round_${Date.now()}`,
     roundNumber,
     loadout,
     results,
-    totalScore: total,
+    totalScore:   total,
     loadoutScore: calcLoadoutScore(loadout),
     breakdown,
   }
@@ -925,41 +1007,41 @@ async function submitResults() {
   state.currentRun.rounds.push(round)
   state.currentRun.totalScore += total
 
+  // Reroll award: +1 per 3 completed rounds
+  state.totalRoundsCompleted++
+  const oldThresh = Math.floor((state.totalRoundsCompleted - 1) / 3)
+  const newThresh = Math.floor(state.totalRoundsCompleted / 3)
+  if (newThresh > oldThresh) state.rerolls++
+
+  await saveSettings()
+
   const scoreEl = document.getElementById('rc-round-score')
   scoreEl.textContent = (total >= 0 ? '+' : '') + total
-  scoreEl.className = 'round-score-value' + (total < 0 ? ' negative' : '')
-
+  scoreEl.className   = 'round-score-value' + (total < 0 ? ' negative' : '')
   document.getElementById('rc-run-total').textContent =
     (state.currentRun.totalScore >= 0 ? '+' : '') + state.currentRun.totalScore
 
-  const breakdownEl = document.getElementById('rc-breakdown')
-  breakdownEl.innerHTML = breakdown.map(b => {
+  document.getElementById('rc-breakdown').innerHTML = breakdown.map(b => {
     const sign = b.pts >= 0 ? '+' : ''
     return `<span class="breakdown-item ${b.type}">${b.label}: ${sign}${b.pts}</span>`
   }).join('')
 
+  updateStatsBar()
   showView('round-complete')
 }
 
 function handleNextRound() { handleRandomize() }
 
 async function handleEndRun() {
-  if (!state.currentRun) {
-    showView('home')
-    return
-  }
-  if (state.currentRun.rounds.length === 0) {
-    state.currentRun = null
-    showView('home')
-    return
-  }
+  if (!state.currentRun) { showView('home'); return }
+  if (state.currentRun.rounds.length === 0) { state.currentRun = null; showView('home'); return }
 
-  const run = { ...state.currentRun, status: 'completed' }
-  state.history.push(run)
-  state.currentRun = null
+  state.history.push({ ...state.currentRun, status:'completed' })
+  state.currentRun       = null
   state.currentRoundData = null
 
   await saveHistory()
+  updateStatsBar()
   showView('home')
 }
 
@@ -983,10 +1065,13 @@ async function confirmResetData() {
     'ALLE DATEN LÖSCHEN',
     'Diese Aktion löscht alle gespeicherten Läufe und Statistiken unwiderruflich. Bist du sicher?',
     async () => {
-      state.history = []
-      state.currentRun = null
-      state.currentRoundData = null
+      state.history              = []
+      state.currentRun           = null
+      state.currentRoundData     = null
+      state.rerolls              = 2
+      state.totalRoundsCompleted = 0
       await saveHistory()
+      await saveSettings()
       updateStatsBar()
       showView('home')
     }
@@ -999,14 +1084,9 @@ async function confirmResetData() {
 
 async function init() {
   showView('splash')
-
-  const loadStart = Date.now()
+  const t0 = Date.now()
   await loadAll()
-  const elapsed = Date.now() - loadStart
-  const wait = Math.max(0, 3600 - elapsed)
-
-  await new Promise(resolve => setTimeout(resolve, wait))
-
+  await new Promise(r => setTimeout(r, Math.max(0, 2400 - (Date.now() - t0))))
   applySettingsToUI()
   showView('home')
 }

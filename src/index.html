@@ -17,17 +17,13 @@
       <div class="splash-logo-wrap">
         <img class="splash-logo-svg" src="../assets/Logo.png" alt="MHGA Logo" draggable="false"/>
       </div>
-      <h1 class="splash-title">MHGA</h1>
-      <p class="splash-subtitle">Make Hunt Great Again!</p>
-      <div class="splash-loading">
-        <div class="loading-bar"><div class="loading-fill"></div></div>
-      </div>
     </div>
   </div>
 
   <!-- ═══════════════════════════════════════════════════════ STATS BAR ══ -->
   <div id="stats-bar" class="hidden">
     <div class="stats-bar-inner">
+      <span class="sb-star">★</span>
       <span class="stat-item"><span class="stat-label">TOTAL SCORE</span><span class="stat-value" id="sb-total-score">0</span></span>
       <span class="stat-sep">✦</span>
       <span class="stat-item"><span class="stat-label">K/D</span><span class="stat-value" id="sb-kd">—</span></span>
@@ -35,6 +31,9 @@
       <span class="stat-item"><span class="stat-label">RUNDEN</span><span class="stat-value" id="sb-rounds">0</span></span>
       <span class="stat-sep">✦</span>
       <span class="stat-item"><span class="stat-label">Ø SCORE</span><span class="stat-value" id="sb-avg">0</span></span>
+      <span class="stat-sep">✦</span>
+      <span class="stat-item stat-rerolls"><span class="stat-label">REROLLS</span><span class="stat-value reroll-val" id="sb-rerolls">2</span></span>
+      <span class="sb-star">★</span>
     </div>
   </div>
 
@@ -107,8 +106,8 @@
         <button class="btn-primary" onclick="confirmLoadout()">
           ✦ LOADOUT BESTÄTIGEN
         </button>
-        <button class="btn-ghost" onclick="handleRandomize()">
-          ↺ NEU WÜRFELN
+        <button class="btn-ghost" id="btn-reroll" onclick="handleReroll()">
+          ↺ NEU WÜRFELN (2)
         </button>
       </div>
     </div>
@@ -278,7 +277,7 @@
         <div class="setting-row">
           <div class="setting-info">
             <span class="setting-name">Medkit verpflichtend</span>
-            <span class="setting-desc">Medkit wird immer ins Loadout aufgenommen (−2 Pts)</span>
+            <span class="setting-desc">Medkit wird immer eingeschlossen (+50 Pts Bonus)</span>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="set-medkit" onchange="saveSetting('medkitRequired', this.checked)">
@@ -289,7 +288,7 @@
         <div class="setting-row">
           <div class="setting-info">
             <span class="setting-name">Nahkampfwaffe verpflichtend</span>
-            <span class="setting-desc">Nahkampf wird immer ins Loadout aufgenommen</span>
+            <span class="setting-desc">Nahkampfwaffe wird immer eingeschlossen (+50 Pts Bonus)</span>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="set-melee" onchange="saveSetting('meleeRequired', this.checked)">
@@ -300,7 +299,7 @@
         <div class="setting-row">
           <div class="setting-info">
             <span class="setting-name">Choke-Bombe verpflichtend</span>
-            <span class="setting-desc">Choke Bomb wird immer eingeschlossen (−1 Pt)</span>
+            <span class="setting-desc">Choke Bomb wird immer eingeschlossen (kein Einfluss auf Score)</span>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="set-choke" onchange="saveSetting('chokeRequired', this.checked)">
@@ -311,7 +310,7 @@
         <div class="setting-row">
           <div class="setting-info">
             <span class="setting-name">Heilspritze verpflichtend</span>
-            <span class="setting-desc">Healing Syringe wird immer eingeschlossen (−1 Pt)</span>
+            <span class="setting-desc">Healing Syringe wird immer eingeschlossen (−20 Pts Strafe)</span>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="set-healsyringe" onchange="saveSetting('healSyringeRequired', this.checked)">
@@ -322,7 +321,7 @@
         <div class="setting-row">
           <div class="setting-info">
             <span class="setting-name">Regenshot verpflichtend</span>
-            <span class="setting-desc">Regen Shot wird immer eingeschlossen (−1 Pt)</span>
+            <span class="setting-desc">Regen Shot wird immer eingeschlossen (−30 Pts Strafe)</span>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="set-regenshot" onchange="saveSetting('regenShotRequired', this.checked)">
@@ -365,16 +364,21 @@
             <span class="sl-row good">Headshot<span>+10 Pts</span></span>
             <span class="sl-row good">Kill<span>+15 Pts</span></span>
             <span class="sl-row good">Wiederbelebung<span>+5 Pts</span></span>
-            <span class="sl-row good">Extraktion<span>+30 Pts</span></span>
+            <span class="sl-row good">Extraktion<span>+5 Pts</span></span>
             <span class="sl-row good">Bounty extrahiert<span>+25 Pts</span></span>
+            <span class="sl-row good">Medkit im Loadout<span>+50 Pts</span></span>
+            <span class="sl-row good">Nahkampf im Loadout<span>+50 Pts</span></span>
+            <span class="sl-row good">Freier Slot (max 2)<span>+50 Pts</span></span>
           </div>
           <div class="score-legend-col">
             <span class="sl-header">NEGATIV</span>
             <span class="sl-row bad">Tod<span>−10 Pts</span></span>
             <span class="sl-row bad">Erster Tod<span>−20 Pts</span></span>
-            <span class="sl-row bad">Spitzer-Munition<span>−2 Pts</span></span>
-            <span class="sl-row bad">FMJ-Munition<span>−1 Pt</span></span>
-            <span class="sl-row bad">High Velocity<span>−1 Pt</span></span>
+            <span class="sl-row bad">Heilspritze im Loadout<span>−20 Pts</span></span>
+            <span class="sl-row bad">Regenshot im Loadout<span>−30 Pts</span></span>
+            <span class="sl-row bad">Spitzer-Munition<span>−5 Pts</span></span>
+            <span class="sl-row bad">FMJ-Munition<span>−5 Pts</span></span>
+            <span class="sl-row bad">High Velocity<span>−5 Pts</span></span>
           </div>
         </div>
       </div>
