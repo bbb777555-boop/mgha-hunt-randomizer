@@ -502,6 +502,7 @@ function showView(name) {
   const isSplash = name === 'splash'
   document.getElementById('stats-bar').classList.toggle('hidden', isSplash)
   document.getElementById('main-nav').classList.toggle('hidden', isSplash)
+  document.getElementById('corner-icon').classList.toggle('hidden', isSplash)
 
   if (!isSplash) { updateStatsBar(); updateNavActive(name) }
   if (name === 'home')    updateHomeUI()
