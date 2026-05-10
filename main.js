@@ -14,13 +14,14 @@ function createWindow() {
       nodeIntegration: false,
     },
     backgroundColor: '#0d0a06',
+    icon: path.join(__dirname, 'assets', 'icon.ico'),
     titleBarStyle: 'hidden',
     titleBarOverlay: {
       color: '#0d0a06',
       symbolColor: '#c8962a',
       height: 36,
     },
-    title: 'MGHA - Make Hunt Great Again!',
+    title: 'MHGA - Make Hunt Great Again!',
   })
 
   win.loadFile(path.join(__dirname, 'src', 'index.html'))

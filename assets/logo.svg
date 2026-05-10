@@ -1,202 +1,198 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="400" height="600">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
   <defs>
-    <!-- Dark teal-black background -->
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%"   stop-color="#0c1614"/>
-      <stop offset="100%" stop-color="#050a09"/>
+    <!-- Aged parchment background -->
+    <linearGradient id="parchment" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#e4d4a8"/>
+      <stop offset="40%"  stop-color="#dcc898"/>
+      <stop offset="100%" stop-color="#c8b47c"/>
     </linearGradient>
-    <!-- Skin tone – desaturated, dark -->
-    <radialGradient id="skin" cx="48%" cy="40%" r="55%">
-      <stop offset="0%"   stop-color="#8a7060"/>
-      <stop offset="55%"  stop-color="#5e4838"/>
-      <stop offset="100%" stop-color="#2e2018"/>
+    <!-- Corner stain -->
+    <radialGradient id="stainTL" cx="0%" cy="0%" r="60%">
+      <stop offset="0%"   stop-color="#b09060" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#b09060" stop-opacity="0"/>
     </radialGradient>
-    <!-- Hat gradient – very dark, worn leather -->
-    <linearGradient id="hat" x1="20%" y1="0%" x2="80%" y2="100%">
-      <stop offset="0%"   stop-color="#1a1810"/>
-      <stop offset="50%"  stop-color="#0e0d08"/>
-      <stop offset="100%" stop-color="#060504"/>
+    <radialGradient id="stainBR" cx="100%" cy="100%" r="60%">
+      <stop offset="0%"   stop-color="#907040" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#907040" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Figure ink gradient – charcoal sketch style -->
+    <linearGradient id="figureGrad" x1="30%" y1="0%" x2="70%" y2="100%">
+      <stop offset="0%"   stop-color="#201810"/>
+      <stop offset="100%" stop-color="#0a0806"/>
     </linearGradient>
-    <!-- Coat gradient -->
-    <linearGradient id="coat" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%"   stop-color="#161412"/>
-      <stop offset="100%" stop-color="#080706"/>
+    <!-- Pointing arm gradient -->
+    <linearGradient id="armGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#181408"/>
+      <stop offset="100%" stop-color="#302818"/>
     </linearGradient>
-    <!-- Vignette overlay -->
-    <radialGradient id="vig" cx="50%" cy="50%" r="70%">
-      <stop offset="35%"  stop-color="#000" stop-opacity="0"/>
-      <stop offset="100%" stop-color="#000" stop-opacity="0.7"/>
-    </radialGradient>
-    <!-- Subtle teal atmospheric glow -->
-    <radialGradient id="glow" cx="50%" cy="42%" r="45%">
-      <stop offset="0%"   stop-color="#1a4a38" stop-opacity="0.14"/>
-      <stop offset="100%" stop-color="#1a4a38" stop-opacity="0"/>
-    </radialGradient>
-    <!-- Red text gradient – dark blood red, poster-style -->
-    <linearGradient id="redTxt" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%"   stop-color="#a01818"/>
-      <stop offset="100%" stop-color="#600808"/>
-    </linearGradient>
-    <!-- Lens gradient -->
-    <radialGradient id="lens" cx="35%" cy="30%" r="60%">
-      <stop offset="0%"   stop-color="#1a2028"/>
-      <stop offset="100%" stop-color="#040608"/>
-    </radialGradient>
   </defs>
 
-  <!-- ═══ BACKGROUND ═══════════════════════════════════════════════════ -->
-  <rect width="400" height="600" fill="url(#bg)"/>
-  <!-- Teal atmospheric glow -->
-  <ellipse cx="200" cy="260" rx="180" ry="230" fill="url(#glow)"/>
-  <!-- Ground fog -->
-  <ellipse cx="200" cy="590" rx="210" ry="35" fill="#081410" opacity="0.7"/>
+  <!-- ═══ PARCHMENT BACKGROUND ══════════════════════════════════════════ -->
+  <rect width="500" height="500" fill="url(#parchment)"/>
+  <!-- Paper stains for aged look -->
+  <rect width="500" height="500" fill="url(#stainTL)"/>
+  <rect width="500" height="500" fill="url(#stainBR)"/>
+  <!-- Subtle horizontal paper grain -->
+  <rect x="0" y="0" width="500" height="500" fill="none" stroke="#c0a870" stroke-width="0.3" opacity="0.15"/>
 
-  <!-- ═══ HAT ═══════════════════════════════════════════════════════════ -->
-  <path d="M 265,172 L 272,22 Q 274,20 272,22 L 265,172 Z" fill="#040403"/>
-  <path d="M 137,172 L 130,22 Q 200,13 270,22 L 263,172 Z" fill="url(#hat)"/>
-  <path d="M 130,22 L 137,172" stroke="#1e1a12" stroke-width="2" fill="none"/>
-  <path d="M 130,22 Q 200,13 270,22" fill="none" stroke="#222018" stroke-width="2.5"/>
-  <path d="M 170,170 Q 172,90 174,26" fill="none" stroke="#080807" stroke-width="2" opacity="0.6"/>
-  <path d="M 230,170 Q 228,90 226,26" fill="none" stroke="#080807" stroke-width="2" opacity="0.5"/>
+  <!-- Grungy paper texture patches -->
+  <ellipse cx="80"  cy="80"  rx="60" ry="40" fill="#b09060" opacity="0.08"/>
+  <ellipse cx="420" cy="90"  rx="55" ry="35" fill="#907040" opacity="0.07"/>
+  <ellipse cx="460" cy="420" rx="50" ry="45" fill="#a08050" opacity="0.09"/>
+  <ellipse cx="50"  cy="440" rx="65" ry="40" fill="#907030" opacity="0.08"/>
 
-  <!-- Hat band – dark burgundy, worn -->
-  <rect x="132" y="148" width="136" height="22" rx="1" fill="#4e0e0e"/>
-  <rect x="132" y="148" width="136" height="3" fill="#6a1414" opacity="0.8"/>
-  <rect x="132" y="167" width="136" height="3" fill="#2a0606" opacity="0.9"/>
-  <!-- Stars – muted aged brass -->
-  <text x="153" y="164" fill="#5a5030" font-size="11" font-family="serif">★</text>
-  <text x="197" y="164" fill="#5a5030" font-size="11" font-family="serif">★</text>
-  <text x="241" y="164" fill="#5a5030" font-size="11" font-family="serif">★</text>
+  <!-- ═══ BORDER STRIPES (Uncle Sam / US poster style) ══════════════════ -->
+  <!-- Outermost frame -->
+  <rect x="8" y="8" width="484" height="484" fill="none" stroke="#1a1810" stroke-width="2"/>
+  <!-- Red outer stripe -->
+  <rect x="12" y="12" width="476" height="476" fill="none" stroke="#b82020" stroke-width="8"/>
+  <!-- White gap -->
+  <rect x="22" y="22" width="456" height="456" fill="none" stroke="#d8c898" stroke-width="4"/>
+  <!-- Navy/blue inner stripe -->
+  <rect x="28" y="28" width="444" height="444" fill="none" stroke="#1e2d6a" stroke-width="8"/>
+  <!-- Inner content border -->
+  <rect x="38" y="38" width="424" height="424" fill="none" stroke="#2a1e10" stroke-width="1.5"/>
 
-  <!-- Hat brim -->
-  <path d="M 66,174 Q 200,162 334,174 Q 316,193 200,198 Q 84,193 66,174 Z" fill="#0c0b08"/>
-  <path d="M 68,176 Q 200,194 332,176 Q 328,200 200,204 Q 72,200 68,176 Z" fill="#050404"/>
-  <path d="M 66,174 Q 200,162 334,174" fill="none" stroke="#1a1810" stroke-width="2.5"/>
+  <!-- ═══ HUNTER FIGURE — dark ink/charcoal style ══════════════════════ -->
 
-  <!-- ═══ UNDER-HAT SHADOW ══════════════════════════════════════════════ -->
-  <path d="M 122,202 Q 200,193 278,202 Q 274,228 200,233 Q 126,228 122,202 Z" fill="#060504" opacity="0.85"/>
+  <!-- --- WIDE-BRIM HAT --- -->
+  <!-- Hat brim – wide, slightly angled -->
+  <ellipse cx="250" cy="118" rx="110" ry="22" fill="#181208"/>
+  <!-- Brim underside shadow -->
+  <ellipse cx="250" cy="122" rx="108" ry="18" fill="#0c0a06"/>
+  <!-- Hat crown -->
+  <path d="M 174,118 L 170,38 Q 250,28 330,38 L 326,118 Z" fill="url(#figureGrad)"/>
+  <!-- Crown top curve -->
+  <path d="M 170,38 Q 250,28 330,38" fill="none" stroke="#0a0806" stroke-width="3"/>
+  <!-- Hat band – dark blood red -->
+  <rect x="172" y="100" width="156" height="18" fill="#5a0e0e"/>
+  <!-- Band highlight -->
+  <rect x="172" y="100" width="156" height="3" fill="#7a1414" opacity="0.7"/>
+  <!-- Small band ornaments (cartridge loops / worn decoration) -->
+  <circle cx="215" cy="109" r="3" fill="#3a0808"/>
+  <circle cx="250" cy="109" r="3" fill="#3a0808"/>
+  <circle cx="285" cy="109" r="3" fill="#3a0808"/>
+  <!-- Brim front shadow line -->
+  <path d="M 144,116 Q 250,108 356,116" fill="none" stroke="#0a0806" stroke-width="2.5"/>
 
-  <!-- ═══ FACE ═══════════════════════════════════════════════════════ -->
-  <path d="M 132,260 Q 130,212 150,200 Q 174,189 200,189 Q 226,189 250,200 Q 270,212 268,260 Q 266,308 248,327 Q 230,342 200,344 Q 170,342 152,327 Q 134,308 132,260 Z" fill="url(#skin)"/>
-
-  <path d="M 132,255 Q 136,230 148,216 Q 140,238 137,268 Q 134,290 136,312 Z" fill="#2a1a10" opacity="0.55"/>
-  <path d="M 268,255 Q 264,230 252,216 Q 260,238 263,268 Q 266,290 264,312 Z" fill="#2a1a10" opacity="0.55"/>
-  <ellipse cx="143" cy="225" rx="14" ry="18" fill="#301e12" opacity="0.5"/>
-  <ellipse cx="257" cy="225" rx="14" ry="18" fill="#301e12" opacity="0.5"/>
+  <!-- --- FACE / HEAD --- -->
+  <path d="M 184,192 Q 182,148 198,136 Q 220,126 250,126 Q 280,126 302,136 Q 318,148 316,192 Q 314,232 298,248 Q 278,260 250,262 Q 222,260 202,248 Q 186,232 184,192 Z" fill="#6a5040"/>
+  <!-- Face shadow sides -->
+  <path d="M 184,188 Q 188,158 202,142 Q 190,162 188,196 Q 186,218 190,238 Z" fill="#2e1c10" opacity="0.5"/>
+  <path d="M 316,188 Q 312,158 298,142 Q 310,162 312,196 Q 314,218 310,238 Z" fill="#2e1c10" opacity="0.5"/>
 
   <!-- Heavy brow ridge -->
-  <path d="M 144,232 Q 166,223 195,226 Q 205,225 234,223 Q 258,224 262,232 Q 256,244 200,248 Q 144,246 144,232 Z" fill="#1c1008"/>
-  <path d="M 148,228 Q 170,221 196,224" fill="none" stroke="#2a1606" stroke-width="1.5" opacity="0.5"/>
-  <path d="M 252,225 Q 234,221 204,224" fill="none" stroke="#2a1606" stroke-width="1.5" opacity="0.5"/>
+  <path d="M 196,166 Q 216,158 246,160 Q 256,159 284,158 Q 306,159 308,166 Q 303,178 250,181 Q 196,179 196,166 Z" fill="#1c1008"/>
 
-  <!-- ═══ SUNGLASSES ═══════════════════════════════════════════════════ -->
-  <ellipse cx="172" cy="263" rx="34" ry="29" fill="#161010" stroke="#261a16" stroke-width="2.5"/>
-  <ellipse cx="228" cy="263" rx="34" ry="29" fill="#161010" stroke="#261a16" stroke-width="2.5"/>
-  <ellipse cx="172" cy="263" rx="30" ry="25" fill="url(#lens)"/>
-  <ellipse cx="228" cy="263" rx="30" ry="25" fill="url(#lens)"/>
-  <ellipse cx="159" cy="252" rx="9" ry="7" fill="#1a2a38" opacity="0.5"/>
-  <ellipse cx="215" cy="252" rx="9" ry="7" fill="#1a2a38" opacity="0.5"/>
-  <path d="M 164,274 Q 172,280 180,274" fill="none" stroke="#0c1820" stroke-width="1.5" opacity="0.35"/>
-  <path d="M 220,274 Q 228,280 236,274" fill="none" stroke="#0c1820" stroke-width="1.5" opacity="0.35"/>
-  <path d="M 202,260 Q 200,256 198,260" fill="none" stroke="#201e18" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M 138,260 Q 120,258 112,251" fill="none" stroke="#201e18" stroke-width="3" stroke-linecap="round"/>
-  <path d="M 262,260 Q 280,258 288,251" fill="none" stroke="#201e18" stroke-width="3" stroke-linecap="round"/>
+  <!-- ── ROUND SUNGLASSES ── -->
+  <!-- Left lens frame -->
+  <ellipse cx="222" cy="196" rx="34" ry="28" fill="#0e0c08" stroke="#1e1810" stroke-width="2.5"/>
+  <!-- Right lens frame -->
+  <ellipse cx="278" cy="196" rx="34" ry="28" fill="#0e0c08" stroke="#1e1810" stroke-width="2.5"/>
+  <!-- Lenses (very dark, barely reflective) -->
+  <ellipse cx="222" cy="196" rx="29" ry="23" fill="#080808"/>
+  <ellipse cx="278" cy="196" rx="29" ry="23" fill="#080808"/>
+  <!-- Subtle lens reflection -->
+  <ellipse cx="212" cy="187" rx="8" ry="6" fill="#14202c" opacity="0.5"/>
+  <ellipse cx="268" cy="187" rx="8" ry="6" fill="#14202c" opacity="0.5"/>
+  <!-- Nose bridge -->
+  <path d="M 252,194 Q 250,190 248,194" fill="none" stroke="#1a1410" stroke-width="4" stroke-linecap="round"/>
+  <!-- Temple arms -->
+  <path d="M 188,192 Q 170,188 158,178" fill="none" stroke="#1c1810" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M 312,192 Q 330,188 342,178" fill="none" stroke="#1c1810" stroke-width="3.5" stroke-linecap="round"/>
 
-  <!-- ═══ NOSE ══════════════════════════════════════════════════════════ -->
-  <path d="M 197,282 Q 194,296 192,308 Q 196,316 200,317 Q 204,316 208,308 Q 206,296 203,282 Z" fill="#4a2e18"/>
-  <path d="M 187,308 Q 192,317 200,319 Q 208,317 213,308 Q 209,314 200,316 Q 191,314 187,308 Z" fill="#3a2010"/>
+  <!-- Nose -->
+  <path d="M 246,214 Q 242,228 240,238 Q 244,244 250,245 Q 256,244 260,238 Q 258,228 254,214 Z" fill="#4a2e18"/>
+  <path d="M 236,238 Q 242,247 250,248 Q 258,247 264,238 Q 258,243 250,244 Q 242,243 236,238 Z" fill="#3a2010"/>
 
-  <!-- ═══ MUSTACHE ═══════════════════════════════════════════════════ -->
-  <path d="M 179,317 Q 188,311 200,314 Q 212,311 221,317 Q 217,325 210,322 Q 205,319 200,321 Q 195,319 190,322 Q 183,325 179,317 Z" fill="#160c04"/>
+  <!-- Mustache – heavy, dark -->
+  <path d="M 228,248 Q 238,242 250,245 Q 262,242 272,248 Q 268,256 261,253 Q 255,250 250,252 Q 245,250 239,253 Q 232,256 228,248 Z" fill="#100808"/>
 
-  <!-- ═══ BEARD ═══════════════════════════════════════════════════════ -->
-  <path d="M 135,307 Q 143,320 150,332 Q 160,350 166,372 Q 174,395 182,410 Q 191,422 200,425 Q 209,422 218,410 Q 226,395 234,372 Q 240,350 250,332 Q 257,320 265,307 Q 270,330 266,356 Q 258,386 243,404 Q 225,420 200,424 Q 175,420 157,404 Q 142,386 134,356 Q 130,330 135,307 Z" fill="#140e06"/>
-  <path d="M 157,330 Q 163,355 168,380 Q 174,400 180,413" fill="none" stroke="#1e1206" stroke-width="1.5" opacity="0.7"/>
-  <path d="M 165,326 Q 171,352 176,378 Q 182,400 188,416" fill="none" stroke="#1e1206" stroke-width="1.2" opacity="0.5"/>
-  <path d="M 243,330 Q 237,355 232,380 Q 226,400 220,413" fill="none" stroke="#1e1206" stroke-width="1.5" opacity="0.7"/>
-  <path d="M 235,326 Q 229,352 224,378 Q 218,400 212,416" fill="none" stroke="#1e1206" stroke-width="1.2" opacity="0.5"/>
-  <path d="M 135,307 Q 126,324 123,344 Q 120,364 127,382 Q 135,400 145,413" fill="none" stroke="#140e06" stroke-width="5" stroke-linecap="round" opacity="0.75"/>
-  <path d="M 265,307 Q 274,324 277,344 Q 280,364 273,382 Q 265,400 255,413" fill="none" stroke="#140e06" stroke-width="5" stroke-linecap="round" opacity="0.75"/>
+  <!-- BEARD – dense, dark, full Hunter beard -->
+  <path d="M 188,232 Q 194,248 200,262 Q 210,282 216,305 Q 224,330 232,348 Q 241,362 250,366 Q 259,362 268,348 Q 276,330 284,305 Q 290,282 300,262 Q 306,248 312,232 Q 318,256 314,284 Q 306,318 290,340 Q 272,358 250,362 Q 228,358 210,340 Q 194,318 186,284 Q 182,256 188,232 Z" fill="#120c06"/>
+  <!-- Beard strand texture -->
+  <path d="M 206,258 Q 212,285 218,312 Q 224,335 230,350" fill="none" stroke="#1c1408" stroke-width="1.5" opacity="0.7"/>
+  <path d="M 214,255 Q 220,283 226,310 Q 232,334 238,350" fill="none" stroke="#1a1208" stroke-width="1.2" opacity="0.5"/>
+  <path d="M 294,258 Q 288,285 282,312 Q 276,335 270,350" fill="none" stroke="#1c1408" stroke-width="1.5" opacity="0.7"/>
+  <path d="M 286,255 Q 280,283 274,310 Q 268,334 262,350" fill="none" stroke="#1a1208" stroke-width="1.2" opacity="0.5"/>
 
-  <!-- ═══ NECK ════════════════════════════════════════════════════════ -->
-  <path d="M 170,410 L 173,430 L 180,440 Q 200,445 220,440 L 227,430 L 230,410" fill="#5a3818"/>
-  <path d="M 170,410 L 173,430 L 180,440" fill="none" stroke="#382010" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+  <!-- NECK -->
+  <path d="M 216,342 L 220,364 L 226,374 Q 250,380 274,374 L 280,364 L 284,342" fill="#5a3820"/>
 
-  <!-- ═══ COAT COLLAR ════════════════════════════════════════════════ -->
-  <path d="M 108,450 Q 132,435 170,423 L 180,440 L 187,452 Q 176,464 160,466 Q 138,467 108,450 Z" fill="#0c0a08"/>
-  <path d="M 292,450 Q 268,435 230,423 L 220,440 L 213,452 Q 224,464 240,466 Q 262,467 292,450 Z" fill="#0c0a08"/>
-  <path d="M 170,423 L 180,440 L 187,452" fill="none" stroke="#161208" stroke-width="1.5" opacity="0.6"/>
-  <path d="M 230,423 L 220,440 L 213,452" fill="none" stroke="#161208" stroke-width="1.5" opacity="0.6"/>
-  <path d="M 183,441 Q 200,437 217,441 L 214,453 Q 200,448 186,453 Z" fill="#181408" opacity="0.6"/>
+  <!-- COAT / BODY -->
+  <!-- Left body -->
+  <path d="M 40,460 L 40,390 Q 80,378 132,382 Q 174,386 210,390 L 214,460 Z" fill="url(#figureGrad)"/>
+  <!-- Right body -->
+  <path d="M 460,460 L 460,390 Q 420,378 368,382 Q 326,386 290,390 L 286,460 Z" fill="url(#figureGrad)"/>
+  <!-- Center panel -->
+  <path d="M 210,390 Q 250,388 290,390 L 294,460 L 206,460 Z" fill="#100e08"/>
 
-  <!-- ═══ COAT BODY ══════════════════════════════════════════════════ -->
-  <path d="M 0,535 L 0,462 Q 38,455 88,458 Q 130,460 165,465 L 170,535 Z" fill="url(#coat)"/>
-  <path d="M 400,535 L 400,462 Q 362,455 312,458 Q 270,460 235,465 L 230,535 Z" fill="url(#coat)"/>
-  <path d="M 165,465 Q 200,462 235,465 L 240,535 L 160,535 Z" fill="#100e0a"/>
-  <line x1="200" y1="463" x2="200" y2="535" stroke="#080806" stroke-width="2"/>
-  <path d="M 78,464 Q 85,495 88,535" fill="none" stroke="#080806" stroke-width="1.5" opacity="0.5"/>
-  <path d="M 322,464 Q 315,495 312,535" fill="none" stroke="#080806" stroke-width="1.5" opacity="0.5"/>
+  <!-- Left lapel -->
+  <path d="M 130,390 Q 156,376 210,366 L 220,382 L 228,396 Q 215,408 194,410 Q 168,411 130,390 Z" fill="#0e0c08"/>
+  <!-- Right lapel -->
+  <path d="M 370,390 Q 344,376 290,366 L 280,382 L 272,396 Q 285,408 306,410 Q 332,411 370,390 Z" fill="#0e0c08"/>
 
-  <!-- ═══ POINTING ARM ═════════════════════════════════════════════════ -->
-  <path d="M 112,453 Q 90,463 70,484 Q 53,503 42,524 Q 38,530 40,535 L 66,535 Q 70,528 84,514 Q 100,496 118,480 Q 134,465 148,460 Z" fill="url(#coat)"/>
-  <path d="M 42,524 Q 58,518 78,512 Q 98,507 114,502 Q 128,497 138,494 Q 132,510 120,521 Q 106,533 88,537 Q 68,539 48,533 Z" fill="#0e0c08"/>
-  <path d="M 114,502 Q 130,496 148,494 Q 166,494 179,501 Q 189,508 187,521 Q 184,534 171,539 Q 156,544 140,541 Q 124,536 114,526 Q 108,517 114,502 Z" fill="#483018"/>
-  <path d="M 120,506 Q 138,500 158,500 Q 172,502 180,510" fill="none" stroke="#342010" stroke-width="1.5" opacity="0.5"/>
-  <path d="M 150,494 Q 160,477 171,463 Q 179,452 185,450 Q 192,453 190,464 Q 184,474 175,485 Q 166,494 158,500 Z" fill="#583820"/>
-  <path d="M 160,478 Q 165,472 171,466" fill="none" stroke="#3a2010" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
-  <path d="M 155,485 Q 160,479 166,473" fill="none" stroke="#3a2010" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-  <path d="M 180,453 Q 186,449 191,453 Q 189,460 184,462 Q 180,459 180,453 Z" fill="#382010"/>
-  <path d="M 112,504 Q 130,498 150,498 Q 164,498 174,504 Q 170,510 158,512 Q 140,515 120,511 Q 112,508 112,504 Z" fill="#181410"/>
-  <circle cx="118" cy="507" r="3.5" fill="#201810"/>
-  <circle cx="118" cy="507" r="1.5" fill="#120e08"/>
-  <circle cx="125" cy="505" r="3" fill="#1c1610"/>
+  <!-- ── POINTING ARM – foreshortened toward viewer (left side of image) ── -->
+  <!-- Upper sleeve, angled out -->
+  <path d="M 136,386 Q 110,396 88,418 Q 70,438 58,458 Q 55,462 57,466 L 82,466 Q 86,460 100,444 Q 116,426 138,410 Q 154,398 170,392 Z" fill="url(#figureGrad)"/>
+  <!-- Forearm sleeve (foreshortened, getting wider) -->
+  <path d="M 58,458 Q 76,452 98,446 Q 120,440 136,436 Q 126,452 112,462 Q 96,472 76,474 Q 56,474 44,466 Z" fill="#100e08"/>
+  <!-- HAND – large, close to viewer, pointing finger -->
+  <path d="M 136,436 Q 154,430 174,430 Q 192,430 205,438 Q 214,446 212,460 Q 208,474 194,478 Q 178,482 160,478 Q 143,472 134,460 Q 128,450 136,436 Z" fill="#6a4828"/>
+  <!-- Pointing finger extended toward viewer -->
+  <path d="M 157,430 Q 168,412 180,396 Q 188,384 195,382 Q 202,384 200,396 Q 194,408 184,420 Q 174,430 163,436 Z" fill="#7a5832"/>
+  <!-- Knuckle lines -->
+  <path d="M 168,416 Q 174,410 180,402" fill="none" stroke="#4a3018" stroke-width="2" stroke-linecap="round"/>
+  <!-- Fingernail -->
+  <path d="M 190,384 Q 196,380 200,384 Q 198,392 192,394 Z" fill="#5a3818"/>
+  <!-- Cuff -->
+  <path d="M 134,438 Q 154,432 174,432 Q 188,432 200,440 Q 196,446 184,448 Q 164,451 140,447 Q 132,443 134,438 Z" fill="#181410"/>
+  <!-- Cuff button -->
+  <circle cx="142" cy="442" r="4" fill="#201810"/>
+  <circle cx="142" cy="442" r="1.8" fill="#100c08"/>
 
-  <!-- ═══ RIGHT ARM ══════════════════════════════════════════════════ -->
-  <path d="M 288,453 Q 308,463 322,480 Q 334,496 340,514 L 322,518 Q 318,502 306,488 Q 295,475 276,465 Z" fill="url(#coat)"/>
+  <!-- Coat crease lines -->
+  <path d="M 92,394 Q 98,420 102,460" fill="none" stroke="#0a0806" stroke-width="1.5" opacity="0.5"/>
+  <path d="M 410,394 Q 404,420 402,460" fill="none" stroke="#0a0806" stroke-width="1.5" opacity="0.5"/>
 
-  <!-- ═══ VIGNETTE ═══════════════════════════════════════════════════ -->
-  <rect width="400" height="600" fill="url(#vig)"/>
+  <!-- ── SLIGHT INK TEXTURE OVERLAY on figure ── -->
+  <path d="M 220,140 Q 218,160 220,180" fill="none" stroke="#0c0a06" stroke-width="1" opacity="0.3"/>
+  <path d="M 280,140 Q 282,160 280,180" fill="none" stroke="#0c0a06" stroke-width="1" opacity="0.3"/>
 
-  <!-- ═══ POSTER BORDER ═════════════════════════════════════════════ -->
-  <rect x="7" y="7" width="386" height="586" fill="none" stroke="#1e3830" stroke-width="2.5"/>
-  <rect x="12" y="12" width="376" height="576" fill="none" stroke="#0e2018" stroke-width="1"/>
-  <!-- Corner ornaments – muted teal-brass -->
-  <text x="14" y="30"  fill="#3a5040" font-size="14" font-family="serif">✦</text>
-  <text x="372" y="30"  fill="#3a5040" font-size="14" font-family="serif">✦</text>
-  <text x="14" y="595" fill="#3a5040" font-size="14" font-family="serif">✦</text>
-  <text x="372" y="595" fill="#3a5040" font-size="14" font-family="serif">✦</text>
+  <!-- ═══ TEXT SECTION ══════════════════════════════════════════════════ -->
+  <!-- Separator line above text -->
+  <path d="M 44,356 L 456,356" stroke="#1e1810" stroke-width="1.5" fill="none"/>
 
-  <!-- ═══ PARTICLES – teal-grey dust ════════════════════════════════ -->
-  <circle cx="50"  cy="140" r="1.5" fill="#2a4840" opacity="0.25"/>
-  <circle cx="345" cy="170" r="1.5" fill="#2a4840" opacity="0.2"/>
-  <circle cx="68"  cy="290" r="1"   fill="#2a4840" opacity="0.18"/>
-  <circle cx="358" cy="330" r="1"   fill="#2a4840" opacity="0.15"/>
-  <circle cx="42"  cy="230" r="2"   fill="#2a4840" opacity="0.12"/>
-  <circle cx="370" cy="260" r="1.5" fill="#2a4840" opacity="0.1"/>
+  <!-- "I WANT" – left side, large -->
+  <text x="58" y="400"
+        font-family="'Rye', 'Alfa Slab One', 'Palatino Linotype', serif"
+        font-size="44" font-weight="900" letter-spacing="1"
+        fill="#1a1208">I WANT</text>
 
-  <!-- ═══ TEXT SECTION ══════════════════════════════════════════════ -->
-  <path d="M 20,540 Q 200,537 380,540" fill="none" stroke="#1e3828" stroke-width="1.5"/>
-  <text x="200" y="538" text-anchor="middle" fill="#1a2820" font-size="10" font-family="serif">— ✦ —</text>
+  <!-- "YOU" – right side, very large, bold -->
+  <text x="264" y="395"
+        font-family="'Rye', 'Alfa Slab One', 'Palatino Linotype', serif"
+        font-size="68" font-weight="900" letter-spacing="-1"
+        fill="#1a1208">YOU</text>
 
-  <!-- "I WANT YOU" – blood red poster -->
-  <text x="202" y="572"
-        text-anchor="middle"
-        font-family="'Cormorant SC', 'Palatino Linotype', serif"
-        font-size="50" font-weight="900" letter-spacing="1"
-        fill="#300606" opacity="0.6">I WANT YOU</text>
-  <text x="200" y="570"
-        text-anchor="middle"
-        font-family="'Cormorant SC', 'Palatino Linotype', serif"
-        font-size="50" font-weight="900" letter-spacing="1"
-        fill="url(#redTxt)"
-        stroke="#280404" stroke-width="0.8">I WANT YOU</text>
+  <!-- "TO MAKE" – left, medium -->
+  <text x="58" y="438"
+        font-family="'Rye', 'Alfa Slab One', 'Palatino Linotype', serif"
+        font-size="34" font-weight="900" letter-spacing="1"
+        fill="#1a1208">TO MAKE</text>
 
-  <!-- Subtext – muted teal-brass -->
-  <text x="200" y="590"
-        text-anchor="middle"
-        font-family="'Cormorant Garamond', 'Palatino Linotype', serif"
-        font-size="13.5" font-weight="700" letter-spacing="2.5"
-        fill="#5a7860">TO MAKE HUNT GREAT AGAIN!</text>
+  <!-- "HUNT" – large block letters left -->
+  <text x="44" y="480"
+        font-family="'Rye', 'Alfa Slab One', 'Palatino Linotype', serif"
+        font-size="68" font-weight="900" letter-spacing="2"
+        fill="#1a1208">HUNT</text>
 
-  <path d="M 20,596 Q 200,593 380,596" fill="none" stroke="#0e2018" stroke-width="1"/>
+  <!-- "GREAT AGAIN!" – right/lower, medium -->
+  <text x="234" y="480"
+        font-family="'Rye', 'Alfa Slab One', 'Palatino Linotype', serif"
+        font-size="32" font-weight="900" letter-spacing="0.5"
+        fill="#1a1208">GREAT AGAIN!</text>
+
+  <!-- Separator line below text -->
+  <path d="M 44,488 L 456,488" stroke="#1e1810" stroke-width="1" fill="none"/>
 </svg>

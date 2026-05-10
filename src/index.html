@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MGHA - Make Hunt Great Again!</title>
+  <title>MHGA - Make Hunt Great Again!</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+SC:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rye&family=Alfa+Slab+One&family=Arbutus+Slab&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,9 +15,9 @@
     <div class="splash-bg"></div>
     <div class="splash-content">
       <div class="splash-logo-wrap">
-        <img class="splash-logo-svg" src="../assets/logo.svg" alt="MGHA Logo" draggable="false"/>
+        <img class="splash-logo-svg" src="../assets/Logo.png" alt="MHGA Logo" draggable="false"/>
       </div>
-      <h1 class="splash-title">MGHA</h1>
+      <h1 class="splash-title">MHGA</h1>
       <p class="splash-subtitle">Make Hunt Great Again!</p>
       <div class="splash-loading">
         <div class="loading-bar"><div class="loading-fill"></div></div>
@@ -48,6 +48,9 @@
     </button>
     <button class="nav-btn" onclick="showView('settings')" data-view="settings">
       <span class="nav-icon">⚙</span> EINSTELLUNGEN
+    </button>
+    <button class="nav-btn" onclick="showView('arsenal')" data-view="arsenal">
+      <span class="nav-icon">⚒</span> ARSENAL
     </button>
   </nav>
 
@@ -341,6 +344,17 @@
             <span class="toggle-slider"></span>
           </label>
         </div>
+
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-name">Quartermaster</span>
+            <span class="setting-desc">Large + Medium Loadout statt Large/Medium + Small</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="set-quartermaster" onchange="saveSetting('quartermasterEnabled', this.checked)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
       </div>
 
       <div class="settings-section settings-score-info">
@@ -370,6 +384,21 @@
         <button class="btn-danger" onclick="confirmResetData()">
           ☠ ALLE DATEN LÖSCHEN
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ ARSENAL ══ -->
+  <div id="view-arsenal" class="view hidden">
+    <div class="view-content">
+      <div class="view-header">
+        <div class="ornament-line"></div>
+        <h2 class="view-title">ARSENAL</h2>
+        <p class="view-subtitle">Waffen · Munition · Punktewerte</p>
+        <div class="ornament-line"></div>
+      </div>
+      <div id="arsenal-content">
+        <!-- rendered by JS -->
       </div>
     </div>
   </div>

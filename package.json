@@ -4,8 +4,8 @@
   "description": "Hunt: Showdown Loadout Randomizer",
   "main": "main.js",
   "scripts": {
-    "start": "node launch.js",
-    "dev": "node launch.js --dev",
+    "start": "electron .",
+    "dev": "electron . --dev",
     "build": "electron-builder --win --x64"
   },
   "devDependencies": {
@@ -15,7 +15,7 @@
   },
   "build": {
     "appId": "com.hunt.randomizer",
-    "productName": "MGHA - Make Hunt Great Again!",
+    "productName": "MHGA - Make Hunt Great Again!",
     "directories": {
       "output": "dist"
     },
@@ -26,19 +26,15 @@
       "assets/**/*"
     ],
     "win": {
+      "icon": "assets/icon.ico",
       "target": [
         {
-          "target": "nsis",
+          "target": "portable",
           "arch": [
             "x64"
           ]
         }
       ]
-    },
-    "nsis": {
-      "oneClick": true,
-      "allowToChangeInstallationDirectory": false,
-      "createDesktopShortcut": true
     }
   }
 }
