@@ -8,23 +8,25 @@ function createWindow() {
     height: 820,
     minWidth: 900,
     minHeight: 650,
+    show: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
       nodeIntegration: false,
     },
-    backgroundColor: '#0d0a06',
+    backgroundColor: '#ede0c0',
     icon: path.join(__dirname, 'assets', 'icon.ico'),
     titleBarStyle: 'hidden',
     titleBarOverlay: {
-      color: '#0d0a06',
-      symbolColor: '#c8962a',
+      color: '#1a2d6a',
+      symbolColor: '#f5ecd6',
       height: 36,
     },
     title: 'MHGA - Make Hunt Great Again!',
   })
 
   win.loadFile(path.join(__dirname, 'src', 'index.html'))
+  win.webContents.once('did-finish-load', () => { win.show() })
 
   if (process.argv.includes('--dev')) {
     win.webContents.openDevTools()

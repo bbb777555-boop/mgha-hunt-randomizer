@@ -22,7 +22,7 @@
 
   <!-- ═══════════════════════════════════════════════ CORNER ICON ══ -->
   <div id="corner-icon" class="hidden">
-    <img src="../assets/Small_Icon.png" alt="" draggable="false"/>
+    <img src="../assets/Logo.png" alt="" draggable="false"/>
   </div>
 
   <!-- ═══════════════════════════════════════════════════════ STATS BAR ══ -->
@@ -33,7 +33,7 @@
       <span class="stat-sep">✦</span>
       <span class="stat-item"><span class="stat-label">K/D</span><span class="stat-value" id="sb-kd">—</span></span>
       <span class="stat-sep">✦</span>
-      <span class="stat-item"><span class="stat-label">RUNDEN</span><span class="stat-value" id="sb-rounds">0</span></span>
+      <span class="stat-item"><span class="stat-label" data-i18n="sb_rounds">RUNDEN</span><span class="stat-value" id="sb-rounds">0</span></span>
       <span class="stat-sep">✦</span>
       <span class="stat-item"><span class="stat-label">Ø SCORE</span><span class="stat-value" id="sb-avg">0</span></span>
       <span class="stat-sep">✦</span>
@@ -45,17 +45,21 @@
   <!-- ════════════════════════════════════════════════════ NAVIGATION ══ -->
   <nav id="main-nav" class="hidden">
     <button class="nav-btn" onclick="showView('home')" data-view="home">
-      <span class="nav-icon">⚔</span> HOME
+      <span class="nav-icon">⚔</span> <span data-i18n="nav_home">HOME</span>
     </button>
     <button class="nav-btn" onclick="showView('history')" data-view="history">
-      <span class="nav-icon">📜</span> HISTORIK
+      <span class="nav-icon">📜</span> <span data-i18n="nav_history">HISTORIK</span>
     </button>
     <button class="nav-btn" onclick="showView('settings')" data-view="settings">
-      <span class="nav-icon">⚙</span> EINSTELLUNGEN
+      <span class="nav-icon">⚙</span> <span data-i18n="nav_settings">EINSTELLUNGEN</span>
     </button>
     <button class="nav-btn" onclick="showView('arsenal')" data-view="arsenal">
-      <span class="nav-icon">⚒</span> ARSENAL
+      <span class="nav-icon">⚒</span> <span data-i18n="nav_arsenal">ARSENAL</span>
     </button>
+    <div class="lang-toggle">
+      <button class="lang-btn lang-btn--active" data-lang="de" onclick="setLang('de')" title="Deutsch">🇩🇪</button>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')" title="English">🇬🇧</button>
+    </div>
   </nav>
 
   <!-- ════════════════════════════════════════════════════════ HOME ══ -->
@@ -69,16 +73,16 @@
       </div>
       <div class="home-actions">
         <div id="active-run-banner" class="active-run-banner hidden">
-          <span class="active-run-label">✦ AKTIVER LAUF ✦</span>
+          <span class="active-run-label" data-i18n="home_active">✦ AKTIVER LAUF ✦</span>
           <span class="active-run-rounds" id="active-run-info">0 Runden gespielt</span>
         </div>
         <button class="btn-primary btn-huge" onclick="handleRandomize()">
           <span class="btn-skull">☠</span>
           <span class="btn-text">RANDOMIZE</span>
-          <span class="btn-subtitle">Loadout auswürfeln</span>
+          <span class="btn-subtitle" data-i18n="home_rnd_sub">Loadout auswürfeln</span>
         </button>
         <div class="home-secondary-btns">
-          <button class="btn-secondary" onclick="handleEndRun()" id="btn-end-run" style="display:none">
+          <button class="btn-secondary" onclick="handleEndRun()" id="btn-end-run" style="display:none" data-i18n="home_end_run">
             LAUF BEENDEN
           </button>
         </div>
@@ -92,7 +96,7 @@
     <div class="view-content">
       <div class="view-header">
         <div class="ornament-line"></div>
-        <h2 class="view-title">DEIN LOADOUT</h2>
+        <h2 class="view-title" data-i18n="lo_title">DEIN LOADOUT</h2>
         <p class="view-subtitle" id="loadout-round-label">Runde 1</p>
         <div class="ornament-line"></div>
       </div>
@@ -101,19 +105,86 @@
         <!-- rendered by JS -->
       </div>
 
-      <div class="loadout-score-banner">
-        <span class="score-label">LOADOUT SCHWIERIGKEIT</span>
-        <span class="score-value" id="loadout-base-score">0</span>
-        <span class="score-label">PUNKTE</span>
-      </div>
-
-      <div class="loadout-actions">
-        <button class="btn-primary" onclick="confirmLoadout()">
+      <div id="loadout-actions-bar" class="loadout-actions">
+        <button class="btn-primary" onclick="confirmLoadout()" data-i18n="lo_confirm">
           ✦ LOADOUT BESTÄTIGEN
         </button>
         <button class="btn-ghost" id="btn-reroll" onclick="handleReroll()">
           ↺ NEU WÜRFELN (2)
         </button>
+        <!-- btn-reroll text is set dynamically by renderLoadout() -->
+      </div>
+
+      <!-- ── Inline results panel (shown after confirming loadout) ── -->
+      <div id="inline-results-panel" class="hidden">
+        <div class="ornament-line" style="margin-top:1.2rem"></div>
+        <h3 class="inline-results-title" data-i18n="res_title">RUNDEN ERGEBNIS</h3>
+        <p class="inline-results-hint" data-i18n="res_hint">Auf Munition klicken = +1 · Rechtsklick = −1</p>
+
+        <div class="ric-grid ric-grid-5">
+          <div class="ric" onclick="adjustResult('stylishKills',1)" oncontextmenu="ctxResult(event,'stylishKills')">
+            <div class="ric-icon">✦</div>
+            <div class="ric-count" id="res-stylishKills">0</div>
+            <div class="ric-label" data-i18n="res_stylish">Stylish Kill</div>
+            <div class="ric-pts" data-i18n="res_pts_stylish">+50 / Kill</div>
+          </div>
+          <div class="ric ric--has-tip" onclick="adjustResult('foreignKills',1)" oncontextmenu="ctxResult(event,'foreignKills')">
+            <div class="ric-icon">⚔</div>
+            <div class="ric-count" id="res-foreignKills">0</div>
+            <div class="ric-label" data-i18n="res_foreign">Fremde Waffe</div>
+            <div class="ric-pts" data-i18n="res_pts_foreign">+100 / Kill</div>
+            <div class="ric-tip" data-i18n="res_foreign_tip">Eine aufgehobene Waffe, die nicht im Loadout-Randomizer enthalten war.</div>
+          </div>
+          <div class="ric" onclick="adjustResult('headshots',1)" oncontextmenu="ctxResult(event,'headshots')">
+            <div class="ric-icon">🎯</div>
+            <div class="ric-count" id="res-headshots">0</div>
+            <div class="ric-label" data-i18n="res_headshots">Headshots</div>
+            <div class="ric-pts" data-i18n="res_pts_headshots">+50 / HS</div>
+          </div>
+          <div class="ric" onclick="adjustResult('deaths',1)" oncontextmenu="ctxResult(event,'deaths')">
+            <div class="ric-icon">💀</div>
+            <div class="ric-count" id="res-deaths">0</div>
+            <div class="ric-label" data-i18n="res_deaths">Tode</div>
+            <div class="ric-pts" data-i18n="res_pts_deaths">−50 / Tod</div>
+          </div>
+          <div class="ric" onclick="adjustBounties(1)" oncontextmenu="ctxBounties(event)">
+            <div class="ric-icon">★</div>
+            <div class="ric-count" id="res-bounties">0</div>
+            <div class="ric-label" data-i18n="res_bounties">Bounties</div>
+            <div class="ric-pts" data-i18n="res_pts_bounties">+100 / Stück</div>
+          </div>
+        </div>
+
+        <div class="results-toggles">
+          <div class="result-row result-row-toggle">
+            <span class="result-label" data-i18n="res_first_death">Erster Tod (−100)</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="res-first-death" onchange="updateToggle('firstDeath', this.checked)">
+              <span class="toggle-slider"></span>
+              <span class="toggle-label-on" data-i18n="res_yes">JA</span>
+              <span class="toggle-label-off" data-i18n="res_no">NEIN</span>
+            </label>
+          </div>
+          <div class="result-row result-row-toggle">
+            <span class="result-label" data-i18n="res_failed_extract">Extraktion fehlgeschlagen (÷2)</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="res-failed-extract" onchange="updateToggle('failedExtract', this.checked)">
+              <span class="toggle-slider"></span>
+              <span class="toggle-label-on" data-i18n="res_yes">JA</span>
+              <span class="toggle-label-off" data-i18n="res_no">NEIN</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="results-preview">
+          <span class="preview-label" data-i18n="res_preview">VORAUSSICHTLICHE PUNKTE:</span>
+          <span class="preview-score" id="preview-score">0</span>
+          <div class="preview-breakdown-tooltip" id="preview-breakdown-tooltip"></div>
+        </div>
+
+        <div class="loadout-actions" style="margin-top:1.2rem">
+          <button class="btn-primary" onclick="submitResults()" data-i18n="res_confirm">✦ ERGEBNIS BESTÄTIGEN</button>
+        </div>
       </div>
     </div>
   </div>
@@ -121,77 +192,7 @@
   <!-- ══════════════════════════════════════════════════ RESULTS VIEW ══ -->
   <div id="view-results" class="view hidden">
     <div class="view-content">
-      <div class="view-header">
-        <div class="ornament-line"></div>
-        <h2 class="view-title">RUNDEN ERGEBNIS</h2>
-        <p class="view-subtitle" id="results-round-label">Runde 1</p>
-        <div class="ornament-line"></div>
-      </div>
-
-      <div class="results-loadout-summary" id="results-loadout-summary">
-        <!-- short loadout recap -->
-      </div>
-
-      <p class="ric-hint">Linksklick = +1 · Rechtsklick = −1</p>
-      <div class="ric-grid">
-        <div class="ric" onclick="adjustResult('headshots',1)" oncontextmenu="ctxResult(event,'headshots')">
-          <div class="ric-icon">🎯</div>
-          <div class="ric-count" id="res-headshots">0</div>
-          <div class="ric-label">Headshots</div>
-        </div>
-        <div class="ric" onclick="adjustResult('kills',1)" oncontextmenu="ctxResult(event,'kills')">
-          <div class="ric-icon">☠</div>
-          <div class="ric-count" id="res-kills">0</div>
-          <div class="ric-label">Kills</div>
-        </div>
-        <div class="ric" onclick="adjustResult('deaths',1)" oncontextmenu="ctxResult(event,'deaths')">
-          <div class="ric-icon">💀</div>
-          <div class="ric-count" id="res-deaths">0</div>
-          <div class="ric-label">Tode</div>
-        </div>
-        <div class="ric" onclick="adjustResult('revives',1)" oncontextmenu="ctxResult(event,'revives')">
-          <div class="ric-icon">✚</div>
-          <div class="ric-count" id="res-revives">0</div>
-          <div class="ric-label">Wiederbelebungen</div>
-        </div>
-        <div class="ric" onclick="adjustResult('bounties',1)" oncontextmenu="ctxResult(event,'bounties')">
-          <div class="ric-icon">★</div>
-          <div class="ric-count" id="res-bounties">0</div>
-          <div class="ric-label">Bounties</div>
-        </div>
-      </div>
-
-      <div class="results-toggles">
-        <div class="result-row result-row-toggle">
-          <span class="result-label">Erster Tod</span>
-          <label class="toggle-switch">
-            <input type="checkbox" id="res-first-death" onchange="updateToggle('firstDeath', this.checked)">
-            <span class="toggle-slider"></span>
-            <span class="toggle-label-on">JA</span>
-            <span class="toggle-label-off">NEIN</span>
-          </label>
-        </div>
-        <div class="result-row result-row-toggle">
-          <span class="result-label">Extraktion erfolgreich</span>
-          <label class="toggle-switch">
-            <input type="checkbox" id="res-extracted" onchange="updateToggle('extracted', this.checked)">
-            <span class="toggle-slider"></span>
-            <span class="toggle-label-on">JA</span>
-            <span class="toggle-label-off">NEIN</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="results-preview">
-        <span class="preview-label">VORAUSSICHTLICHE PUNKTE:</span>
-        <span class="preview-score" id="preview-score">0</span>
-      </div>
-
-      <div class="loadout-actions">
-        <button class="btn-primary" onclick="submitResults()">
-          ✦ ERGEBNIS BESTÄTIGEN
-        </button>
-      </div>
+      <!-- No longer used — results are inline on the loadout screen -->
     </div>
   </div>
 
@@ -200,23 +201,23 @@
     <div class="view-content round-complete-content">
       <div class="view-header">
         <div class="ornament-line"></div>
-        <h2 class="view-title">RUNDE ABGESCHLOSSEN</h2>
+        <h2 class="view-title" data-i18n="rc_title">RUNDE ABGESCHLOSSEN</h2>
         <div class="ornament-line"></div>
       </div>
       <div class="round-score-display">
-        <div class="round-score-label">RUNDEN SCORE</div>
+        <div class="round-score-label" data-i18n="rc_score">RUNDEN SCORE</div>
         <div class="round-score-value" id="rc-round-score">0</div>
         <div class="round-score-breakdown" id="rc-breakdown"></div>
       </div>
       <div class="run-total-display">
-        <span class="run-total-label">LAUF GESAMT:</span>
+        <span class="run-total-label" data-i18n="rc_total">LAUF GESAMT:</span>
         <span class="run-total-value" id="rc-run-total">0</span>
       </div>
       <div class="loadout-actions">
-        <button class="btn-primary" onclick="handleNextRound()">
+        <button class="btn-primary" onclick="handleNextRound()" data-i18n="rc_next">
           ↺ NÄCHSTE RUNDE
         </button>
-        <button class="btn-secondary" onclick="handleEndRun()">
+        <button class="btn-secondary" onclick="handleEndRun()" data-i18n="rc_end">
           ✓ LAUF BEENDEN
         </button>
       </div>
@@ -228,7 +229,7 @@
     <div class="view-content">
       <div class="view-header">
         <div class="ornament-line"></div>
-        <h2 class="view-title">VERGANGENE LÄUFE</h2>
+        <h2 class="view-title" data-i18n="hist_title">VERGANGENE LÄUFE</h2>
         <div class="ornament-line"></div>
       </div>
       <div id="history-list" class="history-list">
@@ -241,7 +242,7 @@
   <div id="view-run-detail" class="view hidden">
     <div class="view-content">
       <div class="view-header">
-        <button class="btn-back" onclick="showView('history')">← ZURÜCK</button>
+        <button class="btn-back" onclick="showView('history')" data-i18n="rd_back">← ZURÜCK</button>
         <div class="ornament-line"></div>
         <h2 class="view-title" id="rd-title">LAUF DETAILS</h2>
         <p class="view-subtitle" id="rd-subtitle"></p>
@@ -258,18 +259,18 @@
     <div class="view-content">
       <div class="view-header">
         <div class="ornament-line"></div>
-        <h2 class="view-title">EINSTELLUNGEN</h2>
+        <h2 class="view-title" data-i18n="set_title">EINSTELLUNGEN</h2>
         <div class="ornament-line"></div>
       </div>
 
       <div class="settings-section">
-        <h3 class="settings-section-title">PFLICHTAUSRÜSTUNG</h3>
-        <p class="settings-section-desc">Beeinflusst den Loadout und den Score-Multiplikator</p>
+        <h3 class="settings-section-title" data-i18n="set_req_title">PFLICHTAUSRÜSTUNG</h3>
+        <p class="settings-section-desc" data-i18n="set_req_desc">Beeinflusst den Loadout und den Score-Multiplikator</p>
 
         <div class="setting-row">
           <div class="setting-info">
-            <span class="setting-name">Medkit verpflichtend</span>
-            <span class="setting-desc">Medkit wird immer eingeschlossen (+50 Pts Bonus)</span>
+            <span class="setting-name" data-i18n="set_medkit_n">Medkit verpflichtend</span>
+            <span class="setting-desc" data-i18n="set_medkit_d">Medkit wird immer eingeschlossen (+50 Pts Bonus)</span>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="set-medkit" onchange="saveSetting('medkitRequired', this.checked)">
@@ -279,8 +280,8 @@
 
         <div class="setting-row">
           <div class="setting-info">
-            <span class="setting-name">Nahkampfwaffe verpflichtend</span>
-            <span class="setting-desc">Nahkampfwaffe wird immer eingeschlossen (+50 Pts Bonus)</span>
+            <span class="setting-name" data-i18n="set_melee_n">Nahkampfwaffe verpflichtend</span>
+            <span class="setting-desc" data-i18n="set_melee_d">Nahkampfwaffe wird immer eingeschlossen (+50 Pts Bonus)</span>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="set-melee" onchange="saveSetting('meleeRequired', this.checked)">
@@ -290,8 +291,8 @@
 
         <div class="setting-row">
           <div class="setting-info">
-            <span class="setting-name">Choke-Bombe verpflichtend</span>
-            <span class="setting-desc">Choke Bomb wird immer eingeschlossen (kein Einfluss auf Score)</span>
+            <span class="setting-name" data-i18n="set_choke_n">Choke-Bombe verpflichtend</span>
+            <span class="setting-desc" data-i18n="set_choke_d">Choke Bomb wird immer eingeschlossen (kein Einfluss auf Score)</span>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="set-choke" onchange="saveSetting('chokeRequired', this.checked)">
@@ -301,8 +302,8 @@
 
         <div class="setting-row">
           <div class="setting-info">
-            <span class="setting-name">Heilspritze verpflichtend</span>
-            <span class="setting-desc">Healing Syringe wird immer eingeschlossen (−20 Pts Strafe)</span>
+            <span class="setting-name" data-i18n="set_heal_n">Heilspritze verpflichtend</span>
+            <span class="setting-desc" data-i18n="set_heal_d">Healing Syringe wird immer eingeschlossen (−20 Pts Strafe)</span>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="set-healsyringe" onchange="saveSetting('healSyringeRequired', this.checked)">
@@ -312,8 +313,8 @@
 
         <div class="setting-row">
           <div class="setting-info">
-            <span class="setting-name">Regenshot verpflichtend</span>
-            <span class="setting-desc">Regen Shot wird immer eingeschlossen (−30 Pts Strafe)</span>
+            <span class="setting-name" data-i18n="set_regen_n">Regenshot verpflichtend</span>
+            <span class="setting-desc" data-i18n="set_regen_d">Regen Shot wird immer eingeschlossen (−30 Pts Strafe)</span>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="set-regenshot" onchange="saveSetting('regenShotRequired', this.checked)">
@@ -323,12 +324,12 @@
       </div>
 
       <div class="settings-section">
-        <h3 class="settings-section-title">SPIELMODUS</h3>
+        <h3 class="settings-section-title" data-i18n="set_mode_title">SPIELMODUS</h3>
 
         <div class="setting-row">
           <div class="setting-info">
-            <span class="setting-name">Solo-Modus</span>
-            <span class="setting-desc">Spiele alleine — alle Scores werden mit ×1.5 multipliziert</span>
+            <span class="setting-name" data-i18n="set_solo_n">Solo-Modus</span>
+            <span class="setting-desc" data-i18n="set_solo_d">Spiele alleine — alle Scores werden mit ×1.5 multipliziert</span>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="set-solo" onchange="saveSetting('soloMode', this.checked)">
@@ -338,8 +339,8 @@
 
         <div class="setting-row">
           <div class="setting-info">
-            <span class="setting-name">Quartermaster</span>
-            <span class="setting-desc">Large + Medium Loadout statt Large/Medium + Small</span>
+            <span class="setting-name" data-i18n="set_qm_n">Quartermaster</span>
+            <span class="setting-desc" data-i18n="set_qm_d">Large + Medium Loadout statt Large/Medium + Small</span>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="set-quartermaster" onchange="saveSetting('quartermasterEnabled', this.checked)">
@@ -349,13 +350,13 @@
       </div>
 
       <div class="settings-section">
-        <h3 class="settings-section-title">WAFFENPOOL</h3>
-        <p class="settings-section-desc">Event- und optionale Waffen in den Zufalls-Pool einschließen</p>
+        <h3 class="settings-section-title" data-i18n="set_pool_title">WAFFENPOOL</h3>
+        <p class="settings-section-desc" data-i18n="set_pool_desc">Event- und optionale Waffen in den Zufalls-Pool einschließen</p>
 
         <div class="setting-row">
           <div class="setting-info">
-            <span class="setting-name">Shredder einschließen</span>
-            <span class="setting-desc">Shredder (Event-Waffe) im Waffenpool verfügbar</span>
+            <span class="setting-name" data-i18n="set_shredder_n">Shredder einschließen</span>
+            <span class="setting-desc" data-i18n="set_shredder_d">Shredder (Event-Waffe) im Waffenpool verfügbar</span>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="set-shredder" onchange="saveSetting('includeShredder', this.checked)">
@@ -365,8 +366,8 @@
 
         <div class="setting-row">
           <div class="setting-info">
-            <span class="setting-name">Flame Rifle einschließen</span>
-            <span class="setting-desc">Flame Rifle (Event-Waffe) im Waffenpool verfügbar</span>
+            <span class="setting-name" data-i18n="set_flame_n">Flame Rifle einschließen</span>
+            <span class="setting-desc" data-i18n="set_flame_d">Flame Rifle (Event-Waffe) im Waffenpool verfügbar</span>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="set-flamerifle" onchange="saveSetting('includeFlameRifle', this.checked)">
@@ -376,8 +377,8 @@
 
         <div class="setting-row">
           <div class="setting-info">
-            <span class="setting-name">Wildland &amp; Homestead einschließen</span>
-            <span class="setting-desc">Wildland und Homestead im Waffenpool verfügbar</span>
+            <span class="setting-name" data-i18n="set_wild_n">Wildland &amp; Homestead einschließen</span>
+            <span class="setting-desc" data-i18n="set_wild_d">Wildland und Homestead im Waffenpool verfügbar</span>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="set-wildland" onchange="saveSetting('includeWildlandHomestead', this.checked)">
@@ -387,46 +388,59 @@
 
         <div class="setting-row">
           <div class="setting-info">
-            <span class="setting-name">Tarot-Karten einschließen</span>
-            <span class="setting-desc">Tarot-Karten als Verbrauchsgüter in den Loadout-Pool aufnehmen</span>
+            <span class="setting-name" data-i18n="set_tarot_n">Tarot-Karten einschließen</span>
+            <span class="setting-desc" data-i18n="set_tarot_d">Tarot-Karten als Verbrauchsgüter in den Loadout-Pool aufnehmen</span>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="set-tarotcards" onchange="saveSetting('includeTarotCards', this.checked)">
             <span class="toggle-slider"></span>
           </label>
         </div>
+
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-name" data-i18n="set_scarce_n">Scarce-Ammo einschließen</span>
+            <span class="setting-desc" data-i18n="set_scarce_d">Seltene Munitionstypen (Scarce) in den Munitionspool aufnehmen</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="set-scarceammo" onchange="saveSetting('includeScarceAmmo', this.checked)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
       </div>
 
       <div class="settings-section settings-score-info">
-        <h3 class="settings-section-title">SCORING ÜBERSICHT</h3>
+        <h3 class="settings-section-title" data-i18n="set_score_title">SCORING ÜBERSICHT</h3>
         <div class="score-legend">
           <div class="score-legend-col">
-            <span class="sl-header">POSITIV</span>
-            <span class="sl-row good">Headshot<span>+10 Pts</span></span>
-            <span class="sl-row good">Kill<span>+15 Pts</span></span>
-            <span class="sl-row good">Wiederbelebung<span>+5 Pts</span></span>
-            <span class="sl-row good">Extraktion<span>+5 Pts</span></span>
-            <span class="sl-row good">Bounty extrahiert<span>+25 Pts</span></span>
-            <span class="sl-row good">Medkit im Loadout<span>+50 Pts</span></span>
-            <span class="sl-row good">Nahkampf im Loadout<span>+50 Pts</span></span>
-            <span class="sl-row good">Freier Slot (max 2)<span>+50 Pts</span></span>
+            <span class="sl-header" data-i18n="set_pos">POSITIV</span>
+            <span class="sl-row good"><span data-i18n="sl_kill">Kill (Waffe, Standard)</span><span>+100 Pts</span></span>
+            <span class="sl-row good"><span data-i18n="sl_stylish">Stylish Kill</span><span>+50 Pts</span></span>
+            <span class="sl-row good"><span data-i18n="sl_foreign">Fremde Waffe Kill</span><span>+100 Pts</span></span>
+            <span class="sl-row good"><span data-i18n="sl_headshot">Headshot</span><span>+50 Pts</span></span>
+            <span class="sl-row good"><span data-i18n="sl_bounty">Bounty (max 4 / 2 Solo)</span><span>+100 Pts</span></span>
+            <span class="sl-row good sl-static"><span data-i18n="sl_free_slot">Freier Waffen-Slot</span><span>+200 ✦</span></span>
+            <span class="sl-row good sl-static"><span data-i18n="sl_free_cons">Freier Cons.-Slot</span><span>+100 ✦</span></span>
+            <span class="sl-row good sl-static"><span data-i18n="sl_medkit_off">Medkit nicht erzwungen</span><span>+100 ✦</span></span>
+            <span class="sl-row good sl-static"><span data-i18n="sl_melee_off">Nahkampf nicht erzwungen</span><span>+100 ✦</span></span>
+            <span class="sl-row good"><span data-i18n="sl_solo">Solo-Modus</span><span>×1.5</span></span>
           </div>
           <div class="score-legend-col">
-            <span class="sl-header">NEGATIV</span>
-            <span class="sl-row bad">Tod<span>−10 Pts</span></span>
-            <span class="sl-row bad">Erster Tod<span>−20 Pts</span></span>
-            <span class="sl-row bad">Heilspritze im Loadout<span>−20 Pts</span></span>
-            <span class="sl-row bad">Regenshot im Loadout<span>−30 Pts</span></span>
-            <span class="sl-row bad">Spitzer-Munition<span>−5 Pts</span></span>
-            <span class="sl-row bad">FMJ-Munition<span>−5 Pts</span></span>
-            <span class="sl-row bad">High Velocity<span>−5 Pts</span></span>
+            <span class="sl-header" data-i18n="set_neg">NEGATIV</span>
+            <span class="sl-row bad"><span data-i18n="sl_death">Tod</span><span>−50 Pts</span></span>
+            <span class="sl-row bad"><span data-i18n="sl_first_death">Erster Tod</span><span>−100 Pts</span></span>
+            <span class="sl-row bad sl-static"><span data-i18n="sl_vit_forced">Vitality Shot (erzwungen)</span><span>−50 ✦</span></span>
+            <span class="sl-row bad sl-static"><span data-i18n="sl_regen_forced">Regenshot (erzwungen)</span><span>−75 ✦</span></span>
+            <span class="sl-row bad"><span data-i18n="sl_extract_fail">Extraktion fehlgeschlagen</span><span>÷2</span></span>
+            <span class="sl-row neutral"><span data-i18n="sl_ammo_mod">Munitions-Modifikator</span><span>varies</span></span>
+            <span class="sl-hint"><span data-i18n="sl_static">✦ statisch, kein Solo-Mult.</span></span>
           </div>
         </div>
       </div>
 
       <div class="settings-danger-zone">
-        <h3 class="settings-section-title danger-title">GEFAHRENZONE</h3>
-        <button class="btn-danger" onclick="confirmResetData()">
+        <h3 class="settings-section-title danger-title" data-i18n="set_danger_title">GEFAHRENZONE</h3>
+        <button class="btn-danger" onclick="confirmResetData()" data-i18n="set_danger_btn">
           ☠ ALLE DATEN LÖSCHEN
         </button>
       </div>
@@ -438,8 +452,8 @@
     <div class="view-content">
       <div class="view-header">
         <div class="ornament-line"></div>
-        <h2 class="view-title">ARSENAL</h2>
-        <p class="view-subtitle">Waffen · Munition · Punktewerte</p>
+        <h2 class="view-title" data-i18n="ars_title">ARSENAL</h2>
+        <p class="view-subtitle" data-i18n="ars_sub">Waffen · Munition · Punktewerte</p>
         <div class="ornament-line"></div>
       </div>
       <div id="arsenal-content">
@@ -459,6 +473,9 @@
       </div>
     </div>
   </div>
+
+  <!-- ══════════════════════════════════════════════ TRADEMARK ══ -->
+  <div id="trademark">Made by Gesindel (Sev) &amp; Claude</div>
 
   <script src="renderer.js"></script>
 </body>
