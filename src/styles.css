@@ -146,6 +146,17 @@ body::after {
   margin-top: 0;
 }
 
+/* ── TITLE BAR DRAG REGION ──────────────────────────────────────────────── */
+#titlebar-drag {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 148px; /* leave room for min/max/close buttons (~3 × ~46px) */
+  height: 36px;
+  z-index: 9999;
+  -webkit-app-region: drag;
+}
+
 /* ── STATS BAR — old wanted poster style ───────────────────────────────── */
 #stats-bar {
   position: fixed;
