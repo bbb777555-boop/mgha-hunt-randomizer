@@ -697,6 +697,8 @@ function applyTranslations() {
   if (active === 'view-history')       renderHistory()
   if (active === 'view-arsenal')       renderArsenalTable()
   if (active === 'view-loadout' && state.currentRoundData) {
+    const rndLbl = document.getElementById('loadout-round-label')
+    if (rndLbl) rndLbl.textContent = `${T('round_label')} ${state.currentRoundData.roundNumber}`
     renderLoadout(state.currentRoundData.loadout)
     // Re-attach in-round handlers if the round is already confirmed
     const irp = document.getElementById('inline-results-panel')
