@@ -548,6 +548,10 @@ const TRANSLATIONS = {
     set_wild_n:'Wildland &amp; Homestead einschließen', set_wild_d:'Wildland und Homestead im Waffenpool verfügbar',
     set_tarot_n:'Tarot-Karten einschließen', set_tarot_d:'Tarot-Karten als Verbrauchsgüter in den Loadout-Pool aufnehmen',
     set_scarce_n:'Scarce-Ammo einschließen', set_scarce_d:'Seltene Munitionstypen (Scarce) in den Munitionspool aufnehmen',
+    set_ammo_weight_title:'MUNITIONS-GEWICHTUNG',
+    set_ammo_weight_desc:'Jeder Munitionsslot: 40% Chance auf Standard-Munition (pts 0) · 60% Chance auf Spezial-Munition (gleichmäßig aus dem restlichen Pool). Gilt auch für Dual-Ammo-Slots.',
+    set_extract_info_title:'EXTRAKTION FEHLGESCHLAGEN',
+    set_extract_info_desc:'÷2 der aktuellen Punktzahl. Würde das Halbieren aber Punkte geben (Gesamtscore ≤ 0), gibt es stattdessen pauschal −100 Punkte.',
     set_score_title:'SCORING ÜBERSICHT',
     set_pos:'POSITIV', set_neg:'NEGATIV',
     set_danger_title:'GEFAHRENZONE', set_danger_btn:'☠ ALLE DATEN LÖSCHEN',
@@ -643,6 +647,10 @@ const TRANSLATIONS = {
     set_wild_n:'Include Wildland &amp; Homestead', set_wild_d:'Wildland and Homestead available in weapon pool',
     set_tarot_n:'Include Tarot Cards', set_tarot_d:'Include Tarot Cards as consumables in the loadout pool',
     set_scarce_n:'Include Scarce Ammo', set_scarce_d:'Include rare ammo types (Scarce) in the ammo pool',
+    set_ammo_weight_title:'AMMO WEIGHTING',
+    set_ammo_weight_desc:'Each ammo slot: 40% chance to roll Standard ammo (pts 0) · 60% chance to roll Special ammo (equally from remaining pool). Applies to Dual-Ammo slots too.',
+    set_extract_info_title:'EXTRACTION FAILED',
+    set_extract_info_desc:'Halves (÷2) the current score. If halving would gain points (total score ≤ 0), a flat −100 penalty is applied instead.',
     set_score_title:'SCORING OVERVIEW',
     set_pos:'POSITIVE', set_neg:'NEGATIVE',
     set_danger_title:'DANGER ZONE', set_danger_btn:'☠ DELETE ALL DATA',
@@ -1027,6 +1035,16 @@ function updateStatsBar() {
 
 function pick(arr) { return arr[Math.floor(Math.random() * arr.length)] }
 
+// Ammo roll: 40% standard (pts===0, not scarce), 60% special (equally weighted)
+// Falls back to uniform if pool has no standard or no special ammo
+function pickAmmoWeighted(ammoArr) {
+  if (!ammoArr?.length) return null
+  const normal  = ammoArr.filter(a => a.pts === 0 && !a.scarce)
+  const special = ammoArr.filter(a => a.pts !== 0 || a.scarce)
+  if (!normal.length || !special.length) return pick(ammoArr).key
+  return Math.random() < 0.40 ? pick(normal).key : pick(special).key
+}
+
 // IDs of tools that count as melee (for the meleeRequired setting)
 const MELEE_TOOL_IDS = new Set(['heavy_knife','knife','knuckle_knife','dusters','spear','throwing_axes','throwing_knives'])
 
@@ -1052,10 +1070,10 @@ function generateLoadout() {
     primary = pick(pool)
   }
   const primAmmoArr = filterAmmo(primary.ammo)
-  const primaryAmmo = primAmmoArr?.length ? pick(primAmmoArr).key : null
-  // dualMain primary: pick a 2nd ammo freely from same pool (duplicates allowed)
-  const primaryAmmo2 = primary.dualMain && primAmmoArr?.length ? pick(primAmmoArr).key : null
-  // dualAmmo primary (e.g. LeMat Carbine, Drilling): pick from second barrel
+  const primaryAmmo  = pickAmmoWeighted(primAmmoArr)
+  // dualMain primary: weighted pick from same pool (duplicates allowed)
+  const primaryAmmo2 = primary.dualMain ? pickAmmoWeighted(primAmmoArr) : null
+  // dualAmmo primary (e.g. LeMat Carbine, Drilling): second barrel — uniform pick
   const primSecArr  = primary.dualAmmo && primary.secondAmmo ? filterAmmo(primary.secondAmmo) : null
   const primaryAmmoB = primSecArr?.length ? pick(primSecArr).key : null
 
@@ -1065,9 +1083,9 @@ function generateLoadout() {
 
   const secondary      = pick(secondaryPool)
   const secAmmoArr     = filterAmmo(secondary.ammo)
-  const secondaryAmmo  = secAmmoArr?.length ? pick(secAmmoArr).key : null
-  // dualMain secondary: pick a 2nd ammo freely from same pool (duplicates allowed)
-  const secondaryAmmoB = secondary.dualMain && secAmmoArr?.length ? pick(secAmmoArr).key : null
+  const secondaryAmmo  = pickAmmoWeighted(secAmmoArr)
+  // dualMain secondary: weighted pick from same pool (duplicates allowed)
+  const secondaryAmmoB = secondary.dualMain ? pickAmmoWeighted(secAmmoArr) : null
   // dualAmmo secondary (second barrel, e.g. shotgun slot)
   const sec2Arr        = secondary.dualAmmo && secondary.secondAmmo ? filterAmmo(secondary.secondAmmo) : null
   const secondaryAmmo2 = sec2Arr?.length ? pick(sec2Arr).key : null

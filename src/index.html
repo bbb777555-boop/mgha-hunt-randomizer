@@ -454,6 +454,16 @@
         </div>
       </div>
 
+      <div class="settings-section">
+        <h3 class="settings-section-title" data-i18n="set_ammo_weight_title">MUNITIONS-GEWICHTUNG</h3>
+        <p class="settings-section-desc" data-i18n="set_ammo_weight_desc">Jeder Munitionsslot: 40% Standard · 60% Spezial (gleichmäßig).</p>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-section-title" data-i18n="set_extract_info_title">EXTRAKTION FEHLGESCHLAGEN</h3>
+        <p class="settings-section-desc" data-i18n="set_extract_info_desc">÷2 der aktuellen Punktzahl. Würde das Halbieren Punkte geben (Score ≤ 0), gibt es stattdessen pauschal −100.</p>
+      </div>
+
       <div class="settings-section settings-score-info">
         <h3 class="settings-section-title" data-i18n="set_score_title">SCORING ÜBERSICHT</h3>
         <div class="score-legend">
@@ -480,7 +490,8 @@
             <span class="sl-row bad"><span data-i18n="sl_first_death">Erster Tod</span><span>−100 Pts</span></span>
             <span class="sl-row bad sl-static"><span data-i18n="sl_vit_forced">Vitality Shot (erzwungen)</span><span>−25 ✦</span></span>
             <span class="sl-row bad sl-static"><span data-i18n="sl_regen_forced">Regenshot (erzwungen)</span><span>−50 ✦</span></span>
-            <span class="sl-row bad"><span data-i18n="sl_extract_fail">Extraktion fehlgeschlagen</span><span>÷2</span></span>
+            <span class="sl-row bad"><span data-i18n="sl_extract_fail">Extraktion fehlgeschlagen</span><span>÷2 (min. −100)</span></span>
+            <span class="sl-hint"><span data-i18n="set_extract_info_desc">÷2 der aktuellen Punktzahl. Würde das Halbieren Punkte geben (Score ≤ 0), gibt es stattdessen pauschal −100.</span></span>
             <span class="sl-row neutral"><span data-i18n="sl_ammo_mod">Munitions-Modifikator</span><span>varies</span></span>
             <span class="sl-hint"><span data-i18n="sl_static">✦ statisch, kein Solo-Mult.</span></span>
           </div>
