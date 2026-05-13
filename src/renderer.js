@@ -918,9 +918,9 @@ function calcRoundScore(loadout, results) {
   }
 
   // ── Static bonuses/penalties (NOT multiplied by solo) ─────────────────────
-  // Free weapon slots (+200, standard mode only)
+  // Free weapon slots (+200 each, relative to base 4 slots — QM extra slot gives no bonus)
   const weaponSlots = (loadout.primary?.slots || 0) + (loadout.secondary?.slots || 0) + (loadout.dualWield ? 1 : 0)
-  const emptySlots  = (loadout.budget || 4) === 4 ? Math.max(0, 4 - weaponSlots) : 0
+  const emptySlots  = Math.max(0, 4 - weaponSlots)
   if (emptySlots > 0) {
     const pts = emptySlots * 200
     breakdown.push({ label:`${emptySlots}× ${T('bk_free_slot')}`, pts, type:'good' })
@@ -1259,7 +1259,7 @@ function renderLoadout(loadout) {
   // Slot bonuses
   {
     const weaponSl = (loadout.primary?.slots || 0) + (loadout.secondary?.slots || 0) + (loadout.dualWield ? 1 : 0)
-    const emptySl  = (loadout.budget || 4) === 4 ? Math.max(0, 4 - weaponSl) : 0
+    const emptySl  = Math.max(0, 4 - weaponSl)
     const emptyCons = Math.max(0, 4 - (loadout.consumables?.length || 0))
     if (emptySl > 0 || emptyCons > 0) {
       const bon = document.createElement('div')
