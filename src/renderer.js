@@ -507,9 +507,16 @@ const TRANSLATIONS = {
     res_yes:'JA', res_no:'NEIN', res_preview:'VORAUSSICHTLICHE PUNKTE:',
     res_confirm:'✦ ERGEBNIS BESTÄTIGEN', res_primary:'PRIMÄR', res_secondary:'SEKUNDÄR',
     res_kills:'KILLS',
-    res_pts_stylish:'+50 / Kill', res_pts_foreign:'+100 / Kill', res_pts_headshots:'+50 / HS',
+    res_pts_stylish:'+50 / Kill', res_pts_foreign:'+80 / Kill', res_pts_headshots:'+50 / HS',
     res_pts_deaths:'−50 / Tod', res_pts_bounties:'+100 / Stück',
+    res_pts_foreign_cons:'+70 / Stück', res_pts_teamkill:'−500 / TK',
+    res_pts_world_melee:'+250 / Kill',
     res_failed_extract:'Extraktion fehlgeschlagen (÷2)',
+    res_foreign_cons:'Fremde Consumable', res_teamkill:'Teamkill',
+    res_world_melee:'World-Melee Kill',
+    res_foreign_cons_tip:'Aufgehobenes Consumable, das nicht im Loadout-Randomizer enthalten war.',
+    res_teamkill_tip:'Ein versehentlicher oder absichtlicher Teamkill während der Runde.',
+    res_world_melee_tip:'Kill mit einer aufgesetzten Weltnahkampfwaffe (Flasche, Hammer, Spitzhacke, etc.) die nicht im eigenen Loadout war.',
     res_stylish_tip:'Wähle dies bei einem besonders stylishen Kill — z.B. 200m Sniper, Kill im freien Fall oder ähnliches. Pauschaler Bonus.',
     // Round complete
     rc_title:'RUNDE ABGESCHLOSSEN', rc_score:'RUNDEN SCORE', rc_total:'LAUF GESAMT:',
@@ -533,6 +540,7 @@ const TRANSLATIONS = {
     set_mode_title:'SPIELMODUS',
     set_solo_n:'Solo-Modus', set_solo_d:'Spiele alleine — alle variablen Scores werden mit ×1.5 multipliziert. Statische Boni (Medkit/Nahkampf-Einstellung) werden nicht multipliziert.',
     set_qm_n:'Quartermaster', set_qm_d:'Large + Medium Loadout (5 Slots). Kein Bonus für freie Slots — der QM-Vorteil ist der Slot selbst.',
+    set_marcel_n:'Marcel-Hypermode', set_marcel_d:'Der Bogen erscheint häufiger im Pool. Bei aktivem Bogen im Loadout: +25 Punkte pro Kill.',
     set_pool_title:'WAFFENPOOL', set_pool_desc:'Event- und optionale Waffen in den Zufalls-Pool einschließen',
     set_shredder_n:'Shredder einschließen', set_shredder_d:'Shredder (Event-Waffe) im Waffenpool verfügbar',
     set_flame_n:'Flame Rifle einschließen', set_flame_d:'Flame Rifle (Event-Waffe) im Waffenpool verfügbar',
@@ -552,7 +560,7 @@ const TRANSLATIONS = {
     // Misc
     round_label:'Runde', dual_badge:'2x',
     // Breakdown labels
-    bk_kill:'Kill', bk_stylish:'Stylish Kill', bk_foreign:'Fremde Waffe',
+    bk_kill:'Kill', bk_stylish:'Stylish Kill', bk_foreign:'Fremde Waffe', bk_world_melee:'World-Melee Kill', bk_foreign_cons:'Fremde Consumable', bk_teamkill:'Teamkill', bk_marcel:'Marcel-Hypermode Bonus',
     bk_headshot:'Headshot', bk_death:'Tod', bk_first_death:'Erster Tod',
     bk_bounty:'Bounty', bk_melee:'Nahkampf', bk_medkit:'Medkit',
     bk_heal_syringe:'Heilspritze', bk_regen_shot:'Regenshot',
@@ -567,8 +575,9 @@ const TRANSLATIONS = {
     rd_foreign:'Fremde Waffe', rd_deaths_label:'Tode', rd_first_death_label:'Erster Tod',
     // Scoring overview labels
     sl_kill:'Kill (Waffe, Standard)', sl_stylish:'Stylish Kill', sl_foreign:'Fremde Waffe Kill',
-    sl_headshot:'Headshot', sl_bounty:'Bounty (max 4 / 2 Solo)', sl_free_slot:'Freier Waffen-Slot',
-    sl_free_cons:'Freier Cons.-Slot', sl_medkit_off:'Medkit nicht erzwungen',
+    sl_world_melee:'World-Melee Kill', sl_foreign_cons:'Fremde Consumable', sl_teamkill:'Teamkill',
+    sl_marcel:'Marcel-Hypermode (Bogen)', sl_headshot:'Headshot', sl_bounty:'Bounty (max 4 / 2 Solo)',
+    sl_free_slot:'Freier Waffen-Slot', sl_free_cons:'Freier Cons.-Slot', sl_medkit_off:'Medkit nicht erzwungen',
     sl_melee_off:'Nahkampf nicht erzwungen', sl_solo:'Solo-Modus',
     sl_death:'Tod', sl_first_death:'Erster Tod', sl_vit_forced:'Vitality Shot (erzwungen)',
     sl_regen_forced:'Regenshot (erzwungen)', sl_extract_fail:'Extraktion fehlgeschlagen',
@@ -594,9 +603,16 @@ const TRANSLATIONS = {
     res_yes:'YES', res_no:'NO', res_preview:'ESTIMATED POINTS:',
     res_confirm:'✦ CONFIRM RESULT', res_primary:'PRIMARY', res_secondary:'SECONDARY',
     res_kills:'KILLS',
-    res_pts_stylish:'+50 / Kill', res_pts_foreign:'+100 / Kill', res_pts_headshots:'+50 / HS',
+    res_pts_stylish:'+50 / Kill', res_pts_foreign:'+80 / Kill', res_pts_headshots:'+50 / HS',
     res_pts_deaths:'−50 / Death', res_pts_bounties:'+100 / each',
+    res_pts_foreign_cons:'+70 / each', res_pts_teamkill:'−500 / TK',
+    res_pts_world_melee:'+250 / Kill',
     res_failed_extract:'Extraction Failed (÷2)',
+    res_foreign_cons:'Foreign Consumable', res_teamkill:'Teamkill',
+    res_world_melee:'World Melee Kill',
+    res_foreign_cons_tip:'A consumable picked up that was not part of the initial loadout randomizer.',
+    res_teamkill_tip:'An accidental or intentional teamkill during the round.',
+    res_world_melee_tip:'A kill with a world melee weapon (bottle, hammer, pickaxe, etc.) not part of your loadout.',
     res_stylish_tip:'Select this for a particularly stylish kill — e.g. a 200m snipe, kill while skydiving, etc. Flat bonus points.',
     rc_title:'ROUND COMPLETE', rc_score:'ROUND SCORE', rc_total:'RUN TOTAL:',
     rc_next:'↺ NEXT ROUND', rc_end:'✓ END RUN',
@@ -616,6 +632,7 @@ const TRANSLATIONS = {
     set_mode_title:'GAME MODE',
     set_solo_n:'Solo Mode', set_solo_d:'Play alone — all variable scores are multiplied by ×1.5. Static bonuses (Medkit/Melee setting) are not multiplied.',
     set_qm_n:'Quartermaster', set_qm_d:'Large + Medium loadout (5 slots). No free-slot bonus — the extra slot is the advantage itself.',
+    set_marcel_n:'Marcel-Hypermode', set_marcel_d:'Hunting Bow appears much more often in the pool. If Bow is in your loadout: +25 pts per kill.',
     set_pool_title:'WEAPON POOL', set_pool_desc:'Include event and optional weapons in the random pool',
     set_shredder_n:'Include Shredder', set_shredder_d:'Shredder (event weapon) available in weapon pool',
     set_flame_n:'Include Flame Rifle', set_flame_d:'Flame Rifle (event weapon) available in weapon pool',
@@ -632,7 +649,7 @@ const TRANSLATIONS = {
     modal_confirm_btn:'Confirm', modal_cancel:'Cancel',
     round_label:'Round', dual_badge:'2x',
     // Breakdown labels
-    bk_kill:'Kill', bk_stylish:'Stylish Kill', bk_foreign:'Foreign Weapon',
+    bk_kill:'Kill', bk_stylish:'Stylish Kill', bk_foreign:'Foreign Weapon', bk_world_melee:'World Melee Kill', bk_foreign_cons:'Foreign Consumable', bk_teamkill:'Teamkill', bk_marcel:'Marcel-Hypermode Bonus',
     bk_headshot:'Headshot', bk_death:'Death', bk_first_death:'First Death',
     bk_bounty:'Bounty', bk_melee:'Melee', bk_medkit:'Medkit',
     bk_heal_syringe:'Healing Syringe', bk_regen_shot:'Regen Shot',
@@ -647,7 +664,9 @@ const TRANSLATIONS = {
     rd_foreign:'Foreign Weapon', rd_deaths_label:'Deaths', rd_first_death_label:'First Death',
     // Scoring overview labels
     sl_kill:'Kill (Weapon, Standard)', sl_stylish:'Stylish Kill', sl_foreign:'Foreign Weapon Kill',
-    sl_headshot:'Headshot', sl_bounty:'Bounty (max 4 / 2 Solo)', sl_free_slot:'Free Weapon Slot',
+    sl_world_melee:'World Melee Kill', sl_foreign_cons:'Foreign Consumable', sl_teamkill:'Teamkill',
+    sl_marcel:'Marcel-Hypermode (Bow)', sl_headshot:'Headshot', sl_bounty:'Bounty (max 4 / 2 Solo)',
+    sl_free_slot:'Free Weapon Slot',
     sl_free_cons:'Free Cons. Slot', sl_medkit_off:'Medkit Not Required',
     sl_melee_off:'Melee Not Required', sl_solo:'Solo Mode',
     sl_death:'Death', sl_first_death:'First Death', sl_vit_forced:'Vitality Shot (Forced)',
@@ -718,6 +737,7 @@ const DEFAULT_SETTINGS = {
   regenShotRequired:         false,
   soloMode:                  false,
   quartermasterEnabled:      false,
+  marcelHypermode:           false,
   includeShredder:           false,
   includeFlameRifle:         false,
   includeWildlandHomestead:  false,
@@ -776,6 +796,9 @@ function getWeaponPts(weapon) {
 // ═══════════════════════════════════════════════════════════════════════════
 
 function showView(name) {
+  // If navigating home while a round is in progress, return to the loadout instead
+  if (name === 'home' && state.currentRoundData) { name = 'loadout' }
+
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'))
   const el = document.getElementById(`view-${name}`)
   if (!el) return
@@ -891,7 +914,10 @@ function calcRoundScore(loadout, results) {
 
   // Stylish kills / foreign weapon kills / headshots
   if (results.stylishKills) breakdown.push({ label:`${results.stylishKills}× ${T('bk_stylish')}`, pts: results.stylishKills * 50,  type:'good' })
-  if (results.foreignKills) breakdown.push({ label:`${results.foreignKills}× ${T('bk_foreign')}`, pts: results.foreignKills * 100, type:'good' })
+  if (results.foreignKills)     breakdown.push({ label:`${results.foreignKills}× ${T('bk_foreign')}`,    pts: results.foreignKills * 80,   type:'good' })
+  if (results.worldMeleeKills)  breakdown.push({ label:`${results.worldMeleeKills}× ${T('bk_world_melee')}`, pts: results.worldMeleeKills * 250, type:'good' })
+  if (results.foreignConsumables) breakdown.push({ label:`${results.foreignConsumables}× ${T('bk_foreign_cons')}`, pts: results.foreignConsumables * 70, type:'good' })
+  if (results.teamkills)        breakdown.push({ label:`${results.teamkills}× ${T('bk_teamkill')}`,     pts: results.teamkills * -500,    type:'bad'  })
   if (results.headshots)    breakdown.push({ label:`${results.headshots}× ${T('bk_headshot')}`,   pts: results.headshots    * 50,  type:'good' })
 
   // Deaths & first death
@@ -905,11 +931,16 @@ function calcRoundScore(loadout, results) {
 
   let total = breakdown.reduce((s, b) => s + b.pts, 0)
 
-  // Extraction failure: base score halved before solo multiplier
+  // Extraction failure: always ÷2, but if ÷2 would gain points (negative total) → flat −100 instead
   if (results.failedExtract) {
-    const penalty = Math.round(total * 0.5)
-    breakdown.push({ label:T('bk_failed_extract'), pts: -penalty, type:'bad' })
-    total -= penalty
+    const halfPenalty = Math.round(total * 0.5)
+    if (halfPenalty <= 0) {
+      breakdown.push({ label:T('bk_failed_extract'), pts: -100, type:'bad' })
+      total -= 100
+    } else {
+      breakdown.push({ label:T('bk_failed_extract'), pts: -halfPenalty, type:'bad' })
+      total -= halfPenalty
+    }
   }
 
   if (state.settings.soloMode) {
@@ -949,6 +980,18 @@ function calcRoundScore(loadout, results) {
   if (state.settings.regenShotRequired) {
     breakdown.push({ label:T('bk_regen_forced'), pts: -75, type:'bad' })
     total -= 75
+  }
+  // Marcel-Hypermode: +25 per kill when Hunting Bow is in loadout
+  if (state.settings.marcelHypermode) {
+    const hasBow = loadout.primary?.id === 'hunting_bow' || loadout.secondary?.id === 'hunting_bow'
+    if (hasBow) {
+      const totalKills = sumKillDict(results.primaryKills) + sumKillDict(results.secondaryKills) + (results.foreignKills || 0)
+      if (totalKills > 0) {
+        const pts = totalKills * 25
+        breakdown.push({ label:`${T('bk_marcel')} (${totalKills}×)`, pts, type:'good' })
+        total += pts
+      }
+    }
   }
 
   return { total, breakdown }
@@ -1005,7 +1048,14 @@ function generateLoadout() {
   const pool = getAllWeaponPool()  // includes SLOTTED_MELEE
 
   // Primary: any weapon from pool (any size)
-  const primary     = pick(pool)
+  // Marcel-Hypermode: 25% chance to force Hunting Bow as primary
+  let primary
+  if (state.settings.marcelHypermode && Math.random() < 0.25) {
+    const bow = pool.find(w => w.id === 'hunting_bow')
+    primary = bow || pick(pool)
+  } else {
+    primary = pick(pool)
+  }
   const primAmmoArr = filterAmmo(primary.ammo)
   const primaryAmmo = primAmmoArr?.length ? pick(primAmmoArr).key : null
   // dualMain primary: pick a 2nd ammo freely from same pool (duplicates allowed)
@@ -1608,6 +1658,7 @@ function applySettingsToUI() {
   set('set-regenshot',      state.settings.regenShotRequired)
   set('set-solo',           state.settings.soloMode)
   set('set-quartermaster',  state.settings.quartermasterEnabled)
+  set('set-marcel',         state.settings.marcelHypermode)
   set('set-shredder',       state.settings.includeShredder)
   set('set-flamerifle',     state.settings.includeFlameRifle)
   set('set-wildland',       state.settings.includeWildlandHomestead)
@@ -1671,7 +1722,7 @@ function handleRandomize() {
   const roundNum = state.currentRun.rounds.length + 1
   state.currentRoundData = {
     roundNumber: roundNum, loadout,
-    results: { primaryKills:{}, secondaryKills:{}, stylishKills:0, foreignKills:0, headshots:0, deaths:0, firstDeath:false, failedExtract:false, bounties:0, itemUses:{} },
+    results: { primaryKills:{}, secondaryKills:{}, stylishKills:0, foreignKills:0, worldMeleeKills:0, foreignConsumables:0, teamkills:0, headshots:0, deaths:0, firstDeath:false, failedExtract:false, bounties:0, itemUses:{} },
   }
   document.getElementById('loadout-round-label').textContent = `${T('round_label')} ${roundNum}`
   renderLoadout(loadout)
@@ -1692,6 +1743,7 @@ function confirmLoadout() {
   if (!state.currentRoundData) return
   state.currentRoundData.results = {
     primaryKills: {}, secondaryKills: {}, stylishKills: 0, foreignKills: 0,
+    foreignConsumables: 0, teamkills: 0,
     headshots: 0, deaths: 0, firstDeath: false, bounties: 0, itemUses: {},
   }
   const confirmBtn = document.querySelector('.loadout-actions .btn-primary')
@@ -1706,7 +1758,7 @@ function confirmLoadout() {
   const irp = document.getElementById('inline-results-panel')
   if (irp) {
     irp.classList.remove('hidden')
-    ;['stylishKills','foreignKills','headshots','deaths','bounties'].forEach(k => {
+    ;['stylishKills','foreignKills','worldMeleeKills','foreignConsumables','teamkills','headshots','deaths','bounties'].forEach(k => {
       const el = document.getElementById(`res-${k}`)
       if (el) el.textContent = '0'
     })
@@ -1854,7 +1906,7 @@ function resetResultsForm() {
   if (state.currentRoundData) {
     state.currentRoundData.results = { primaryKills:{}, secondaryKills:{}, stylishKills:0, foreignKills:0, headshots:0, deaths:0, firstDeath:false, bounties:0, itemUses:{} }
   }
-  ;['stylishKills','foreignKills','headshots','deaths','bounties'].forEach(k => {
+  ;['stylishKills','foreignKills','foreignConsumables','teamkills','headshots','deaths','bounties'].forEach(k => {
     const el = document.getElementById(`res-${k}`)
     if (el) el.textContent = '0'
   })

@@ -2057,10 +2057,10 @@ body::after {
   letter-spacing: 0.5px;
 }
 
-/* ── 5-column ric grid override ────────────────────────────────────────────── */
-.ric-grid-5 {
-  grid-template-columns: repeat(5, 1fr);
-}
+/* ── ric grid column overrides ─────────────────────────────────────────────── */
+.ric-grid-5 { grid-template-columns: repeat(5, 1fr); }
+.ric-grid-7 { grid-template-columns: repeat(7, 1fr); }
+.ric-grid-8 { grid-template-columns: repeat(8, 1fr); }
 
 /* ── Weapon kill cards (results view) ──────────────────────────────────────── */
 .results-weapon-cards {
