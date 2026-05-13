@@ -1073,9 +1073,9 @@ function generateLoadout() {
   const primaryAmmo  = pickAmmoWeighted(primAmmoArr)
   // dualMain primary: weighted pick from same pool (duplicates allowed)
   const primaryAmmo2 = primary.dualMain ? pickAmmoWeighted(primAmmoArr) : null
-  // dualAmmo primary (e.g. LeMat Carbine, Drilling): second barrel — uniform pick
+  // dualAmmo primary (e.g. LeMat Carbine, Drilling): second barrel — also weighted
   const primSecArr  = primary.dualAmmo && primary.secondAmmo ? filterAmmo(primary.secondAmmo) : null
-  const primaryAmmoB = primSecArr?.length ? pick(primSecArr).key : null
+  const primaryAmmoB = pickAmmoWeighted(primSecArr)
 
   // Second weapon slot: any weapon that fits within budget (same rules as first slot)
   let secondaryPool = pool.filter(w => primary.slots + w.slots <= budget)
@@ -1086,9 +1086,9 @@ function generateLoadout() {
   const secondaryAmmo  = pickAmmoWeighted(secAmmoArr)
   // dualMain secondary: weighted pick from same pool (duplicates allowed)
   const secondaryAmmoB = secondary.dualMain ? pickAmmoWeighted(secAmmoArr) : null
-  // dualAmmo secondary (second barrel, e.g. shotgun slot)
+  // dualAmmo secondary (second barrel, e.g. shotgun slot) — also weighted
   const sec2Arr        = secondary.dualAmmo && secondary.secondAmmo ? filterAmmo(secondary.secondAmmo) : null
-  const secondaryAmmo2 = sec2Arr?.length ? pick(sec2Arr).key : null
+  const secondaryAmmo2 = pickAmmoWeighted(sec2Arr)
 
   // Dual-wield: pistols only, 25% chance when budget allows +1 slot
   const dualWield = secondary.slots === 1
