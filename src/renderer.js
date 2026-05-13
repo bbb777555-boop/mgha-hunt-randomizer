@@ -581,7 +581,7 @@ const TRANSLATIONS = {
     rd_foreign:'Fremde Waffe', rd_deaths_label:'Tode', rd_first_death_label:'Erster Tod',
     // Scoring overview labels
     sl_kill:'Kill (Waffe, Standard)', sl_stylish:'Stylish Kill', sl_foreign:'Fremde Waffe Kill',
-    sl_kill:'Kill (Progressiv, alle Quellen)', sl_kill_prog:'Kill 1: +10 · Kill 2: +20 · Kill 3: +30 ...',
+    sl_kill:'Kill (Progressiv, alle Quellen)', sl_kill_prog:'Kill 1: +0 · Kill 2: +15 · Kill 3: +30 · Kill 4: +45 ...',
     sl_first_kill:'Erster Kill', sl_world_melee:'World-Melee Kill', sl_foreign_cons:'Fremde Consumable', sl_teamkill:'Teamkill',
     sl_marcel:'Marcel-Hypermode (Bogen)', sl_headshot:'Headshot', sl_bounty:'Bounty (max 4 / 2 Solo)',
     sl_free_slot:'Freier Waffen-Slot', sl_free_cons:'Freier Cons.-Slot', sl_medkit_off:'Medkit nicht erzwungen',
@@ -677,7 +677,7 @@ const TRANSLATIONS = {
     rd_kills_primary:'Kills (Primary)', rd_kills_secondary:'Kills (Secondary)',
     rd_foreign:'Foreign Weapon', rd_deaths_label:'Deaths', rd_first_death_label:'First Death',
     // Scoring overview labels
-    sl_kill:'Kill (Progressive, all sources)', sl_kill_prog:'Kill 1: +10 · Kill 2: +20 · Kill 3: +30 ...',
+    sl_kill:'Kill (Progressive, all sources)', sl_kill_prog:'Kill 1: +0 · Kill 2: +15 · Kill 3: +30 · Kill 4: +45 ...',
     sl_stylish:'Stylish Kill', sl_foreign:'Foreign Weapon Kill',
     sl_first_kill:'First Kill', sl_world_melee:'World Melee Kill', sl_foreign_cons:'Foreign Consumable', sl_teamkill:'Teamkill',
     sl_marcel:'Marcel-Hypermode (Bow)', sl_headshot:'Headshot', sl_bounty:'Bounty (max 4 / 2 Solo)',
@@ -768,7 +768,7 @@ let state = {
   history:                [],
   arsenalOverrides:       {},
   rerolls:                2,
-  gambleTokens:           0,
+  gambleTokens:           1,
   totalBountiesExtracted: 0,
   totalRoundsCompleted:   0,
   lang:                   'de',
@@ -789,7 +789,7 @@ async function loadAll() {
   if (settings) {
     state.settings             = { ...DEFAULT_SETTINGS, ...settings }
     state.rerolls               = settings._rerolls               ?? 2
-    state.gambleTokens          = settings._gambleTokens          ?? 0
+    state.gambleTokens          = settings._gambleTokens          ?? 1
     state.totalBountiesExtracted= settings._totalBountiesExtracted?? 0
     state.totalRoundsCompleted  = settings._totalRoundsCompleted  ?? 0
     state.lang                  = settings._lang                  ?? 'de'
@@ -908,7 +908,8 @@ function calcRoundScore(loadout, results) {
     + (results.worldMeleeKills    || 0)
     + (results.foreignConsumables || 0)
   for (let i = 1; i <= totalKills; i++) {
-    breakdown.push({ label:`${T('bk_kill')} #${i}`, pts: i * 10, type:'good' })
+    const pts = (i - 1) * 15
+    if (pts > 0) breakdown.push({ label:`${T('bk_kill')} #${i}`, pts, type:'good' })
   }
 
   // Item uses (tools & consumables) — flat scoring, separate from kill pool
