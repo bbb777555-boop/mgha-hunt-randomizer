@@ -107,8 +107,7 @@ const SA = {
   OFF_C:       () => [A.std(), A.hv(-5),   A.poi(5),   sc(A.dum(-10))],
   FRONT73:     () => [A.std(), A.fmj(-5),  A.hv(-5),   A.poi(20),  A.sub(50), A.inc(5)],
   BORNHEIM:    () => [A.std(), A.hv(-10),  A.inc(15),  A.sub(50)],
-  NAGANT:      () => [A.std(), A.fmj(-5),  A.dum(-10), A.poi(20),  A.sub(50)],
-  NAGANT_D:    () => [A.std(), A.fmj(-5),  A.spit(-5), A.sub(50)],
+  NAGANT:      () => [A.std(), A.hv(-5),   A.dum(-10), A.poi(20),  A.sub(50)],
   VANDAL:      () => [A.std(), A.fmj(-5),  A.hv(-5),   A.poi(20),  A.sub(50), A.inc(5)],
   CONV:        () => [A.std(), A.dum(-10), A.fmj(-5)],
   LEMAT:       () => [A.std(), A.fmj(0),   A.inc(0)],
@@ -250,7 +249,7 @@ const MED2 = [
 const SMALL2 = [
   W('bornheim_match',       'Bornheim No. 3 Match',        2,'small', SA.BORNHEIM,'Pistole',    'pistol'),
   W('nagant_prec',          'Nagant M1895 Precision',      2,'small', SA.NAGANT,  'Revolver',   'pistol'),
-  W('nagant_deadeye',       'Nagant M1895 Deadeye',        2,'small', SA.NAGANT_D,'Revolver',   'pistol'),
+  W('nagant_deadeye',       'Nagant M1895 Deadeye',        2,'small', SA.NAGANT,  'Revolver',   'pistol'),
   W('vandal_73c',           'Vandal 73C',                  2,'small', SA.VANDAL,  'Hebel-Repetier'),
   W('vandal_73c_striker',   'Vandal 73C Striker',          2,'small', SA.VANDAL,  'Hebel-Repetier'),
   W('vandal_73c_bullseye',  'Vandal 73C Bullseye',         2,'small', SA.VANDAL,  'Hebel-Repetier'),
