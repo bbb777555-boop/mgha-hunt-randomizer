@@ -1968,7 +1968,7 @@ body::after {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
-  max-width: 560px;
+  width: 100%;
   margin: 0 auto 16px;
 }
 
@@ -2044,7 +2044,7 @@ body::after {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-width: 560px;
+  width: 100%;
   margin: 0 auto;
 }
 
