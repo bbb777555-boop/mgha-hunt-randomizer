@@ -79,8 +79,8 @@ const LA = {
 const MA = {
   SPR66:       () => [A.std(), sc(A.dum(-20)),A.hv(-5),   A.poi(15),  A.exp(25)],
   SPR66_MK:    () => [A.std(), sc(A.dum(-10)),A.hv(-10),  A.poi(15),  A.exp(25)],
-  CENT:        () => [A.std(), A.hv(-5),   sc(A.dum(-20)),A.poi(10),  A.fmj(0)],
-  CENT_SN:     () => [A.std(), A.hv(-10),  sc(A.dum(-15)),A.poi(10),  A.fmj(10)],
+  CENT:        () => [A.std(), A.hv(-5),   sc(A.dum(-20)),A.poi(10),  A.fmj(0),   A.sub(50)],
+  CENT_SN:     () => [A.std(), A.hv(-10),  sc(A.dum(-15)),A.poi(10),  A.fmj(10),  A.sub(50)],
   C1865:       () => [A.std(), A.fmj(0),   A.sub(50)],
   C1865_SL:    () => [A.std(), A.fmj(10),  A.sub(50)],
   VETT:        () => [A.std(), A.hv(-5),   A.fmj(0),   A.sub(50),  A.inc(5)],
@@ -90,7 +90,7 @@ const MA = {
   DRILLS:      () => [A.std(), A.dum(-15), A.hv(-5),   A.fmj(5)],
   MAYNARD:     () => [A.std(), A.hv(-5),   A.sub(50),  sc(A.dum(-5))],
   MAYNARD_SL:  () => [A.std(), A.hv(-15),  A.sub(50),  sc(A.dum(-10))],
-  WILDLAND:    () => [A.std(), A.hv(-5),   sc(A.dum(-20)),A.poi(10),  A.fmj(0)],
+  WILDLAND:    () => [A.std(), A.hv(-5),   sc(A.dum(-20)),A.poi(10),  A.fmj(0),   A.sub(50)],
   SCOTTFP:     () => [A.std(), A.dum(-10), A.fmj(0),   A.hv(-5),   A.inc(5)],
   CENTS:       () => [A.std(), A.hv(-5),   sc(A.dum(-20)),A.poi(10),  A.fmj(0)],
   CENTS_PM:    () => [A.std(), A.hv(-10),  sc(A.dum(0)), A.poi(10),  A.fmj(0)],
@@ -104,16 +104,16 @@ const SA = {
   INF73_SN:    () => [A.std(), A.fmj(-5),  A.hv(-10),  A.poi(20),  A.sub(50), A.inc(5)],
   RANGER:      () => [A.std(), A.fmj(-5),  A.hv(-5),   A.poi(20),  A.sub(50), A.inc(5)],
   LEMAT_C:     () => [A.std(), A.fmj(0),   A.inc(0)],
-  OFF_C:       () => [A.std(), A.hv(-5),   A.poi(5),   sc(A.dum(-10)),A.sub(50)],
+  OFF_C:       () => [A.std(), A.hv(-5),   A.poi(5),   sc(A.dum(-10))],
   FRONT73:     () => [A.std(), A.fmj(-5),  A.hv(-5),   A.poi(20),  A.sub(50), A.inc(5)],
   BORNHEIM:    () => [A.std(), A.hv(-10),  A.inc(15),  A.sub(50)],
-  NAGANT:      () => [A.std(), A.fmj(-5),  A.dum(-10), A.poi(20)],
-  NAGANT_D:    () => [A.std(), A.fmj(-5),  A.spit(-5)],
+  NAGANT:      () => [A.std(), A.fmj(-5),  A.dum(-10), A.poi(20),  A.sub(50)],
+  NAGANT_D:    () => [A.std(), A.fmj(-5),  A.spit(-5), A.sub(50)],
   VANDAL:      () => [A.std(), A.fmj(-5),  A.hv(-5),   A.poi(20),  A.sub(50), A.inc(5)],
   CONV:        () => [A.std(), A.dum(-10), A.fmj(-5)],
   LEMAT:       () => [A.std(), A.fmj(0),   A.inc(0)],
   NEW_ARMY:    () => [A.std(), A.fmj(-5),  A.dum(-10)],
-  OFFICER:     () => [A.std(), A.hv(-5),   A.poi(5),   sc(A.dum(-10)),A.sub(50)],
+  OFFICER:     () => [A.std(), A.hv(-5),   A.poi(5),   sc(A.dum(-10))],
   SH2ND:       () => [A.std(), A.db(75),   A.slug(10), A.star(500)],
   DRILL_SCHROT:() => [A.std(), A.pen(10),  A.slug(10), A.fle(25)],
   DOLCH:       () => [A.dolch(0), sc(A.fmj(-5)), sc(A.dum(-10))],
@@ -511,6 +511,7 @@ const TRANSLATIONS = {
     res_pts_stylish:'+50 / Kill', res_pts_foreign:'+100 / Kill', res_pts_headshots:'+50 / HS',
     res_pts_deaths:'−50 / Tod', res_pts_bounties:'+100 / Stück',
     res_failed_extract:'Extraktion fehlgeschlagen (÷2)',
+    res_stylish_tip:'Wähle dies bei einem besonders stylishen Kill — z.B. 200m Sniper, Kill im freien Fall oder ähnliches. Pauschaler Bonus.',
     // Round complete
     rc_title:'RUNDE ABGESCHLOSSEN', rc_score:'RUNDEN SCORE', rc_total:'LAUF GESAMT:',
     rc_next:'↺ NÄCHSTE RUNDE', rc_end:'✓ LAUF BEENDEN',
@@ -597,6 +598,7 @@ const TRANSLATIONS = {
     res_pts_stylish:'+50 / Kill', res_pts_foreign:'+100 / Kill', res_pts_headshots:'+50 / HS',
     res_pts_deaths:'−50 / Death', res_pts_bounties:'+100 / each',
     res_failed_extract:'Extraction Failed (÷2)',
+    res_stylish_tip:'Select this for a particularly stylish kill — e.g. a 200m snipe, kill while skydiving, etc. Flat bonus points.',
     rc_title:'ROUND COMPLETE', rc_score:'ROUND SCORE', rc_total:'RUN TOTAL:',
     rc_next:'↺ NEXT ROUND', rc_end:'✓ END RUN',
     hist_title:'PAST RUNS', hist_empty:'No runs saved yet.<br>Start your first hunt.',
@@ -695,7 +697,15 @@ function applyTranslations() {
   if (active === 'view-home')          updateHomeUI()
   if (active === 'view-history')       renderHistory()
   if (active === 'view-arsenal')       renderArsenalTable()
-  if (active === 'view-loadout' && state.currentRoundData)  renderLoadout(state.currentRoundData.loadout)
+  if (active === 'view-loadout' && state.currentRoundData) {
+    renderLoadout(state.currentRoundData.loadout)
+    // Re-attach in-round handlers if the round is already confirmed
+    const irp = document.getElementById('inline-results-panel')
+    if (irp && !irp.classList.contains('hidden')) {
+      activateInRoundMode()
+      activateItemTracking()
+    }
+  }
   if (active === 'view-results' && state.currentRoundData)  renderResultsWeaponCards()
 }
 

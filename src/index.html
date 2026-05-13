@@ -122,11 +122,12 @@
         <p class="inline-results-hint" data-i18n="res_hint">Auf Munition klicken = +1 · Rechtsklick = −1</p>
 
         <div class="ric-grid ric-grid-5">
-          <div class="ric" onclick="adjustResult('stylishKills',1)" oncontextmenu="ctxResult(event,'stylishKills')">
+          <div class="ric ric--has-tip" onclick="adjustResult('stylishKills',1)" oncontextmenu="ctxResult(event,'stylishKills')">
             <div class="ric-icon">✦</div>
             <div class="ric-count" id="res-stylishKills">0</div>
             <div class="ric-label" data-i18n="res_stylish">Stylish Kill</div>
             <div class="ric-pts" data-i18n="res_pts_stylish">+50 / Kill</div>
+            <div class="ric-tip" data-i18n="res_stylish_tip">Wähle dies bei einem besonders stylishen Kill.</div>
           </div>
           <div class="ric ric--has-tip" onclick="adjustResult('foreignKills',1)" oncontextmenu="ctxResult(event,'foreignKills')">
             <div class="ric-icon">⚔</div>
