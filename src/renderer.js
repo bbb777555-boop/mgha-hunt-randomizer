@@ -565,7 +565,8 @@ const TRANSLATIONS = {
     // Misc
     round_label:'Runde', dual_badge:'2x',
     // Breakdown labels
-    bk_kill:'Kill', bk_first_kill:'Erster Kill', bk_stylish:'Stylish Kill', bk_foreign:'Fremde Waffe', bk_world_melee:'World-Melee Kill', bk_foreign_cons:'Fremde Consumable', bk_teamkill:'Teamkill', bk_marcel:'Marcel-Hypermode Bonus',
+    bk_kill:'Kill', bk_first_kill:'Erster Kill', bk_stylish:'Stylish Kill', bk_foreign:'Fremde Waffe', bk_world_melee:'World-Melee Kill', bk_foreign_cons:'Fremde Consumable', bk_teamkill:'Teamkill', bk_marcel:'Marcel-Hypermode Bonus', bk_gamble:'Glücksspiel-Multiplikator',
+    gamble_btn:'GAMBLE', gamble_tip:'Würfle einen globalen Punktmultiplikator (0.50× – 2.00×) für diese Runde. Token: alle 4 extrahierten Bounties. Einmal pro Runde verwendbar.',
     bk_headshot:'Headshot', bk_death:'Tod', bk_first_death:'Erster Tod',
     bk_bounty:'Bounty', bk_melee:'Nahkampf', bk_medkit:'Medkit',
     bk_heal_syringe:'Heilspritze', bk_regen_shot:'Regenshot',
@@ -661,7 +662,8 @@ const TRANSLATIONS = {
     modal_confirm_btn:'Confirm', modal_cancel:'Cancel',
     round_label:'Round', dual_badge:'2x',
     // Breakdown labels
-    bk_kill:'Kill', bk_first_kill:'First Kill', bk_stylish:'Stylish Kill', bk_foreign:'Foreign Weapon', bk_world_melee:'World Melee Kill', bk_foreign_cons:'Foreign Consumable', bk_teamkill:'Teamkill', bk_marcel:'Marcel-Hypermode Bonus',
+    bk_kill:'Kill', bk_first_kill:'First Kill', bk_stylish:'Stylish Kill', bk_foreign:'Foreign Weapon', bk_world_melee:'World Melee Kill', bk_foreign_cons:'Foreign Consumable', bk_teamkill:'Teamkill', bk_marcel:'Marcel-Hypermode Bonus', bk_gamble:'Gamble Multiplier',
+    gamble_btn:'GAMBLE', gamble_tip:'Roll a global point multiplier (0.50× – 2.00×) for this round. Token: every 4 extracted bounties. Once per round.',
     bk_headshot:'Headshot', bk_death:'Death', bk_first_death:'First Death',
     bk_bounty:'Bounty', bk_melee:'Melee', bk_medkit:'Medkit',
     bk_heal_syringe:'Healing Syringe', bk_regen_shot:'Regen Shot',
@@ -760,14 +762,16 @@ const DEFAULT_SETTINGS = {
 }
 
 let state = {
-  settings:             { ...DEFAULT_SETTINGS },
-  currentRun:           null,
-  currentRoundData:     null,
-  history:              [],
-  arsenalOverrides:     {},
-  rerolls:              2,
-  totalRoundsCompleted: 0,
-  lang:                 'de',
+  settings:               { ...DEFAULT_SETTINGS },
+  currentRun:             null,
+  currentRoundData:       null,
+  history:                [],
+  arsenalOverrides:       {},
+  rerolls:                2,
+  gambleTokens:           0,
+  totalBountiesExtracted: 0,
+  totalRoundsCompleted:   0,
+  lang:                   'de',
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -784,9 +788,11 @@ async function loadAll() {
   if (arsenalOverrides) state.arsenalOverrides = arsenalOverrides
   if (settings) {
     state.settings             = { ...DEFAULT_SETTINGS, ...settings }
-    state.rerolls              = settings._rerolls              ?? 2
-    state.totalRoundsCompleted = settings._totalRoundsCompleted ?? 0
-    state.lang                 = settings._lang                 ?? 'de'
+    state.rerolls               = settings._rerolls               ?? 2
+    state.gambleTokens          = settings._gambleTokens          ?? 0
+    state.totalBountiesExtracted= settings._totalBountiesExtracted?? 0
+    state.totalRoundsCompleted  = settings._totalRoundsCompleted  ?? 0
+    state.lang                  = settings._lang                  ?? 'de'
   }
 }
 
@@ -795,9 +801,11 @@ async function saveArsenal()  { await window.huntAPI.writeData('arsenal.json',  
 async function saveSettings() {
   await window.huntAPI.writeData('settings.json', {
     ...state.settings,
-    _rerolls:              state.rerolls,
-    _totalRoundsCompleted: state.totalRoundsCompleted,
-    _lang:                 state.lang,
+    _rerolls:                state.rerolls,
+    _gambleTokens:           state.gambleTokens,
+    _totalBountiesExtracted: state.totalBountiesExtracted,
+    _totalRoundsCompleted:   state.totalRoundsCompleted,
+    _lang:                   state.lang,
   })
 }
 
@@ -997,6 +1005,14 @@ function calcRoundScore(loadout, results) {
     }
   }
 
+  // Gamble modifier (0.5×–2.0×) — applied last, affects entire round total
+  if (results.gamblerModifier != null) {
+    const m      = results.gamblerModifier
+    const modPts = Math.round(total * m) - total
+    breakdown.push({ label:`🎲 ${T('bk_gamble')} ×${m.toFixed(2)}`, pts: modPts, type: modPts >= 0 ? 'good' : 'bad' })
+    total = Math.round(total * m)
+  }
+
   return { total, breakdown }
 }
 
@@ -1026,7 +1042,8 @@ function updateStatsBar() {
     : s.totalKills > 0 ? s.totalKills.toString() : '—'
   document.getElementById('sb-rounds').textContent  = s.totalRounds
   document.getElementById('sb-avg').textContent     = s.totalRounds > 0 ? Math.round(s.totalScore / s.totalRounds) : 0
-  document.getElementById('sb-rerolls').textContent = state.rerolls
+  document.getElementById('sb-rerolls').textContent      = state.rerolls
+  document.getElementById('sb-gamble-tokens').textContent = state.gambleTokens
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -1516,6 +1533,34 @@ function updatePreviewScore() {
   }
 }
 
+function updateGambleButton() {
+  const btn = document.getElementById('btn-gamble')
+  if (!btn) return
+  const rolled  = state.currentRoundData?.results?.gamblerModifier != null
+  const hasTokens = state.gambleTokens > 0
+  btn.disabled  = rolled || !hasTokens
+  if (rolled) {
+    btn.textContent = `🎲 ×${state.currentRoundData.results.gamblerModifier.toFixed(2)}`
+    btn.classList.add('gambled')
+  } else {
+    btn.textContent = `🎲 ${T('gamble_btn')} (${state.gambleTokens})`
+    btn.classList.remove('gambled')
+  }
+}
+
+function handleGamble() {
+  if (!state.currentRoundData) return
+  if (state.gambleTokens <= 0) return
+  if (state.currentRoundData.results.gamblerModifier != null) return
+  const modifier = Math.round((Math.random() * 1.5 + 0.5) * 100) / 100
+  state.currentRoundData.results.gamblerModifier = modifier
+  state.gambleTokens--
+  updateGambleButton()
+  updateStatsBar()
+  updatePreviewScore()
+  saveSettings()
+}
+
 // Left-click = +1, right-click = -1 via context menu prevention
 function sumKillDict(k) {
   if (!k) return 0
@@ -1733,7 +1778,7 @@ function handleRandomize() {
   const roundNum = state.currentRun.rounds.length + 1
   state.currentRoundData = {
     roundNumber: roundNum, loadout,
-    results: { primaryKills:{}, secondaryKills:{}, stylishKills:0, foreignKills:0, worldMeleeKills:0, foreignConsumables:0, teamkills:0, headshots:0, deaths:0, firstKill:false, firstDeath:false, failedExtract:false, bounties:0, itemUses:{} },
+    results: { primaryKills:{}, secondaryKills:{}, stylishKills:0, foreignKills:0, worldMeleeKills:0, foreignConsumables:0, teamkills:0, headshots:0, deaths:0, firstKill:false, firstDeath:false, failedExtract:false, bounties:0, itemUses:{}, gamblerModifier:null },
   }
   document.getElementById('loadout-round-label').textContent = `${T('round_label')} ${roundNum}`
   renderLoadout(loadout)
@@ -1755,7 +1800,7 @@ function confirmLoadout() {
   state.currentRoundData.results = {
     primaryKills: {}, secondaryKills: {}, stylishKills: 0, foreignKills: 0,
     worldMeleeKills: 0, foreignConsumables: 0, teamkills: 0,
-    headshots: 0, deaths: 0, firstKill: false, firstDeath: false, failedExtract: false, bounties: 0, itemUses: {},
+    headshots: 0, deaths: 0, firstKill: false, firstDeath: false, failedExtract: false, bounties: 0, itemUses: {}, gamblerModifier: null,
   }
   const confirmBtn = document.querySelector('.loadout-actions .btn-primary')
   if (confirmBtn) { confirmBtn.innerHTML = T('lo_end_round'); confirmBtn.onclick = submitResults }
@@ -1779,6 +1824,7 @@ function confirmLoadout() {
     if (fd) fd.checked = false
     const fe = document.getElementById('res-failed-extract')
     if (fe) fe.checked = false
+    updateGambleButton()
     updatePreviewScore()
   }
 }
@@ -1917,7 +1963,7 @@ function ctxBounties(e) {
 
 function resetResultsForm() {
   if (state.currentRoundData) {
-    state.currentRoundData.results = { primaryKills:{}, secondaryKills:{}, stylishKills:0, foreignKills:0, worldMeleeKills:0, foreignConsumables:0, teamkills:0, headshots:0, deaths:0, firstKill:false, firstDeath:false, failedExtract:false, bounties:0, itemUses:{} }
+    state.currentRoundData.results = { primaryKills:{}, secondaryKills:{}, stylishKills:0, foreignKills:0, worldMeleeKills:0, foreignConsumables:0, teamkills:0, headshots:0, deaths:0, firstKill:false, firstDeath:false, failedExtract:false, bounties:0, itemUses:{}, gamblerModifier:null }
   }
   ;['stylishKills','foreignKills','foreignConsumables','teamkills','headshots','deaths','bounties'].forEach(k => {
     const el = document.getElementById(`res-${k}`)
@@ -1944,6 +1990,13 @@ async function submitResults() {
   const prev = Math.floor((state.totalRoundsCompleted - 1) / 3)
   const curr = Math.floor(state.totalRoundsCompleted / 3)
   if (curr > prev) state.rerolls++
+
+  // Award gamble tokens: 1 token per 4 extracted bounties (cumulative)
+  const roundBounties = Math.min(results.bounties || 0, state.settings.soloMode ? 2 : 4)
+  const prevMilestone = Math.floor(state.totalBountiesExtracted / 4)
+  state.totalBountiesExtracted += roundBounties
+  const newMilestone  = Math.floor(state.totalBountiesExtracted / 4)
+  state.gambleTokens += (newMilestone - prevMilestone)
 
   await saveSettings()
 
@@ -1987,7 +2040,7 @@ async function confirmResetData() {
     'Diese Aktion löscht alle Läufe und Statistiken unwiderruflich. Bist du sicher?',
     async () => {
       state.history = []; state.currentRun = null; state.currentRoundData = null
-      state.rerolls = 2; state.totalRoundsCompleted = 0
+      state.rerolls = 2; state.gambleTokens = 0; state.totalBountiesExtracted = 0; state.totalRoundsCompleted = 0
       await saveHistory(); await saveSettings(); updateStatsBar(); showView('home')
     })
 }

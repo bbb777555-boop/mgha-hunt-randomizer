@@ -41,6 +41,8 @@
       <span class="stat-item"><span class="stat-label">Ø SCORE</span><span class="stat-value" id="sb-avg">0</span></span>
       <span class="stat-sep">✦</span>
       <span class="stat-item stat-rerolls"><span class="stat-label">REROLLS</span><span class="stat-value reroll-val" id="sb-rerolls">2</span></span>
+      <span class="stat-sep">✦</span>
+      <span class="stat-item stat-gamble"><span class="stat-label">🎲</span><span class="stat-value gamble-val" id="sb-gamble-tokens">0</span></span>
       <span class="sb-star">★</span>
     </div>
   </div>
@@ -217,7 +219,11 @@
           <div class="preview-breakdown-tooltip" id="preview-breakdown-tooltip"></div>
         </div>
 
-        <div class="loadout-actions" style="margin-top:1.2rem">
+        <div class="loadout-actions loadout-actions--result" style="margin-top:1.2rem">
+          <div class="gamble-wrap">
+            <button class="btn-secondary btn-gamble" id="btn-gamble" onclick="handleGamble()" disabled>🎲 GAMBLE (0)</button>
+            <div class="gamble-tip" data-i18n="gamble_tip">Würfle einen globalen Punktmultiplikator (0.50× – 2.00×) für diese Runde. Token: alle 4 extrahierten Bounties. Einmal pro Runde verwendbar.</div>
+          </div>
           <button class="btn-primary" onclick="submitResults()" data-i18n="res_confirm">✦ ERGEBNIS BESTÄTIGEN</button>
         </div>
       </div>

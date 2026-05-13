@@ -626,6 +626,60 @@ body::after {
   padding-bottom: 8px;
 }
 
+/* ── Gamble button ─────────────────────────────────────────────────────── */
+.gamble-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.btn-gamble {
+  background: linear-gradient(to bottom, #2a2010, #1a1508);
+  border: 1px solid #6b5a20;
+  color: #d4b84a;
+  font-family: var(--font-title);
+  letter-spacing: 0.08em;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all var(--transition);
+  font-size: 13px;
+}
+
+.btn-gamble:hover:not(:disabled) {
+  border-color: #c8a820;
+  box-shadow: 0 0 12px rgba(200,168,32,0.3);
+  color: #f0d060;
+}
+
+.btn-gamble:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btn-gamble.gambled {
+  border-color: #4a9a4a;
+  color: #7acc7a;
+  background: linear-gradient(to bottom, #0e2010, #081408);
+}
+
+.gamble-tip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-void);
+  border: 1px solid var(--border-mid);
+  color: var(--text-dim);
+  font-size: 11px;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  width: 260px;
+  text-align: center;
+  line-height: 1.5;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.gamble-wrap:hover .gamble-tip { display: block; }
+
 /* ── LOADOUT DISPLAY (legacy weapon-card classes) ──────────────────────── */
 .loadout-grid {
   display: grid;
