@@ -182,6 +182,15 @@
 
         <div class="results-toggles">
           <div class="result-row result-row-toggle">
+            <span class="result-label" data-i18n="res_first_kill">Erster Kill (+50)</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="res-first-kill" onchange="updateToggle('firstKill', this.checked)">
+              <span class="toggle-slider"></span>
+              <span class="toggle-label-on" data-i18n="res_yes">JA</span>
+              <span class="toggle-label-off" data-i18n="res_no">NEIN</span>
+            </label>
+          </div>
+          <div class="result-row result-row-toggle">
             <span class="result-label" data-i18n="res_first_death">Erster Tod (−100)</span>
             <label class="toggle-switch">
               <input type="checkbox" id="res-first-death" onchange="updateToggle('firstDeath', this.checked)">
@@ -450,6 +459,7 @@
           <div class="score-legend-col">
             <span class="sl-header" data-i18n="set_pos">POSITIV</span>
             <span class="sl-row good"><span data-i18n="sl_kill">Kill (Waffe, Standard)</span><span>+100 Pts</span></span>
+            <span class="sl-row good"><span data-i18n="sl_first_kill">Erster Kill</span><span>+50 Pts</span></span>
             <span class="sl-row good"><span data-i18n="sl_stylish">Stylish Kill</span><span>+50 Pts</span></span>
             <span class="sl-row good"><span data-i18n="sl_foreign">Fremde Waffe Kill</span><span>+80 Pts</span></span>
             <span class="sl-row good"><span data-i18n="sl_world_melee">World-Melee Kill</span><span>+250 Pts</span></span>

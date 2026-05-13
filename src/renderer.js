@@ -503,7 +503,7 @@ const TRANSLATIONS = {
     // Results
     res_title:'RUNDEN ERGEBNIS', res_hint:'Auf Waffe/Item klicken = +1 · Rechtsklick = −1',
     res_stylish:'Stylish Kill', res_foreign:'Fremde Waffe', res_headshots:'Headshots',
-    res_deaths:'Tode', res_bounties:'Bounties', res_first_death:'Erster Tod (−100)',
+    res_deaths:'Tode', res_bounties:'Bounties', res_first_kill:'Erster Kill (+50)', res_first_death:'Erster Tod (−100)',
     res_yes:'JA', res_no:'NEIN', res_preview:'VORAUSSICHTLICHE PUNKTE:',
     res_confirm:'✦ ERGEBNIS BESTÄTIGEN', res_primary:'PRIMÄR', res_secondary:'SEKUNDÄR',
     res_kills:'KILLS',
@@ -560,7 +560,7 @@ const TRANSLATIONS = {
     // Misc
     round_label:'Runde', dual_badge:'2x',
     // Breakdown labels
-    bk_kill:'Kill', bk_stylish:'Stylish Kill', bk_foreign:'Fremde Waffe', bk_world_melee:'World-Melee Kill', bk_foreign_cons:'Fremde Consumable', bk_teamkill:'Teamkill', bk_marcel:'Marcel-Hypermode Bonus',
+    bk_kill:'Kill', bk_first_kill:'Erster Kill', bk_stylish:'Stylish Kill', bk_foreign:'Fremde Waffe', bk_world_melee:'World-Melee Kill', bk_foreign_cons:'Fremde Consumable', bk_teamkill:'Teamkill', bk_marcel:'Marcel-Hypermode Bonus',
     bk_headshot:'Headshot', bk_death:'Tod', bk_first_death:'Erster Tod',
     bk_bounty:'Bounty', bk_melee:'Nahkampf', bk_medkit:'Medkit',
     bk_heal_syringe:'Heilspritze', bk_regen_shot:'Regenshot',
@@ -575,7 +575,7 @@ const TRANSLATIONS = {
     rd_foreign:'Fremde Waffe', rd_deaths_label:'Tode', rd_first_death_label:'Erster Tod',
     // Scoring overview labels
     sl_kill:'Kill (Waffe, Standard)', sl_stylish:'Stylish Kill', sl_foreign:'Fremde Waffe Kill',
-    sl_world_melee:'World-Melee Kill', sl_foreign_cons:'Fremde Consumable', sl_teamkill:'Teamkill',
+    sl_first_kill:'Erster Kill', sl_world_melee:'World-Melee Kill', sl_foreign_cons:'Fremde Consumable', sl_teamkill:'Teamkill',
     sl_marcel:'Marcel-Hypermode (Bogen)', sl_headshot:'Headshot', sl_bounty:'Bounty (max 4 / 2 Solo)',
     sl_free_slot:'Freier Waffen-Slot', sl_free_cons:'Freier Cons.-Slot', sl_medkit_off:'Medkit nicht erzwungen',
     sl_melee_off:'Nahkampf nicht erzwungen', sl_solo:'Solo-Modus',
@@ -599,7 +599,7 @@ const TRANSLATIONS = {
     res_foreign_tip:'A weapon picked up that was not part of the initial loadout randomizer.',
     res_title:'ROUND RESULT', res_hint:'Click weapon/item = +1 · Right-click = −1',
     res_stylish:'Stylish Kill', res_foreign:'Foreign Weapon', res_headshots:'Headshots',
-    res_deaths:'Deaths', res_bounties:'Bounties', res_first_death:'First Death (−100)',
+    res_deaths:'Deaths', res_bounties:'Bounties', res_first_kill:'First Kill (+50)', res_first_death:'First Death (−100)',
     res_yes:'YES', res_no:'NO', res_preview:'ESTIMATED POINTS:',
     res_confirm:'✦ CONFIRM RESULT', res_primary:'PRIMARY', res_secondary:'SECONDARY',
     res_kills:'KILLS',
@@ -649,7 +649,7 @@ const TRANSLATIONS = {
     modal_confirm_btn:'Confirm', modal_cancel:'Cancel',
     round_label:'Round', dual_badge:'2x',
     // Breakdown labels
-    bk_kill:'Kill', bk_stylish:'Stylish Kill', bk_foreign:'Foreign Weapon', bk_world_melee:'World Melee Kill', bk_foreign_cons:'Foreign Consumable', bk_teamkill:'Teamkill', bk_marcel:'Marcel-Hypermode Bonus',
+    bk_kill:'Kill', bk_first_kill:'First Kill', bk_stylish:'Stylish Kill', bk_foreign:'Foreign Weapon', bk_world_melee:'World Melee Kill', bk_foreign_cons:'Foreign Consumable', bk_teamkill:'Teamkill', bk_marcel:'Marcel-Hypermode Bonus',
     bk_headshot:'Headshot', bk_death:'Death', bk_first_death:'First Death',
     bk_bounty:'Bounty', bk_melee:'Melee', bk_medkit:'Medkit',
     bk_heal_syringe:'Healing Syringe', bk_regen_shot:'Regen Shot',
@@ -664,7 +664,7 @@ const TRANSLATIONS = {
     rd_foreign:'Foreign Weapon', rd_deaths_label:'Deaths', rd_first_death_label:'First Death',
     // Scoring overview labels
     sl_kill:'Kill (Weapon, Standard)', sl_stylish:'Stylish Kill', sl_foreign:'Foreign Weapon Kill',
-    sl_world_melee:'World Melee Kill', sl_foreign_cons:'Foreign Consumable', sl_teamkill:'Teamkill',
+    sl_first_kill:'First Kill', sl_world_melee:'World Melee Kill', sl_foreign_cons:'Foreign Consumable', sl_teamkill:'Teamkill',
     sl_marcel:'Marcel-Hypermode (Bow)', sl_headshot:'Headshot', sl_bounty:'Bounty (max 4 / 2 Solo)',
     sl_free_slot:'Free Weapon Slot',
     sl_free_cons:'Free Cons. Slot', sl_medkit_off:'Medkit Not Required',
@@ -913,6 +913,7 @@ function calcRoundScore(loadout, results) {
   }
 
   // Stylish kills / foreign weapon kills / headshots
+  if (results.firstKill)    breakdown.push({ label:T('bk_first_kill'), pts: 50, type:'good' })
   if (results.stylishKills) breakdown.push({ label:`${results.stylishKills}× ${T('bk_stylish')}`, pts: results.stylishKills * 50,  type:'good' })
   if (results.foreignKills)     breakdown.push({ label:`${results.foreignKills}× ${T('bk_foreign')}`,    pts: results.foreignKills * 80,   type:'good' })
   if (results.worldMeleeKills)  breakdown.push({ label:`${results.worldMeleeKills}× ${T('bk_world_melee')}`, pts: results.worldMeleeKills * 250, type:'good' })
@@ -1722,7 +1723,7 @@ function handleRandomize() {
   const roundNum = state.currentRun.rounds.length + 1
   state.currentRoundData = {
     roundNumber: roundNum, loadout,
-    results: { primaryKills:{}, secondaryKills:{}, stylishKills:0, foreignKills:0, worldMeleeKills:0, foreignConsumables:0, teamkills:0, headshots:0, deaths:0, firstDeath:false, failedExtract:false, bounties:0, itemUses:{} },
+    results: { primaryKills:{}, secondaryKills:{}, stylishKills:0, foreignKills:0, worldMeleeKills:0, foreignConsumables:0, teamkills:0, headshots:0, deaths:0, firstKill:false, firstDeath:false, failedExtract:false, bounties:0, itemUses:{} },
   }
   document.getElementById('loadout-round-label').textContent = `${T('round_label')} ${roundNum}`
   renderLoadout(loadout)
@@ -1743,8 +1744,8 @@ function confirmLoadout() {
   if (!state.currentRoundData) return
   state.currentRoundData.results = {
     primaryKills: {}, secondaryKills: {}, stylishKills: 0, foreignKills: 0,
-    foreignConsumables: 0, teamkills: 0,
-    headshots: 0, deaths: 0, firstDeath: false, bounties: 0, itemUses: {},
+    worldMeleeKills: 0, foreignConsumables: 0, teamkills: 0,
+    headshots: 0, deaths: 0, firstKill: false, firstDeath: false, failedExtract: false, bounties: 0, itemUses: {},
   }
   const confirmBtn = document.querySelector('.loadout-actions .btn-primary')
   if (confirmBtn) { confirmBtn.innerHTML = T('lo_end_round'); confirmBtn.onclick = submitResults }
@@ -1762,6 +1763,8 @@ function confirmLoadout() {
       const el = document.getElementById(`res-${k}`)
       if (el) el.textContent = '0'
     })
+    const fk = document.getElementById('res-first-kill')
+    if (fk) fk.checked = false
     const fd = document.getElementById('res-first-death')
     if (fd) fd.checked = false
     const fe = document.getElementById('res-failed-extract')
@@ -1904,12 +1907,14 @@ function ctxBounties(e) {
 
 function resetResultsForm() {
   if (state.currentRoundData) {
-    state.currentRoundData.results = { primaryKills:{}, secondaryKills:{}, stylishKills:0, foreignKills:0, headshots:0, deaths:0, firstDeath:false, bounties:0, itemUses:{} }
+    state.currentRoundData.results = { primaryKills:{}, secondaryKills:{}, stylishKills:0, foreignKills:0, worldMeleeKills:0, foreignConsumables:0, teamkills:0, headshots:0, deaths:0, firstKill:false, firstDeath:false, failedExtract:false, bounties:0, itemUses:{} }
   }
   ;['stylishKills','foreignKills','foreignConsumables','teamkills','headshots','deaths','bounties'].forEach(k => {
     const el = document.getElementById(`res-${k}`)
     if (el) el.textContent = '0'
   })
+  const fk = document.getElementById('res-first-kill')
+  if (fk) fk.checked = false
   const fd = document.getElementById('res-first-death')
   if (fd) fd.checked = false
 }
