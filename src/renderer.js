@@ -775,6 +775,8 @@ let state = {
   gambleTokens:           1,
   totalBountiesExtracted: 0,
   totalRoundsCompleted:   0,
+  totalKills:             0,
+  totalDeaths:            0,
   lang:                   'de',
 }
 
@@ -796,6 +798,8 @@ async function loadAll() {
     state.gambleTokens          = settings._gambleTokens          ?? 1
     state.totalBountiesExtracted= settings._totalBountiesExtracted?? 0
     state.totalRoundsCompleted  = settings._totalRoundsCompleted  ?? 0
+    state.totalKills            = settings._totalKills            ?? 0
+    state.totalDeaths           = settings._totalDeaths           ?? 0
     state.lang                  = settings._lang                  ?? 'de'
   }
 }
@@ -809,6 +813,8 @@ async function saveSettings() {
     _gambleTokens:           state.gambleTokens,
     _totalBountiesExtracted: state.totalBountiesExtracted,
     _totalRoundsCompleted:   state.totalRoundsCompleted,
+    _totalKills:             state.totalKills,
+    _totalDeaths:            state.totalDeaths,
     _lang:                   state.lang,
   })
 }
@@ -1068,9 +1074,10 @@ function calcTotalStats() {
 function updateStatsBar() {
   const s = calcTotalStats()
   document.getElementById('sb-total-score').textContent = s.totalScore
-  document.getElementById('sb-kd').textContent = s.totalDeaths > 0
-    ? (s.totalKills / s.totalDeaths).toFixed(2)
-    : s.totalKills > 0 ? s.totalKills.toString() : '—'
+  const k = state.totalKills, d = state.totalDeaths
+  document.getElementById('sb-kd').textContent = d > 0
+    ? (k / d).toFixed(2)
+    : k > 0 ? k.toString() : '—'
   document.getElementById('sb-rounds').textContent  = s.totalRounds
   document.getElementById('sb-avg').textContent     = s.totalRounds > 0 ? Math.round(s.totalScore / s.totalRounds) : 0
   document.getElementById('sb-rerolls').textContent      = state.rerolls
@@ -2029,6 +2036,15 @@ async function submitResults() {
   const newMilestone  = Math.floor(state.totalBountiesExtracted / 4)
   state.gambleTokens += (newMilestone - prevMilestone)
 
+  // Accumulate kills and deaths
+  state.totalKills +=
+      sumKillDict(results.primaryKills)
+    + sumKillDict(results.secondaryKills)
+    + (results.foreignKills        || 0)
+    + (results.worldMeleeKills     || 0)
+    + (results.foreignConsumables  || 0)
+  state.totalDeaths += (results.deaths || 0)
+
   await saveSettings()
 
   const sc = document.getElementById('rc-round-score')
@@ -2071,7 +2087,7 @@ async function confirmResetData() {
     'Diese Aktion löscht alle Läufe und Statistiken unwiderruflich. Bist du sicher?',
     async () => {
       state.history = []; state.currentRun = null; state.currentRoundData = null
-      state.rerolls = 2; state.gambleTokens = 0; state.totalBountiesExtracted = 0; state.totalRoundsCompleted = 0
+      state.rerolls = 2; state.gambleTokens = 1; state.totalBountiesExtracted = 0; state.totalRoundsCompleted = 0; state.totalKills = 0; state.totalDeaths = 0
       await saveHistory(); await saveSettings(); updateStatsBar(); showView('home')
     })
 }
