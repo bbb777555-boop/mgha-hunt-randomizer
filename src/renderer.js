@@ -188,7 +188,7 @@ const MED3 = [
   W('centennial_trauma',    'Centennial Trauma',            3,'medium',MA.CENT,     'Hebel-Repetier', 'rifle', {pts:95}),
   W('drilling',             'Drilling',                     3,'medium',MA.DRILL,    'Doppellauf', 'rifle',
     {dualAmmo:true, secondAmmoLabel:'Schrotlauf', secondAmmo:SA.DRILL_SCHROT()}),
-  W('maynard_sniper',       'Maynard Sniper',               3,'medium',MA.MAYNARD,  'Einzelschuss', 'rifle', {pts:95, dualMain:true}),
+  W('maynard_sniper',       'Maynard Sniper',               3,'medium',MA.MAYNARD,  'Einzelschuss', 'rifle', {pts:100, dualMain:true}),
   W('maynard_sniper_sil',   'Maynard Sniper Silencer',      3,'medium',MA.MAYNARD_SL,'Einzelschuss', 'rifle', {pts:75, dualMain:true}),
   W('springfield_1866',     'Springfield 1866',             3,'medium',MA.SPR66,    'Einzelschuss', 'rifle', {dualMain:true}),
   W('springfield_1866_mark','Springfield 1866 Marksman',    3,'medium',MA.SPR66_MK, 'Einzelschuss', 'rifle', {dualMain:true}),
@@ -215,7 +215,7 @@ const SMALL3 = [
   W('lemat_carbine',        'LeMat Carbine',                3,'small', SA.LEMAT_C,  'Revolver', 'rifle',
     {dualAmmo:true, secondAmmoLabel:'Schrotlauf', secondAmmo:SA.SH2ND()}),
   W('lemat_carbine_mark',   'LeMat Carbine Marksman',       3,'small', SA.LEMAT_C,  'Revolver', 'rifle',
-    {dualAmmo:true, secondAmmoLabel:'Schrotlauf', secondAmmo:SA.SH2ND()}),
+    {pts:110, dualAmmo:true, secondAmmoLabel:'Schrotlauf', secondAmmo:SA.SH2ND()}),
   W('officer_carbine',      'Officer Carbine',              3,'small', SA.OFF_C,    'Revolver', 'pistol', {pts:75}),
   W('officer_carbine_de',   'Officer Carbine Deadeye',      3,'small', SA.OFF_C,    'Revolver', 'pistol', {pts:85}),
   W('frontier_73c',         'Frontier 73C',                 3,'small', SA.FRONT73,  'Hebel-Repetier'),
@@ -259,33 +259,33 @@ const SMALL2 = [
 const LONG1 = [
   W('sparks_pistol',        'Sparks Pistol',               1,'long', LA.SPARKS_P, 'Einzelschuss','pistol', {dualMain:true}),
   W('sparks_pistol_sil',    'Sparks Pistol Silencer',      1,'long', LA.SPARKS_P, 'Einzelschuss','pistol', {dualMain:true}),
-  W('uppercut',             'Uppercut',                    1,'long', LA.UPPERCUT, 'Einzelschuss','pistol'),
+  W('uppercut',             'Uppercut',                    1,'long', LA.UPPERCUT, 'Revolver',    'pistol', {dualMain:true}),
 ]
 
 const MED1 = [
-  W('pax',                  'Pax',                         1,'medium',MA.PAX,     'Revolver','pistol'),
-  W('pax_claw',             'Pax Claw',                    1,'medium',MA.PAX,     'Revolver','pistol'),
-  W('pax_trueshot',         'Pax Trueshot',                1,'medium',MA.PAX,     'Revolver','pistol'),
-  W('scottfield',           'Scottfield',                  1,'medium',MA.SCOTTF,  'Revolver','pistol'),
-  W('scottfield_brawler',   'Scottfield Brawler',          1,'medium',MA.SCOTTF,  'Revolver','pistol'),
-  W('scottfield_spitfire',  'Scottfield Spitfire',         1,'medium',MA.SCOTTF,  'Revolver','pistol'),
-  W('scottfield_swift',     'Scottfield Swift',            1,'medium',MA.SCOTTF,  'Revolver','pistol'),
+  W('pax',                  'Pax',                         1,'medium',MA.PAX,     'Revolver','pistol', {dualMain:true}),
+  W('pax_claw',             'Pax Claw',                    1,'medium',MA.PAX,     'Revolver','pistol', {dualMain:true}),
+  W('pax_trueshot',         'Pax Trueshot',                1,'medium',MA.PAX,     'Revolver','pistol', {dualMain:true}),
+  W('scottfield',           'Scottfield',                  1,'medium',MA.SCOTTF,  'Revolver','pistol', {dualMain:true}),
+  W('scottfield_brawler',   'Scottfield Brawler',          1,'medium',MA.SCOTTF,  'Revolver','pistol', {dualMain:true}),
+  W('scottfield_spitfire',  'Scottfield Spitfire',         1,'medium',MA.SCOTTF,  'Revolver','pistol', {dualMain:true}),
+  W('scottfield_swift',     'Scottfield Swift',            1,'medium',MA.SCOTTF,  'Revolver','pistol', {dualMain:true}),
 ]
 
 const SMALL1 = [
-  W('bornheim_no3',         'Bornheim No. 3',              1,'small', SA.BORNHEIM,'Pistole',    'pistol'),
-  W('bornheim_no3_sil',     'Bornheim No. 3 Silencer',     1,'small', SA.BORNHEIM,'Pistole',    'pistol'),
-  W('bornheim_no3_ext',     'Bornheim No. 3 Extended',     1,'small', SA.BORNHEIM,'Pistole',    'pistol'),
-  W('conversion',           'Conversion',                  1,'small', SA.CONV,    'Revolver',   'pistol'),
-  W('conversion_chain',     'Conversion Chain Pistol',     1,'small', SA.CONV,    'Revolver',   'pistol'),
+  W('bornheim_no3',         'Bornheim No. 3',              1,'small', SA.BORNHEIM,'Pistole',    'pistol', {dualMain:true}),
+  W('bornheim_no3_sil',     'Bornheim No. 3 Silencer',     1,'small', SA.BORNHEIM,'Pistole',    'pistol', {dualMain:true}),
+  W('bornheim_no3_ext',     'Bornheim No. 3 Extended',     1,'small', SA.BORNHEIM,'Pistole',    'pistol', {dualMain:true}),
+  W('conversion',           'Conversion',                  1,'small', SA.CONV,    'Revolver',   'pistol', {dualMain:true}),
+  W('conversion_chain',     'Conversion Chain Pistol',     1,'small', SA.CONV,    'Revolver',   'pistol', {dualMain:true}),
   W('lemat',                'LeMat',                       1,'small', SA.LEMAT,   'Revolver',   'pistol',
-    {dualAmmo:true, secondAmmoLabel:'Schrotlauf', secondAmmo:SA.SH2ND()}),
-  W('nagant_m1895',         'Nagant M1895',                1,'small', SA.NAGANT,  'Revolver',   'pistol'),
-  W('nagant_m1895_sil',     'Nagant M1895 Silencer',       1,'small', SA.NAGANT,  'Revolver',   'pistol'),
-  W('new_army',             'New Army',                    1,'small', SA.NEW_ARMY, 'Revolver',  'pistol', {pts:95}),
-  W('new_army_swift',       'New Army Swift',              1,'small', SA.NEW_ARMY, 'Revolver',  'pistol', {pts:95}),
-  W('officer',              'Officer',                     1,'small', SA.OFFICER,  'Revolver',  'pistol', {pts:90}),
-  W('officer_brawler',      'Officer Brawler',             1,'small', SA.OFFICER,  'Revolver',  'pistol', {pts:90}),
+    {dualMain:true, dualAmmo:true, secondAmmoLabel:'Schrotlauf', secondAmmo:SA.SH2ND()}),
+  W('nagant_m1895',         'Nagant M1895',                1,'small', SA.NAGANT,  'Revolver',   'pistol', {dualMain:true}),
+  W('nagant_m1895_sil',     'Nagant M1895 Silencer',       1,'small', SA.NAGANT,  'Revolver',   'pistol', {dualMain:true}),
+  W('new_army',             'New Army',                    1,'small', SA.NEW_ARMY, 'Revolver',  'pistol', {pts:95, dualMain:true}),
+  W('new_army_swift',       'New Army Swift',              1,'small', SA.NEW_ARMY, 'Revolver',  'pistol', {pts:95, dualMain:true}),
+  W('officer',              'Officer',                     1,'small', SA.OFFICER,  'Revolver',  'pistol', {pts:90, dualMain:true}),
+  W('officer_brawler',      'Officer Brawler',             1,'small', SA.OFFICER,  'Revolver',  'pistol', {pts:90, dualMain:true}),
 ]
 
 const SHOTGUNS = [
@@ -313,16 +313,16 @@ const SHOTGUNS = [
 ]
 
 const SPECIAL = [
-  W('bomb_lance',           'Bomb Lance',                  3,'special',SP.LANCE,  'Einzelschuss','special', {pts:0, dualMain:true}),
-  W('bomb_launcher',        'Bomb Launcher',               2,'special',SP.LANCE,  'Einzelschuss','special', {pts:0, dualMain:true}),
-  W('chu_ko_nu',            'Chu Ko Nu',                   2,'special',SP.CHUKONU,'Repetier',    'special', {pts:0}),
+  W('bomb_lance',           'Bomb Lance',                  3,'special',SP.LANCE,  'Einzelschuss','special', {pts:100, dualMain:true}),
+  W('bomb_launcher',        'Bomb Launcher',               2,'special',SP.LANCE,  'Einzelschuss','special', {pts:100, dualMain:true}),
+  W('chu_ko_nu',            'Chu Ko Nu',                   2,'special',SP.CHUKONU,'Halbautomatik','special', {pts:150}),
   W('crossbow',             'Crossbow',                    3,'special',SP.CROSS,  'Einzelschuss','special', {dualMain:true}),
   W('crossbow_deadeye',     'Crossbow Deadeye',            3,'special',SP.CROSS,  'Einzelschuss','special', {dualMain:true}),
-  W('dolch_96',             'Dolch 96',                    1,'special',SA.DOLCH,  'Pistole',     'pistol', {pts:75}),
-  W('dolch_96_claw',        'Dolch 96 Claw',               1,'special',SA.DOLCH,  'Pistole',     'pistol', {pts:75}),
-  W('dolch_96_bullseye',    'Dolch 96 Bullseye',           1,'special',SA.DOLCH,  'Pistole',     'pistol', {pts:75}),
+  W('dolch_96',             'Dolch 96',                    1,'special',SA.DOLCH,  'Pistole',     'pistol', {pts:75,  dualMain:true}),
+  W('dolch_96_claw',        'Dolch 96 Claw',               1,'special',SA.DOLCH,  'Pistole',     'pistol', {pts:75,  dualMain:true}),
+  W('dolch_96_bullseye',    'Dolch 96 Bullseye',           1,'special',SA.DOLCH,  'Pistole',     'pistol', {pts:85,  dualMain:true}),
   W('dolch_96_precision',   'Dolch 96 Precision',          2,'special',SA.DOLCH_PR,'Pistole',    'pistol', {pts:85}),
-  W('handcrossbow',         'Handcrossbow',                1,'special',SP.HBOW,   'Einzelschuss','special', {pts:0, dualMain:true}),
+  W('handcrossbow',         'Handcrossbow',                1,'special',SP.HBOW,   'Einzelschuss','special', {pts:150, dualMain:true}),
   W('hunting_bow',          'Hunting Bow',                 2,'special',SP.BOW,    'Einzelschuss','special'),
   W('nitro_express',        'Nitro Express',               3,'special',SP.NITRO,  'Doppellauf',  'special'),
 ]
@@ -335,10 +335,10 @@ const EVENT = [
 const SLOTTED_MELEE = [
   { id:'baseball_bat',    name:'Baseball Bat',    category:'slotMelee', slots:1, pts:100, ammo:[], fireMode:'Nahkampf', ammoType:'melee' },
   { id:'cavalry_saber',   name:'Cavalry Saber',   category:'slotMelee', slots:1, pts:100, ammo:[], fireMode:'Nahkampf', ammoType:'melee' },
-  { id:'combat_axe',      name:'Combat Axe',      category:'slotMelee', slots:1, pts:100, ammo:[], fireMode:'Nahkampf', ammoType:'melee' },
-  { id:'katana',          name:'Katana',           category:'slotMelee', slots:1, pts:100, ammo:[], fireMode:'Nahkampf', ammoType:'melee' },
-  { id:'machete',         name:'Machete',          category:'slotMelee', slots:1, pts:100, ammo:[], fireMode:'Nahkampf', ammoType:'melee' },
-  { id:'railroad_hammer', name:'Railroad Hammer',  category:'slotMelee', slots:1, pts:100, ammo:[], fireMode:'Nahkampf', ammoType:'melee' },
+  { id:'combat_axe',      name:'Combat Axe',      category:'slotMelee', slots:1, pts:130, ammo:[], fireMode:'Nahkampf', ammoType:'melee' },
+  { id:'katana',          name:'Katana',           category:'slotMelee', slots:1, pts:80,  ammo:[], fireMode:'Nahkampf', ammoType:'melee' },
+  { id:'machete',         name:'Machete',          category:'slotMelee', slots:1, pts:120, ammo:[], fireMode:'Nahkampf', ammoType:'melee' },
+  { id:'railroad_hammer', name:'Railroad Hammer',  category:'slotMelee', slots:1, pts:130, ammo:[], fireMode:'Nahkampf', ammoType:'melee' },
 ]
 
 const TOOLS = [
