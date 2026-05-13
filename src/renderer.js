@@ -499,7 +499,7 @@ const TRANSLATIONS = {
     lo_tools:'TOOLS', lo_consumables:'CONSUMABLES', lo_slot_bonus:'SLOT BONUS',
     lo_free_slot:'freier Slot', lo_free_slots:'freie Slots', lo_qm:'QM',
     lo_reroll:'↺ NEU WÜRFELN',
-    res_foreign_tip:'Eine aufgehobene Waffe, die nicht im Loadout-Randomizer enthalten war.',
+    res_foreign_tip:'Aufgehobene Fremdwaffe — zählt zum progressiven Kill-Pool (Kill 1: +10, Kill 2: +20, ...).',
     // Results
     res_title:'RUNDEN ERGEBNIS', res_hint:'Auf Waffe/Item klicken = +1 · Rechtsklick = −1',
     res_stylish:'Stylish Kill', res_foreign:'Fremde Waffe', res_headshots:'Headshots',
@@ -507,16 +507,17 @@ const TRANSLATIONS = {
     res_yes:'JA', res_no:'NEIN', res_preview:'VORAUSSICHTLICHE PUNKTE:',
     res_confirm:'✦ ERGEBNIS BESTÄTIGEN', res_primary:'PRIMÄR', res_secondary:'SEKUNDÄR',
     res_kills:'KILLS',
-    res_pts_stylish:'+50 / Kill', res_pts_foreign:'+80 / Kill', res_pts_headshots:'+50 / HS',
-    res_pts_deaths:'−50 / Tod', res_pts_bounties:'+100 / Stück',
-    res_pts_foreign_cons:'+70 / Stück', res_pts_teamkill:'−500 / TK',
-    res_pts_world_melee:'+250 / Kill',
+    res_pts_stylish:'+50 / Kill', res_pts_foreign:'Progressiv (+N×10)', res_pts_headshots:'+50 / HS',
+    res_pts_deaths:'−50/−75/−100 (Prog.)', res_pts_bounties:'+100 / Stück',
+    res_pts_foreign_cons:'Progressiv (+N×10)', res_pts_teamkill:'−500 / TK',
+    res_pts_world_melee:'Progressiv (+N×10)',
     res_failed_extract:'Extraktion fehlgeschlagen (÷2)',
     res_foreign_cons:'Fremde Consumable', res_teamkill:'Teamkill',
     res_world_melee:'World-Melee Kill',
-    res_foreign_cons_tip:'Aufgehobenes Consumable, das nicht im Loadout-Randomizer enthalten war.',
-    res_teamkill_tip:'Ein versehentlicher oder absichtlicher Teamkill während der Runde.',
-    res_world_melee_tip:'Kill mit einer aufgesetzten Weltnahkampfwaffe (Flasche, Hammer, Spitzhacke, etc.) die nicht im eigenen Loadout war.',
+    res_deaths_tip:'1. Tod −50 · 2. Tod −75 · 3. Tod −100 · Jeder weitere −25 mehr.',
+    res_foreign_cons_tip:'Zählt zum progressiven Kill-Pool (Kill 1: +10, Kill 2: +20, ...)',
+    res_teamkill_tip:'Nur gültig bei versehentlichen Teamkills. Absichtliche Manipulation (um Mitspieler zu schaden) ist nicht erlaubt.',
+    res_world_melee_tip:'Weltnahkampfwaffe (Flasche, Hammer, etc.) — zählt zum progressiven Kill-Pool.',
     res_stylish_tip:'Wähle dies bei einem besonders stylishen Kill — z.B. 200m Sniper, Kill im freien Fall oder ähnliches. Pauschaler Bonus.',
     // Round complete
     rc_title:'RUNDE ABGESCHLOSSEN', rc_score:'RUNDEN SCORE', rc_total:'LAUF GESAMT:',
@@ -575,11 +576,13 @@ const TRANSLATIONS = {
     rd_foreign:'Fremde Waffe', rd_deaths_label:'Tode', rd_first_death_label:'Erster Tod',
     // Scoring overview labels
     sl_kill:'Kill (Waffe, Standard)', sl_stylish:'Stylish Kill', sl_foreign:'Fremde Waffe Kill',
+    sl_kill:'Kill (Progressiv, alle Quellen)', sl_kill_prog:'Kill 1: +10 · Kill 2: +20 · Kill 3: +30 ...',
     sl_first_kill:'Erster Kill', sl_world_melee:'World-Melee Kill', sl_foreign_cons:'Fremde Consumable', sl_teamkill:'Teamkill',
     sl_marcel:'Marcel-Hypermode (Bogen)', sl_headshot:'Headshot', sl_bounty:'Bounty (max 4 / 2 Solo)',
     sl_free_slot:'Freier Waffen-Slot', sl_free_cons:'Freier Cons.-Slot', sl_medkit_off:'Medkit nicht erzwungen',
     sl_melee_off:'Nahkampf nicht erzwungen', sl_solo:'Solo-Modus',
-    sl_death:'Tod', sl_first_death:'Erster Tod', sl_vit_forced:'Vitality Shot (erzwungen)',
+    sl_death:'Tod (Progressiv)', sl_death_prog:'Tod 1: −50 · Tod 2: −75 · Tod 3: −100 ...',
+    sl_first_death:'Erster Tod', sl_vit_forced:'Vitality Shot (erzwungen)',
     sl_regen_forced:'Regenshot (erzwungen)', sl_extract_fail:'Extraktion fehlgeschlagen',
     sl_ammo_mod:'Munitions-Modifikator', sl_static:'(statisch, kein Solo-Mult.)',
   },
@@ -596,23 +599,24 @@ const TRANSLATIONS = {
     lo_tools:'TOOLS', lo_consumables:'CONSUMABLES', lo_slot_bonus:'SLOT BONUS',
     lo_free_slot:'free slot', lo_free_slots:'free slots', lo_qm:'QM',
     lo_reroll:'↺ REROLL',
-    res_foreign_tip:'A weapon picked up that was not part of the initial loadout randomizer.',
+    res_foreign_tip:'Foreign weapon picked up — counts toward the progressive kill pool (Kill 1: +10, Kill 2: +20, ...).',
     res_title:'ROUND RESULT', res_hint:'Click weapon/item = +1 · Right-click = −1',
     res_stylish:'Stylish Kill', res_foreign:'Foreign Weapon', res_headshots:'Headshots',
     res_deaths:'Deaths', res_bounties:'Bounties', res_first_kill:'First Kill (+50)', res_first_death:'First Death (−100)',
     res_yes:'YES', res_no:'NO', res_preview:'ESTIMATED POINTS:',
     res_confirm:'✦ CONFIRM RESULT', res_primary:'PRIMARY', res_secondary:'SECONDARY',
     res_kills:'KILLS',
-    res_pts_stylish:'+50 / Kill', res_pts_foreign:'+80 / Kill', res_pts_headshots:'+50 / HS',
-    res_pts_deaths:'−50 / Death', res_pts_bounties:'+100 / each',
-    res_pts_foreign_cons:'+70 / each', res_pts_teamkill:'−500 / TK',
-    res_pts_world_melee:'+250 / Kill',
+    res_pts_stylish:'+50 / Kill', res_pts_foreign:'Progressive (+N×10)', res_pts_headshots:'+50 / HS',
+    res_pts_deaths:'−50/−75/−100 (Prog.)', res_pts_bounties:'+100 / each',
+    res_pts_foreign_cons:'Progressive (+N×10)', res_pts_teamkill:'−500 / TK',
+    res_pts_world_melee:'Progressive (+N×10)',
     res_failed_extract:'Extraction Failed (÷2)',
     res_foreign_cons:'Foreign Consumable', res_teamkill:'Teamkill',
     res_world_melee:'World Melee Kill',
-    res_foreign_cons_tip:'A consumable picked up that was not part of the initial loadout randomizer.',
-    res_teamkill_tip:'An accidental or intentional teamkill during the round.',
-    res_world_melee_tip:'A kill with a world melee weapon (bottle, hammer, pickaxe, etc.) not part of your loadout.',
+    res_deaths_tip:'Death 1: −50 · Death 2: −75 · Death 3: −100 · Each further −25 more.',
+    res_foreign_cons_tip:'Counts toward the progressive kill pool (Kill 1: +10, Kill 2: +20, ...).',
+    res_teamkill_tip:'Only valid for accidental teamkills. Intentional manipulation to lower teammates\' scores is not allowed.',
+    res_world_melee_tip:'World melee weapon (bottle, hammer, etc.) — counts toward the progressive kill pool.',
     res_stylish_tip:'Select this for a particularly stylish kill — e.g. a 200m snipe, kill while skydiving, etc. Flat bonus points.',
     rc_title:'ROUND COMPLETE', rc_score:'ROUND SCORE', rc_total:'RUN TOTAL:',
     rc_next:'↺ NEXT ROUND', rc_end:'✓ END RUN',
@@ -663,13 +667,15 @@ const TRANSLATIONS = {
     rd_kills_primary:'Kills (Primary)', rd_kills_secondary:'Kills (Secondary)',
     rd_foreign:'Foreign Weapon', rd_deaths_label:'Deaths', rd_first_death_label:'First Death',
     // Scoring overview labels
-    sl_kill:'Kill (Weapon, Standard)', sl_stylish:'Stylish Kill', sl_foreign:'Foreign Weapon Kill',
+    sl_kill:'Kill (Progressive, all sources)', sl_kill_prog:'Kill 1: +10 · Kill 2: +20 · Kill 3: +30 ...',
+    sl_stylish:'Stylish Kill', sl_foreign:'Foreign Weapon Kill',
     sl_first_kill:'First Kill', sl_world_melee:'World Melee Kill', sl_foreign_cons:'Foreign Consumable', sl_teamkill:'Teamkill',
     sl_marcel:'Marcel-Hypermode (Bow)', sl_headshot:'Headshot', sl_bounty:'Bounty (max 4 / 2 Solo)',
     sl_free_slot:'Free Weapon Slot',
     sl_free_cons:'Free Cons. Slot', sl_medkit_off:'Medkit Not Required',
     sl_melee_off:'Melee Not Required', sl_solo:'Solo Mode',
-    sl_death:'Death', sl_first_death:'First Death', sl_vit_forced:'Vitality Shot (Forced)',
+    sl_death:'Death (Progressive)', sl_death_prog:'Death 1: −50 · Death 2: −75 · Death 3: −100 ...',
+    sl_first_death:'First Death', sl_vit_forced:'Vitality Shot (Forced)',
     sl_regen_forced:'Regen Shot (Forced)', sl_extract_fail:'Extraction Failed',
     sl_ammo_mod:'Ammo Modifier', sl_static:'(static, no Solo mult.)',
   },
@@ -878,29 +884,18 @@ function calcLoadoutScore(loadout) {
 function calcRoundScore(loadout, results) {
   const breakdown = []
 
-  // Per-kill weapon scoring (dict: { ammoKey: count } or legacy number)
-  function addWeaponKills(weapon, killsData, defaultAmmoKey) {
-    if (!killsData) return
-    const entries = typeof killsData === 'object'
-      ? Object.entries(killsData)
-      : [[defaultAmmoKey, killsData]]
-    for (const [ammoKey, count] of entries) {
-      if (!count) continue
-      const isSecondBarrel = weapon.dualAmmo && weapon.secondAmmo?.some(a => a.key === ammoKey)
-      const ammoArr = isSecondBarrel ? weapon.secondAmmo : weapon.ammo
-      const ammoEntry = ammoArr?.find(a => a.key === ammoKey)
-      const ammoLabel = ammoEntry?.label ?? ammoKey
-      const ptsEach = getWeaponPts(weapon) + getEffAmmoPts(weapon, ammoKey, isSecondBarrel)
-      const label = ammoEntry
-        ? `${count}× ${weapon.name} · ${ammoLabel}`
-        : `${count}× ${T('bk_kill')} (${weapon.name})`
-      breakdown.push({ label, pts: count * ptsEach, type: ptsEach >= 0 ? 'good' : 'bad' })
-    }
+  // Progressive kill scoring: Kill N = N × 10 pts
+  // Pool: weapon ammo-tag kills + foreign kills + world melee kills + foreign consumables
+  const weaponKills = sumKillDict(results.primaryKills) + sumKillDict(results.secondaryKills)
+  const totalKills  = weaponKills
+    + (results.foreignKills       || 0)
+    + (results.worldMeleeKills    || 0)
+    + (results.foreignConsumables || 0)
+  for (let i = 1; i <= totalKills; i++) {
+    breakdown.push({ label:`${T('bk_kill')} #${i}`, pts: i * 10, type:'good' })
   }
-  addWeaponKills(loadout.primary,   results.primaryKills,   loadout.primaryAmmo)
-  addWeaponKills(loadout.secondary, results.secondaryKills, loadout.secondaryAmmo)
 
-  // Item uses (tools & consumables)
+  // Item uses (tools & consumables) — flat scoring, separate from kill pool
   if (results.itemUses) {
     const allItems = [...(loadout.tools || []), ...(loadout.consumables || [])]
     for (const item of allItems) {
@@ -912,17 +907,16 @@ function calcRoundScore(loadout, results) {
     }
   }
 
-  // Stylish kills / foreign weapon kills / headshots
+  // First kill toggle, stylish kills, headshots, teamkills
   if (results.firstKill)    breakdown.push({ label:T('bk_first_kill'), pts: 50, type:'good' })
-  if (results.stylishKills) breakdown.push({ label:`${results.stylishKills}× ${T('bk_stylish')}`, pts: results.stylishKills * 50,  type:'good' })
-  if (results.foreignKills)     breakdown.push({ label:`${results.foreignKills}× ${T('bk_foreign')}`,    pts: results.foreignKills * 80,   type:'good' })
-  if (results.worldMeleeKills)  breakdown.push({ label:`${results.worldMeleeKills}× ${T('bk_world_melee')}`, pts: results.worldMeleeKills * 250, type:'good' })
-  if (results.foreignConsumables) breakdown.push({ label:`${results.foreignConsumables}× ${T('bk_foreign_cons')}`, pts: results.foreignConsumables * 70, type:'good' })
-  if (results.teamkills)        breakdown.push({ label:`${results.teamkills}× ${T('bk_teamkill')}`,     pts: results.teamkills * -500,    type:'bad'  })
-  if (results.headshots)    breakdown.push({ label:`${results.headshots}× ${T('bk_headshot')}`,   pts: results.headshots    * 50,  type:'good' })
+  if (results.stylishKills) breakdown.push({ label:`${results.stylishKills}× ${T('bk_stylish')}`, pts: results.stylishKills * 50, type:'good' })
+  if (results.teamkills)    breakdown.push({ label:`${results.teamkills}× ${T('bk_teamkill')}`, pts: results.teamkills * -500, type:'bad' })
+  if (results.headshots)    breakdown.push({ label:`${results.headshots}× ${T('bk_headshot')}`, pts: results.headshots * 50, type:'good' })
 
-  // Deaths & first death
-  if (results.deaths)     breakdown.push({ label:`${results.deaths}× ${T('bk_death')}`, pts: results.deaths * -50, type:'bad' })
+  // Deaths: progressive — death N = -(50 + (N-1)*25): Tod 1=−50, Tod 2=−75, Tod 3=−100, ...
+  for (let i = 1; i <= (results.deaths || 0); i++) {
+    breakdown.push({ label:`${T('bk_death')} #${i}`, pts: -(50 + (i - 1) * 25), type:'bad' })
+  }
   if (results.firstDeath) breakdown.push({ label:T('bk_first_death'), pts:-100, type:'bad' })
 
   // Bounties (capped)
@@ -950,18 +944,18 @@ function calcRoundScore(loadout, results) {
   }
 
   // ── Static bonuses/penalties (NOT multiplied by solo) ─────────────────────
-  // Free weapon slots (+200 each, relative to base 4 slots — QM extra slot gives no bonus)
+  // Free weapon slots (+100 each, relative to base 4 slots — QM extra slot gives no bonus)
   const weaponSlots = (loadout.primary?.slots || 0) + (loadout.secondary?.slots || 0) + (loadout.dualWield ? 1 : 0)
   const emptySlots  = Math.max(0, 4 - weaponSlots)
   if (emptySlots > 0) {
-    const pts = emptySlots * 200
+    const pts = emptySlots * 100
     breakdown.push({ label:`${emptySlots}× ${T('bk_free_slot')}`, pts, type:'good' })
     total += pts
   }
-  // Free consumable slots (+100)
+  // Free consumable slots (+50)
   const emptyCons = Math.max(0, 4 - (loadout.consumables?.length || 0))
   if (emptyCons > 0) {
-    const pts = emptyCons * 100
+    const pts = emptyCons * 50
     breakdown.push({ label:`${emptyCons}× ${T('bk_free_cons')}`, pts, type:'good' })
     total += pts
   }
@@ -975,12 +969,12 @@ function calcRoundScore(loadout, results) {
     total += 100
   }
   if (state.settings.healSyringeRequired) {
-    breakdown.push({ label:T('bk_vit_forced'), pts: -50, type:'bad' })
-    total -= 50
+    breakdown.push({ label:T('bk_vit_forced'), pts: -25, type:'bad' })
+    total -= 25
   }
   if (state.settings.regenShotRequired) {
-    breakdown.push({ label:T('bk_regen_forced'), pts: -75, type:'bad' })
-    total -= 75
+    breakdown.push({ label:T('bk_regen_forced'), pts: -50, type:'bad' })
+    total -= 50
   }
   // Marcel-Hypermode: +25 per kill when Hunting Bow is in loadout
   if (state.settings.marcelHypermode) {
@@ -1496,13 +1490,11 @@ function updatePreviewScore() {
   if (el) { el.textContent = (total >= 0 ? '+' : '') + total; el.classList.toggle('negative', total < 0) }
   const tip = document.getElementById('preview-breakdown-tooltip')
   if (tip) {
-    const base = calcLoadoutScore(state.currentRoundData.loadout)
-    const baseRow = `<div class="tooltip-row tooltip-base-row"><span>${T('lo_difficulty')}</span><span class="tooltip-pts-good">${base >= 0 ? '+' : ''}${base}</span></div>`
     const rows = breakdown.map(b =>
       `<div class="tooltip-row"><span>${b.label}</span><span class="${b.type === 'good' ? 'tooltip-pts-good' : 'tooltip-pts-bad'}">${b.pts >= 0 ? '+' : ''}${b.pts}</span></div>`
     ).join('')
     const totalRow = `<div class="tooltip-row tooltip-total-row"><span>TOTAL</span><span>${total >= 0 ? '+' : ''}${total}</span></div>`
-    tip.innerHTML = baseRow + rows + totalRow
+    tip.innerHTML = rows + totalRow
   }
 }
 
