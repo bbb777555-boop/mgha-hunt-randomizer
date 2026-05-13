@@ -507,15 +507,15 @@ const TRANSLATIONS = {
     res_yes:'JA', res_no:'NEIN', res_preview:'VORAUSSICHTLICHE PUNKTE:',
     res_confirm:'✦ ERGEBNIS BESTÄTIGEN', res_primary:'PRIMÄR', res_secondary:'SEKUNDÄR',
     res_kills:'KILLS',
-    res_pts_stylish:'+50 / Kill', res_pts_foreign:'Progressiv (+N×10)', res_pts_headshots:'+50 / HS',
+    res_pts_stylish:'+50 / Kill', res_pts_foreign:'+80 / Kill', res_pts_headshots:'+50 / HS',
     res_pts_deaths:'−50/−75/−100 (Prog.)', res_pts_bounties:'+100 / Stück',
-    res_pts_foreign_cons:'Progressiv (+N×10)', res_pts_teamkill:'−500 / TK',
-    res_pts_world_melee:'Progressiv (+N×10)',
+    res_pts_foreign_cons:'+70 / Kill', res_pts_teamkill:'−500 / TK',
+    res_pts_world_melee:'+250 / Kill',
     res_failed_extract:'Extraktion fehlgeschlagen (÷2)',
     res_foreign_cons:'Fremde Consumable', res_teamkill:'Teamkill',
     res_world_melee:'World-Melee Kill',
     res_deaths_tip:'1. Tod −50 · 2. Tod −75 · 3. Tod −100 · Jeder weitere −25 mehr.',
-    res_foreign_cons_tip:'Zählt zum progressiven Kill-Pool (Kill 1: +10, Kill 2: +20, ...)',
+    res_foreign_cons_tip:'+70 Basispunkte pro Kill. Zählt zusätzlich zum progressiven Kill-Bonus.',
     res_teamkill_tip:'Nur gültig bei versehentlichen Teamkills. Absichtliche Manipulation (um Mitspieler zu schaden) ist nicht erlaubt.',
     res_world_melee_tip:'Weltnahkampfwaffe (Flasche, Hammer, etc.) — zählt zum progressiven Kill-Pool.',
     res_stylish_tip:'Wähle dies bei einem besonders stylishen Kill — z.B. 200m Sniper, Kill im freien Fall oder ähnliches. Pauschaler Bonus.',
@@ -565,7 +565,7 @@ const TRANSLATIONS = {
     // Misc
     round_label:'Runde', dual_badge:'2x',
     // Breakdown labels
-    bk_kill:'Kill', bk_first_kill:'Erster Kill', bk_stylish:'Stylish Kill', bk_foreign:'Fremde Waffe', bk_world_melee:'World-Melee Kill', bk_foreign_cons:'Fremde Consumable', bk_teamkill:'Teamkill', bk_marcel:'Marcel-Hypermode Bonus', bk_gamble:'Glücksspiel-Multiplikator',
+    bk_kill:'Kill', bk_kill_bonus:'Bonus', bk_first_kill:'Erster Kill', bk_stylish:'Stylish Kill', bk_foreign:'Fremde Waffe', bk_world_melee:'World-Melee Kill', bk_foreign_cons:'Fremde Consumable', bk_teamkill:'Teamkill', bk_marcel:'Marcel-Hypermode Bonus', bk_gamble:'Glücksspiel-Multiplikator',
     gamble_btn:'GAMBLE', gamble_tip:'Würfle einen globalen Punktmultiplikator (0.50× – 2.00×) für diese Runde. Token: alle 4 extrahierten Bounties. Einmal pro Runde verwendbar.',
     bk_headshot:'Headshot', bk_death:'Tod', bk_first_death:'Erster Tod',
     bk_bounty:'Bounty', bk_melee:'Nahkampf', bk_medkit:'Medkit',
@@ -580,8 +580,10 @@ const TRANSLATIONS = {
     rd_kills_primary:'Kills (Primär)', rd_kills_secondary:'Kills (Sekundär)',
     rd_foreign:'Fremde Waffe', rd_deaths_label:'Tode', rd_first_death_label:'Erster Tod',
     // Scoring overview labels
-    sl_kill:'Kill (Waffe, Standard)', sl_stylish:'Stylish Kill', sl_foreign:'Fremde Waffe Kill',
-    sl_kill:'Kill (Progressiv, alle Quellen)', sl_kill_prog:'Kill 1: +0 · Kill 2: +15 · Kill 3: +30 · Kill 4: +45 ...',
+    sl_weapon_kill:'Kill (Waffe)', sl_weapon_kill_val:'Waffe + Ammo-Pts',
+    sl_foreign_kill:'Fremde Waffe Kill', sl_world_melee_kill:'World-Melee Kill', sl_foreign_cons_kill:'Fremde Consumable Kill',
+    sl_kill:'Progressiver Kill-Bonus', sl_kill_prog:'Kill 1: +0 · Kill 2: +15 · Kill 3: +30 · Kill 4: +45 ...',
+    sl_stylish:'Stylish Kill', sl_foreign:'Fremde Waffe Kill',
     sl_first_kill:'Erster Kill', sl_world_melee:'World-Melee Kill', sl_foreign_cons:'Fremde Consumable', sl_teamkill:'Teamkill',
     sl_marcel:'Marcel-Hypermode (Bogen)', sl_headshot:'Headshot', sl_bounty:'Bounty (max 4 / 2 Solo)',
     sl_free_slot:'Freier Waffen-Slot', sl_free_cons:'Freier Cons.-Slot', sl_medkit_off:'Medkit nicht erzwungen',
@@ -611,15 +613,15 @@ const TRANSLATIONS = {
     res_yes:'YES', res_no:'NO', res_preview:'ESTIMATED POINTS:',
     res_confirm:'✦ CONFIRM RESULT', res_primary:'PRIMARY', res_secondary:'SECONDARY',
     res_kills:'KILLS',
-    res_pts_stylish:'+50 / Kill', res_pts_foreign:'Progressive (+N×10)', res_pts_headshots:'+50 / HS',
+    res_pts_stylish:'+50 / Kill', res_pts_foreign:'+80 / Kill', res_pts_headshots:'+50 / HS',
     res_pts_deaths:'−50/−75/−100 (Prog.)', res_pts_bounties:'+100 / each',
-    res_pts_foreign_cons:'Progressive (+N×10)', res_pts_teamkill:'−500 / TK',
-    res_pts_world_melee:'Progressive (+N×10)',
+    res_pts_foreign_cons:'+70 / Kill', res_pts_teamkill:'−500 / TK',
+    res_pts_world_melee:'+250 / Kill',
     res_failed_extract:'Extraction Failed (÷2)',
     res_foreign_cons:'Foreign Consumable', res_teamkill:'Teamkill',
     res_world_melee:'World Melee Kill',
     res_deaths_tip:'Death 1: −50 · Death 2: −75 · Death 3: −100 · Each further −25 more.',
-    res_foreign_cons_tip:'Counts toward the progressive kill pool (Kill 1: +10, Kill 2: +20, ...).',
+    res_foreign_cons_tip:'+70 base pts per kill. Also counts toward the progressive kill bonus.',
     res_teamkill_tip:'Only valid for accidental teamkills. Intentional manipulation to lower teammates\' scores is not allowed.',
     res_world_melee_tip:'World melee weapon (bottle, hammer, etc.) — counts toward the progressive kill pool.',
     res_stylish_tip:'Select this for a particularly stylish kill — e.g. a 200m snipe, kill while skydiving, etc. Flat bonus points.',
@@ -662,7 +664,7 @@ const TRANSLATIONS = {
     modal_confirm_btn:'Confirm', modal_cancel:'Cancel',
     round_label:'Round', dual_badge:'2x',
     // Breakdown labels
-    bk_kill:'Kill', bk_first_kill:'First Kill', bk_stylish:'Stylish Kill', bk_foreign:'Foreign Weapon', bk_world_melee:'World Melee Kill', bk_foreign_cons:'Foreign Consumable', bk_teamkill:'Teamkill', bk_marcel:'Marcel-Hypermode Bonus', bk_gamble:'Gamble Multiplier',
+    bk_kill:'Kill', bk_kill_bonus:'Bonus', bk_first_kill:'First Kill', bk_stylish:'Stylish Kill', bk_foreign:'Foreign Weapon', bk_world_melee:'World Melee Kill', bk_foreign_cons:'Foreign Consumable', bk_teamkill:'Teamkill', bk_marcel:'Marcel-Hypermode Bonus', bk_gamble:'Gamble Multiplier',
     gamble_btn:'GAMBLE', gamble_tip:'Roll a global point multiplier (0.50× – 2.00×) for this round. Token: every 4 extracted bounties. Once per round.',
     bk_headshot:'Headshot', bk_death:'Death', bk_first_death:'First Death',
     bk_bounty:'Bounty', bk_melee:'Melee', bk_medkit:'Medkit',
@@ -677,7 +679,9 @@ const TRANSLATIONS = {
     rd_kills_primary:'Kills (Primary)', rd_kills_secondary:'Kills (Secondary)',
     rd_foreign:'Foreign Weapon', rd_deaths_label:'Deaths', rd_first_death_label:'First Death',
     // Scoring overview labels
-    sl_kill:'Kill (Progressive, all sources)', sl_kill_prog:'Kill 1: +0 · Kill 2: +15 · Kill 3: +30 · Kill 4: +45 ...',
+    sl_weapon_kill:'Kill (Weapon)', sl_weapon_kill_val:'Weapon + Ammo Pts',
+    sl_foreign_kill:'Foreign Weapon Kill', sl_world_melee_kill:'World Melee Kill', sl_foreign_cons_kill:'Foreign Consumable Kill',
+    sl_kill:'Progressive Kill Bonus', sl_kill_prog:'Kill 1: +0 · Kill 2: +15 · Kill 3: +30 · Kill 4: +45 ...',
     sl_stylish:'Stylish Kill', sl_foreign:'Foreign Weapon Kill',
     sl_first_kill:'First Kill', sl_world_melee:'World Melee Kill', sl_foreign_cons:'Foreign Consumable', sl_teamkill:'Teamkill',
     sl_marcel:'Marcel-Hypermode (Bow)', sl_headshot:'Headshot', sl_bounty:'Bounty (max 4 / 2 Solo)',
@@ -900,8 +904,34 @@ function calcLoadoutScore(loadout) {
 function calcRoundScore(loadout, results) {
   const breakdown = []
 
-  // Progressive kill scoring: Kill N = N × 10 pts
-  // Pool: weapon ammo-tag kills + foreign kills + world melee kills + foreign consumables
+  // Weapon kills: base pts from weapon + ammo modifier
+  function addWeaponKills(weapon, killsData, defaultAmmoKey) {
+    if (!killsData) return
+    const entries = typeof killsData === 'object'
+      ? Object.entries(killsData)
+      : [[defaultAmmoKey, killsData]]
+    for (const [ammoKey, count] of entries) {
+      if (!count) continue
+      const isSecondBarrel = weapon.dualAmmo && weapon.secondAmmo?.some(a => a.key === ammoKey)
+      const ammoArr  = isSecondBarrel ? weapon.secondAmmo : weapon.ammo
+      const ammoEntry = ammoArr?.find(a => a.key === ammoKey)
+      const ammoLabel = ammoEntry?.label ?? ammoKey
+      const ptsEach  = getWeaponPts(weapon) + getEffAmmoPts(weapon, ammoKey, isSecondBarrel)
+      const label    = ammoEntry
+        ? `${count}× ${weapon.name} · ${ammoLabel}`
+        : `${count}× ${T('bk_kill')} (${weapon.name})`
+      breakdown.push({ label, pts: count * ptsEach, type: ptsEach >= 0 ? 'good' : 'bad' })
+    }
+  }
+  addWeaponKills(loadout.primary,   results.primaryKills,   loadout.primaryAmmo)
+  addWeaponKills(loadout.secondary, results.secondaryKills, loadout.secondaryAmmo)
+
+  // Foreign / world melee / consumable kills: flat base pts
+  if (results.foreignKills)      breakdown.push({ label:`${results.foreignKills}× ${T('bk_foreign')}`,      pts: results.foreignKills      * 80,  type:'good' })
+  if (results.worldMeleeKills)   breakdown.push({ label:`${results.worldMeleeKills}× ${T('bk_world_melee')}`,pts: results.worldMeleeKills   * 250, type:'good' })
+  if (results.foreignConsumables)breakdown.push({ label:`${results.foreignConsumables}× ${T('bk_foreign_cons')}`,pts: results.foreignConsumables* 70,  type:'good' })
+
+  // Progressive kill BONUS on top: Kill 1 +0, Kill 2 +15, Kill 3 +30 ...
   const weaponKills = sumKillDict(results.primaryKills) + sumKillDict(results.secondaryKills)
   const totalKills  = weaponKills
     + (results.foreignKills       || 0)
@@ -909,7 +939,7 @@ function calcRoundScore(loadout, results) {
     + (results.foreignConsumables || 0)
   for (let i = 1; i <= totalKills; i++) {
     const pts = (i - 1) * 15
-    if (pts > 0) breakdown.push({ label:`${T('bk_kill')} #${i}`, pts, type:'good' })
+    if (pts > 0) breakdown.push({ label:`${T('bk_kill')} #${i} ${T('bk_kill_bonus')}`, pts, type:'good' })
   }
 
   // Item uses (tools & consumables) — flat scoring, separate from kill pool
