@@ -323,7 +323,7 @@ const SPECIAL = [
   W('dolch_96_bullseye',    'Dolch 96 Bullseye',           1,'special',SA.DOLCH,  'Pistole',     'pistol', {pts:85}),
   W('dolch_96_precision',   'Dolch 96 Precision',          2,'special',SA.DOLCH_PR,'Pistole',    'pistol', {pts:85}),
   W('handcrossbow',         'Handcrossbow',                1,'special',SP.HBOW,   'Einzelschuss','special', {pts:150, dualMain:true}),
-  W('hunting_bow',          'Hunting Bow',                 2,'special',SP.BOW,    'Einzelschuss','special'),
+  W('hunting_bow',          'Hunting Bow',                 2,'special',SP.BOW,    'Einzelschuss','special', {dualMain:true}),
   W('nitro_express',        'Nitro Express',               3,'special',SP.NITRO,  'Doppellauf',  'special'),
 ]
 
@@ -1007,10 +1007,8 @@ function generateLoadout() {
   const primary     = pick(pool)
   const primAmmoArr = filterAmmo(primary.ammo)
   const primaryAmmo = primAmmoArr?.length ? pick(primAmmoArr).key : null
-  // dualMain primary: pick a 2nd ammo from same pool
-  const primMain2   = primary.dualMain && primAmmoArr?.length > 1
-    ? primAmmoArr.filter(a => a.key !== primaryAmmo) : []
-  const primaryAmmo2 = primMain2.length ? pick(primMain2).key : null
+  // dualMain primary: pick a 2nd ammo freely from same pool (duplicates allowed)
+  const primaryAmmo2 = primary.dualMain && primAmmoArr?.length ? pick(primAmmoArr).key : null
   // dualAmmo primary (e.g. LeMat Carbine, Drilling): pick from second barrel
   const primSecArr  = primary.dualAmmo && primary.secondAmmo ? filterAmmo(primary.secondAmmo) : null
   const primaryAmmoB = primSecArr?.length ? pick(primSecArr).key : null
@@ -1022,10 +1020,8 @@ function generateLoadout() {
   const secondary      = pick(secondaryPool)
   const secAmmoArr     = filterAmmo(secondary.ammo)
   const secondaryAmmo  = secAmmoArr?.length ? pick(secAmmoArr).key : null
-  // dualMain secondary: pick a 2nd ammo from same pool
-  const secMainB    = secondary.dualMain && secAmmoArr?.length > 1
-    ? secAmmoArr.filter(a => a.key !== secondaryAmmo) : []
-  const secondaryAmmoB = secMainB.length ? pick(secMainB).key : null
+  // dualMain secondary: pick a 2nd ammo freely from same pool (duplicates allowed)
+  const secondaryAmmoB = secondary.dualMain && secAmmoArr?.length ? pick(secAmmoArr).key : null
   // dualAmmo secondary (second barrel, e.g. shotgun slot)
   const sec2Arr        = secondary.dualAmmo && secondary.secondAmmo ? filterAmmo(secondary.secondAmmo) : null
   const secondaryAmmo2 = sec2Arr?.length ? pick(sec2Arr).key : null
