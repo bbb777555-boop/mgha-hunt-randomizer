@@ -129,7 +129,7 @@ const SH = {
 }
 const SP = {
   NITRO:   () => [A.nitro(0), A.shrdammo(5), A.exp(100)],
-  CROSS:   () => [A.bolt(0),  sc(A.ebolt(30)), A.sbolt(15), A.stbolt(0)],
+  CROSS:   () => [A.bolt(0),  sc(A.ebolt(30)), A.sbolt(15), A.stbolt(-20)],
   CHUKONU: () => [A.cbolt(100), A.cebolt(30), A.cibolt(75), A.chkblt(20)],
   BOW:     () => [A.arr(0),  A.parr(20),   sc(A.farr(-5)), A.concarr(15)],
   LANCE:   () => [A.lance(200), A.harp(40), A.stball(10), A.wfrag(5), A.dbch(150)],
