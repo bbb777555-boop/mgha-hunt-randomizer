@@ -387,6 +387,7 @@ const CONSUMABLES = [
   { id:'hive_bomb',        name:'Hive Bomb',             required_setting:null,                  killPts:150 },
   { id:'poison_bomb',      name:'Poison Bomb',           required_setting:null,                  killPts:150 },
   { id:'chaos_bomb',       name:'Chaos Bomb',            required_setting:null,                  killPts:300 },
+  { id:'medkit',           name:'Medkit',                required_setting:null,                  killPts:300 },
   { id:'antidote_shot',    name:'Antidote Shot',         required_setting:null,                  killPts:300 },
   { id:'antidote_weak',    name:'Antidote Shot (weak)',  required_setting:null,                  killPts:300 },
   { id:'regen_shot',       name:'Regeneration Shot',     required_setting:null,                  killPts:300 },
@@ -539,7 +540,7 @@ const TRANSLATIONS = {
     set_choke_n:'Choke-Bombe verpflichtend', set_choke_d:'Garantiert eine Choke Bomb im Loadout. Kann ohne diese Option trotzdem zufällig rollen. Kein Score-Einfluss.',
     set_heal_n:'Heilspritze verpflichtend', set_heal_d:'EIN: Vitality Shot garantiert — kostet −25 Pts. AUS: Kein Abzug; kann trotzdem zufällig rollen.',
     set_regen_n:'Regenshot verpflichtend', set_regen_d:'EIN: Regen Shot garantiert — kostet −50 Pts. AUS: Kein Abzug; kann trotzdem zufällig rollen.',
-    set_hailmary_n:'Heal Mary', set_hailmary_d:'EIN: Garantiert 1 zufälliges Heilmittel (First Aid Kit, Regenshot, Vitshot — bei aktiven Tarot-Karten auch The Sun & The Garden) +25 Pts. Andere Heilmittel können trotzdem rollen. Deaktiviert: Medkit, Heilspritze & Regenshot verpflichtend.',
+    set_hailmary_n:'Heal Mary', set_hailmary_d:'EIN: Garantiert 1 zufälliges Heilmittel (First Aid Kit, Medkit, Regenshot, Vitshot — bei aktiven Tarot-Karten auch The Sun & The Garden) +25 Pts. Andere Heilmittel können trotzdem rollen. Deaktiviert: Medkit, Heilspritze & Regenshot verpflichtend.',
     set_mode_title:'SPIELMODUS',
     set_solo_n:'Solo-Modus', set_solo_d:'Alle variablen Kill-Punkte ×1.5. Statische Boni (Medkit-/Nahkampf-Setting) werden nicht multipliziert.',
     set_qm_n:'Quartermaster', set_qm_d:'Large + Medium Loadout (5 Slots). Kein Bonus für freie Slots — der Extra-Slot ist der Vorteil.',
@@ -644,7 +645,7 @@ const TRANSLATIONS = {
     set_choke_n:'Choke Bomb required', set_choke_d:'Guarantees a Choke Bomb. Can still roll randomly without this. No score effect.',
     set_heal_n:'Healing Syringe required', set_heal_d:'ON: Vitality Shot guaranteed — costs −25 Pts. OFF: No penalty; can still roll randomly.',
     set_regen_n:'Regen Shot required', set_regen_d:'ON: Regen Shot guaranteed — costs −50 Pts. OFF: No penalty; can still roll randomly.',
-    set_hailmary_n:'Heal Mary', set_hailmary_d:'ON: Guarantees 1 random heal item (First Aid Kit, Regen Shot, Vit Shot — with Tarot Cards active also The Sun & The Garden) +25 Pts. Other healing items can still roll randomly. Disables: Medkit, Syringe & Regen Shot required.',
+    set_hailmary_n:'Heal Mary', set_hailmary_d:'ON: Guarantees 1 random heal item (First Aid Kit, Medkit, Regen Shot, Vit Shot — with Tarot Cards also The Sun & The Garden) +25 Pts. Other healing items can still roll randomly. Disables: Medkit, Syringe & Regen Shot required.',
     set_mode_title:'GAME MODE',
     set_solo_n:'Solo Mode', set_solo_d:'All variable kill scores ×1.5. Static bonuses (Medkit/Melee setting) are not multiplied.',
     set_qm_n:'Quartermaster', set_qm_d:'Large + Medium loadout (5 slots). No free-slot bonus — the extra slot is the advantage.',
@@ -1221,7 +1222,7 @@ function generateLoadout() {
   if (state.settings.healHailmary) {
     const hailmaryPool = [
       ...TOOLS.filter(t => t.id === 'first_aid_kit'),
-      ...CONSUMABLES.filter(c => ['vitality_shot','vitality_weak','regen_shot','regen_weak'].includes(c.id)),
+      ...CONSUMABLES.filter(c => ['medkit','vitality_shot','vitality_weak','regen_shot','regen_weak'].includes(c.id)),
     ]
     if (state.settings.includeTarotCards) {
       hailmaryPool.push(...TAROT_CARDS.filter(t => t.name === 'The Sun' || t.name === 'The Garden'))
