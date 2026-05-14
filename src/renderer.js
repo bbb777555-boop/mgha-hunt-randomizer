@@ -499,7 +499,7 @@ const TRANSLATIONS = {
     lo_tools:'TOOLS', lo_consumables:'CONSUMABLES', lo_slot_bonus:'SLOT BONUS',
     lo_free_slot:'freier Slot', lo_free_slots:'freie Slots', lo_qm:'QM',
     lo_reroll:'↺ NEU WÜRFELN',
-    res_foreign_tip:'Aufgehobene Fremdwaffe — zählt zum progressiven Kill-Pool (Kill 1: +10, Kill 2: +20, ...).',
+    res_foreign_tip:'Aufgehobene Fremdwaffe — +80 Basispunkte pro Kill, zählt zusätzlich zum progressiven Kill-Bonus.',
     // Results
     res_title:'RUNDEN ERGEBNIS', res_hint:'Auf Waffe/Item klicken = +1 · Rechtsklick = −1',
     res_stylish:'Stylish Kill', res_foreign:'Fremde Waffe', res_headshots:'Headshots',
@@ -517,7 +517,7 @@ const TRANSLATIONS = {
     res_deaths_tip:'1. Tod −50 · 2. Tod −75 · 3. Tod −100 · Jeder weitere −25 mehr.',
     res_foreign_cons_tip:'+70 Basispunkte pro Kill. Zählt zusätzlich zum progressiven Kill-Bonus.',
     res_teamkill_tip:'Nur gültig bei versehentlichen Teamkills. Absichtliche Manipulation (um Mitspieler zu schaden) ist nicht erlaubt.',
-    res_world_melee_tip:'Weltnahkampfwaffe (Flasche, Hammer, etc.) — zählt zum progressiven Kill-Pool.',
+    res_world_melee_tip:'Weltnahkampfwaffe (Flasche, Hammer, etc.) — +250 Basispunkte pro Kill, zählt zusätzlich zum progressiven Kill-Bonus.',
     res_stylish_tip:'Wähle dies bei einem besonders stylishen Kill — z.B. 200m Sniper, Kill im freien Fall oder ähnliches. Pauschaler Bonus.',
     // Round complete
     rc_title:'RUNDE ABGESCHLOSSEN', rc_score:'RUNDEN SCORE', rc_total:'LAUF GESAMT:',
@@ -536,8 +536,8 @@ const TRANSLATIONS = {
     set_medkit_n:'Medkit verpflichtend', set_medkit_d:'EIN: Medkit garantiert im Loadout — kein Bonus, du hast die Sicherheit schon. AUS: +100 Pts statischer Bonus, weil du auf das Netz verzichtest.',
     set_melee_n:'Nahkampf-Tool verpflichtend', set_melee_d:'EIN: Nahkampf-Tool garantiert — kein Bonus. AUS: +100 Pts statischer Bonus für das Risiko ohne Garantie. (Beide können trotzdem zufällig gewürfelt werden.)',
     set_choke_n:'Choke-Bombe verpflichtend', set_choke_d:'Choke Bomb garantiert im Loadout. Kann ohne diese Option weiterhin zufällig erscheinen. Kein Einfluss auf den Score.',
-    set_heal_n:'Heilspritze verpflichtend', set_heal_d:'EIN: Vitality Shot (weak o. normal) garantiert — kostet −50 Pts statisch. AUS: Kein Abzug, kann aber weiterhin zufällig rollen.',
-    set_regen_n:'Regenshot verpflichtend', set_regen_d:'EIN: Regen Shot (weak o. normal) garantiert — kostet −75 Pts statisch. AUS: Kein Abzug, kann aber weiterhin zufällig rollen.',
+    set_heal_n:'Heilspritze verpflichtend', set_heal_d:'EIN: Vitality Shot (weak o. normal) garantiert — kostet −25 Pts statisch. AUS: Kein Abzug, kann aber weiterhin zufällig rollen.',
+    set_regen_n:'Regenshot verpflichtend', set_regen_d:'EIN: Regen Shot (weak o. normal) garantiert — kostet −50 Pts statisch. AUS: Kein Abzug, kann aber weiterhin zufällig rollen.',
     set_mode_title:'SPIELMODUS',
     set_solo_n:'Solo-Modus', set_solo_d:'Spiele alleine — alle variablen Scores werden mit ×1.5 multipliziert. Statische Boni (Medkit/Nahkampf-Einstellung) werden nicht multipliziert.',
     set_qm_n:'Quartermaster', set_qm_d:'Large + Medium Loadout (5 Slots). Kein Bonus für freie Slots — der QM-Vorteil ist der Slot selbst.',
@@ -606,7 +606,7 @@ const TRANSLATIONS = {
     lo_tools:'TOOLS', lo_consumables:'CONSUMABLES', lo_slot_bonus:'SLOT BONUS',
     lo_free_slot:'free slot', lo_free_slots:'free slots', lo_qm:'QM',
     lo_reroll:'↺ REROLL',
-    res_foreign_tip:'Foreign weapon picked up — counts toward the progressive kill pool (Kill 1: +10, Kill 2: +20, ...).',
+    res_foreign_tip:'Foreign weapon picked up — +80 base pts per kill, also counts toward the progressive kill bonus.',
     res_title:'ROUND RESULT', res_hint:'Click weapon/item = +1 · Right-click = −1',
     res_stylish:'Stylish Kill', res_foreign:'Foreign Weapon', res_headshots:'Headshots',
     res_deaths:'Deaths', res_bounties:'Bounties', res_first_kill:'First Kill (+50)', res_first_death:'First Death (−100)',
@@ -623,7 +623,7 @@ const TRANSLATIONS = {
     res_deaths_tip:'Death 1: −50 · Death 2: −75 · Death 3: −100 · Each further −25 more.',
     res_foreign_cons_tip:'+70 base pts per kill. Also counts toward the progressive kill bonus.',
     res_teamkill_tip:'Only valid for accidental teamkills. Intentional manipulation to lower teammates\' scores is not allowed.',
-    res_world_melee_tip:'World melee weapon (bottle, hammer, etc.) — counts toward the progressive kill pool.',
+    res_world_melee_tip:'World melee weapon (bottle, hammer, etc.) — +250 base pts per kill, also counts toward the progressive kill bonus.',
     res_stylish_tip:'Select this for a particularly stylish kill — e.g. a 200m snipe, kill while skydiving, etc. Flat bonus points.',
     rc_title:'ROUND COMPLETE', rc_score:'ROUND SCORE', rc_total:'RUN TOTAL:',
     rc_next:'↺ NEXT ROUND', rc_end:'✓ END RUN',
@@ -638,8 +638,8 @@ const TRANSLATIONS = {
     set_medkit_n:'Medkit required', set_medkit_d:'ON: Medkit guaranteed in loadout — no bonus, you already have the safety net. OFF: +100 Pts static bonus for playing without the guarantee.',
     set_melee_n:'Melee tool required', set_melee_d:'ON: Melee tool guaranteed — no bonus. OFF: +100 Pts static bonus for the risk of going without. (Either can still roll randomly.)',
     set_choke_n:'Choke Bomb required', set_choke_d:'Choke Bomb guaranteed in loadout. Can still roll randomly without this option. No score effect.',
-    set_heal_n:'Healing Syringe required', set_heal_d:'ON: Vitality Shot (weak or normal) guaranteed — costs −50 Pts static. OFF: No penalty; can still roll randomly.',
-    set_regen_n:'Regen Shot required', set_regen_d:'ON: Regen Shot (weak or normal) guaranteed — costs −75 Pts static. OFF: No penalty; can still roll randomly.',
+    set_heal_n:'Healing Syringe required', set_heal_d:'ON: Vitality Shot (weak or normal) guaranteed — costs −25 Pts static. OFF: No penalty; can still roll randomly.',
+    set_regen_n:'Regen Shot required', set_regen_d:'ON: Regen Shot (weak or normal) guaranteed — costs −50 Pts static. OFF: No penalty; can still roll randomly.',
     set_mode_title:'GAME MODE',
     set_solo_n:'Solo Mode', set_solo_d:'Play alone — all variable scores are multiplied by ×1.5. Static bonuses (Medkit/Melee setting) are not multiplied.',
     set_qm_n:'Quartermaster', set_qm_d:'Large + Medium loadout (5 slots). No free-slot bonus — the extra slot is the advantage itself.',
@@ -795,7 +795,9 @@ async function loadAll() {
   if (settings) {
     state.settings             = { ...DEFAULT_SETTINGS, ...settings }
     state.rerolls               = settings._rerolls               ?? 2
-    state.gambleTokens          = settings._gambleTokens          ?? 1
+    const savedTokens           = settings._gambleTokens          ?? 1
+    const savedRounds           = settings._totalRoundsCompleted  ?? 0
+    state.gambleTokens          = (savedTokens === 0 && savedRounds === 0) ? 1 : savedTokens
     state.totalBountiesExtracted= settings._totalBountiesExtracted?? 0
     state.totalRoundsCompleted  = settings._totalRoundsCompleted  ?? 0
     state.totalKills            = settings._totalKills            ?? 0
@@ -1379,12 +1381,14 @@ function renderLoadout(loadout) {
     const weaponSl = (loadout.primary?.slots || 0) + (loadout.secondary?.slots || 0) + (loadout.dualWield ? 1 : 0)
     const emptySl  = Math.max(0, 4 - weaponSl)
     const emptyCons = Math.max(0, 4 - (loadout.consumables?.length || 0))
-    if (emptySl > 0 || emptyCons > 0) {
+    if (emptySl > 0 || emptyCons > 0 || !state.settings.medkitRequired || !state.settings.meleeRequired) {
       const bon = document.createElement('div')
       bon.className = 'hs-slot-bonus'
       const parts = []
-      if (emptySl > 0)   parts.push(`<span class="slot-bonus-val">+${emptySl * 200} PTS</span><span class="slot-bonus-desc">${emptySl} ${emptySl > 1 ? T('lo_free_slots') : T('lo_free_slot')}</span>`)
-      if (emptyCons > 0) parts.push(`<span class="slot-bonus-val">+${emptyCons * 100} PTS</span><span class="slot-bonus-desc">${emptyCons} ${T('bk_free_cons')}</span>`)
+      if (emptySl > 0)   parts.push(`<span class="slot-bonus-val">+${emptySl * 100} PTS</span><span class="slot-bonus-desc">${emptySl} ${emptySl > 1 ? T('lo_free_slots') : T('lo_free_slot')}</span>`)
+      if (emptyCons > 0) parts.push(`<span class="slot-bonus-val">+${emptyCons * 50} PTS</span><span class="slot-bonus-desc">${emptyCons} ${T('bk_free_cons')}</span>`)
+      if (!state.settings.medkitRequired) parts.push(`<span class="slot-bonus-val">+100 PTS</span><span class="slot-bonus-desc">${T('bk_medkit_off')}</span>`)
+      if (!state.settings.meleeRequired)  parts.push(`<span class="slot-bonus-val">+100 PTS</span><span class="slot-bonus-desc">${T('bk_melee_off')}</span>`)
       bon.innerHTML = `<span class="slot-bonus-label">${T('lo_slot_bonus')}</span>${parts.join('<span class="slot-bonus-sep"> · </span>')}`
       container.appendChild(bon)
     }
