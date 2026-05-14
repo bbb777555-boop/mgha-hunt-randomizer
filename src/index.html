@@ -39,6 +39,21 @@
       <span class="stat-item"><span class="stat-label" data-i18n="sb_rounds">RUNDEN</span><span class="stat-value" id="sb-rounds">0</span></span>
       <span class="stat-sep">✦</span>
       <span class="stat-item"><span class="stat-label">Ø SCORE</span><span class="stat-value" id="sb-avg">0</span></span>
+      <span class="sb-star">★</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ CURRENT RUN BAR ══ -->
+  <div id="stats-bar-run" class="hidden">
+    <div class="stats-bar-inner stats-bar-run-inner">
+      <span class="sb-star">★</span>
+      <span class="stat-item"><span class="stat-label" data-i18n="sb_run_label">AKT. RUN</span><span class="stat-value" id="sb-run-score">+0</span></span>
+      <span class="stat-sep">✦</span>
+      <span class="stat-item"><span class="stat-label" data-i18n="sb_run_kills">KILLS</span><span class="stat-value" id="sb-run-kills">0</span></span>
+      <span class="stat-sep">✦</span>
+      <span class="stat-item"><span class="stat-label" data-i18n="sb_run_deaths">TODE</span><span class="stat-value" id="sb-run-deaths">0</span></span>
+      <span class="stat-sep">✦</span>
+      <span class="stat-item"><span class="stat-label" data-i18n="sb_rounds">RUNDEN</span><span class="stat-value" id="sb-run-rounds">0</span></span>
       <span class="stat-sep">✦</span>
       <span class="stat-item stat-rerolls"><span class="stat-label">REROLLS</span><span class="stat-value reroll-val" id="sb-rerolls">2</span></span>
       <span class="stat-sep">✦</span>
@@ -307,6 +322,17 @@
       <div class="settings-section">
         <h3 class="settings-section-title" data-i18n="set_req_title">PFLICHTAUSRÜSTUNG</h3>
         <p class="settings-section-desc" data-i18n="set_req_desc">Beeinflusst den Loadout und den Score-Multiplikator</p>
+
+        <div class="setting-row" id="set-hailmary-row">
+          <div class="setting-info">
+            <span class="setting-name" data-i18n="set_hailmary_n">Heal Mary</span>
+            <span class="setting-desc" data-i18n="set_hailmary_d">...</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="set-hailmary" onchange="saveSettingHailmary(this.checked)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
 
         <div class="setting-row">
           <div class="setting-info">

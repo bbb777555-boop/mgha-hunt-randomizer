@@ -539,7 +539,7 @@ const TRANSLATIONS = {
     set_choke_n:'Choke-Bombe verpflichtend', set_choke_d:'Garantiert eine Choke Bomb im Loadout. Kann ohne diese Option trotzdem zufällig rollen. Kein Score-Einfluss.',
     set_heal_n:'Heilspritze verpflichtend', set_heal_d:'EIN: Vitality Shot garantiert — kostet −25 Pts. AUS: Kein Abzug; kann trotzdem zufällig rollen.',
     set_regen_n:'Regenshot verpflichtend', set_regen_d:'EIN: Regen Shot garantiert — kostet −50 Pts. AUS: Kein Abzug; kann trotzdem zufällig rollen.',
-    set_hailmary_n:'Heal Hailmary', set_hailmary_d:'EIN: Garantiert 1 zufälliges Heilmittel (Medkit, Regenshot oder Vitshot). Andere Heilmittel können trotzdem rollen. Deaktiviert: Medkit, Heilspritze & Regenshot verpflichtend. Kein Punkteinfluss.',
+    set_hailmary_n:'Heal Mary', set_hailmary_d:'EIN: Garantiert 1 zufälliges Heilmittel (Medkit, Regenshot oder Vitshot) +25 Pts. Andere Heilmittel können trotzdem rollen. Deaktiviert: Medkit, Heilspritze & Regenshot verpflichtend.',
     set_mode_title:'SPIELMODUS',
     set_solo_n:'Solo-Modus', set_solo_d:'Alle variablen Kill-Punkte ×1.5. Statische Boni (Medkit-/Nahkampf-Setting) werden nicht multipliziert.',
     set_qm_n:'Quartermaster', set_qm_d:'Large + Medium Loadout (5 Slots). Kein Bonus für freie Slots — der Extra-Slot ist der Vorteil.',
@@ -575,6 +575,7 @@ const TRANSLATIONS = {
     bk_free_slot:'Freier Slot', bk_free_cons:'Freier Cons.-Slot', bk_solo:'Solo ×1.5',
     bk_failed_extract:'Extraktion fehlgeschlagen ÷2',
     bk_medkit_off:'Medkit nicht erzwungen', bk_melee_off:'Nahkampf nicht erzwungen',
+    bk_hailmary:'Heal Mary',
     bk_vit_forced:'Vitality Shot (erzwungen)', bk_regen_forced:'Regenshot (erzwungen)',
     // Loadout labels
     lo_melee_label:'NAHKAMPF · SLOT', lo_dual_schrot:'· SCHROT',
@@ -643,7 +644,7 @@ const TRANSLATIONS = {
     set_choke_n:'Choke Bomb required', set_choke_d:'Guarantees a Choke Bomb. Can still roll randomly without this. No score effect.',
     set_heal_n:'Healing Syringe required', set_heal_d:'ON: Vitality Shot guaranteed — costs −25 Pts. OFF: No penalty; can still roll randomly.',
     set_regen_n:'Regen Shot required', set_regen_d:'ON: Regen Shot guaranteed — costs −50 Pts. OFF: No penalty; can still roll randomly.',
-    set_hailmary_n:'Heal Hailmary', set_hailmary_d:'ON: Guarantees 1 random heal item (Medkit, Regen Shot, or Vit Shot). Other healing items can still roll randomly. Disables: Medkit, Syringe & Regen Shot required. No score impact.',
+    set_hailmary_n:'Heal Mary', set_hailmary_d:'ON: Guarantees 1 random heal item (Medkit, Regen Shot, or Vit Shot) +25 Pts. Other healing items can still roll randomly. Disables: Medkit, Syringe & Regen Shot required.',
     set_mode_title:'GAME MODE',
     set_solo_n:'Solo Mode', set_solo_d:'All variable kill scores ×1.5. Static bonuses (Medkit/Melee setting) are not multiplied.',
     set_qm_n:'Quartermaster', set_qm_d:'Large + Medium loadout (5 slots). No free-slot bonus — the extra slot is the advantage.',
@@ -676,6 +677,7 @@ const TRANSLATIONS = {
     bk_free_slot:'Free Slot', bk_free_cons:'Free Cons. Slot', bk_solo:'Solo ×1.5',
     bk_failed_extract:'Extraction Failed ÷2',
     bk_medkit_off:'Medkit Not Required', bk_melee_off:'Melee Not Required',
+    bk_hailmary:'Heal Mary',
     bk_vit_forced:'Vitality Shot (Forced)', bk_regen_forced:'Regen Shot (Forced)',
     // Loadout labels
     lo_melee_label:'MELEE · SLOT', lo_dual_schrot:'· SHOT',
@@ -915,6 +917,11 @@ function calcLoadoutScore(loadout) {
   const emptyCons = Math.max(0, 4 - (loadout.consumables?.length || 0))
   pts += emptyCons * 50
 
+  if (state.settings.healHailmary) pts += 25
+  else if (!state.settings.medkitRequired) pts += 100
+
+  if (!state.settings.meleeRequired) pts += 100
+
   return pts
 }
 
@@ -1024,7 +1031,10 @@ function calcRoundScore(loadout, results) {
     total += pts
   }
   // Setting-based
-  if (!state.settings.healHailmary) {
+  if (state.settings.healHailmary) {
+    breakdown.push({ label:T('bk_hailmary'), pts: 25, type:'good' })
+    total += 25
+  } else {
     if (!state.settings.medkitRequired) {
       breakdown.push({ label:T('bk_medkit_off'), pts: 100, type:'good' })
       total += 100
@@ -1447,7 +1457,8 @@ function renderLoadout(loadout) {
       const items = []
       if (emptySl > 0)   items.push(`<div class="slot-bonus-item"><span class="slot-bonus-val">+${emptySl * 100} PTS</span><span class="slot-bonus-desc">${emptySl} ${emptySl > 1 ? T('lo_free_slots') : T('lo_free_slot')}</span></div>`)
       if (emptyCons > 0) items.push(`<div class="slot-bonus-item"><span class="slot-bonus-val">+${emptyCons * 50} PTS</span><span class="slot-bonus-desc">${emptyCons} ${T('bk_free_cons')}</span></div>`)
-      if (!state.settings.medkitRequired && !state.settings.healHailmary) items.push(`<div class="slot-bonus-item"><span class="slot-bonus-val">+100 PTS</span><span class="slot-bonus-desc">${T('bk_medkit_off')}</span></div>`)
+      if (state.settings.healHailmary) items.push(`<div class="slot-bonus-item"><span class="slot-bonus-val">+25 PTS</span><span class="slot-bonus-desc">${T('bk_hailmary')}</span></div>`)
+      else if (!state.settings.medkitRequired) items.push(`<div class="slot-bonus-item"><span class="slot-bonus-val">+100 PTS</span><span class="slot-bonus-desc">${T('bk_medkit_off')}</span></div>`)
       if (!state.settings.meleeRequired)  items.push(`<div class="slot-bonus-item"><span class="slot-bonus-val">+100 PTS</span><span class="slot-bonus-desc">${T('bk_melee_off')}</span></div>`)
       bon.innerHTML = `<span class="slot-bonus-label">${T('lo_slot_bonus')}</span><div class="slot-bonus-items">${items.join('')}</div>`
       container.appendChild(bon)
