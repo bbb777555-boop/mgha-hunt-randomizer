@@ -217,6 +217,36 @@ body::after {
 
 .stat-sep { color: var(--border-mid); font-size: 10px; }
 
+/* ── CURRENT RUN BAR ──────────────────────────────────────────────────── */
+#stats-bar-run {
+  position: fixed;
+  top: 84px;
+  left: 0; right: 0;
+  z-index: 99;
+  background: linear-gradient(to bottom, #ede4c8, #e2d5a8);
+  border-bottom: 2px solid var(--border-mid);
+  padding: 4px 0 5px;
+  box-shadow: 0 2px 6px rgba(60,30,0,0.12);
+}
+
+.stats-bar-run-inner {
+  background: rgba(180, 130, 50, 0.08);
+  border-top: 1px solid rgba(180, 130, 50, 0.15);
+}
+
+.setting-row.setting-disabled { opacity: 0.4; pointer-events: none; }
+
+/* When run bar is visible, push nav and content down */
+body.run-bar-active #main-nav { margin-top: 84px; }
+body.run-bar-active #view-home,
+body.run-bar-active #view-loadout,
+body.run-bar-active #view-results,
+body.run-bar-active #view-round-complete,
+body.run-bar-active #view-history,
+body.run-bar-active #view-run-detail,
+body.run-bar-active #view-settings,
+body.run-bar-active #view-arsenal { top: 168px; }
+
 /* ── NAVIGATION ────────────────────────────────────────────────────────── */
 #main-nav {
   position: fixed;
@@ -1803,29 +1833,58 @@ body::after {
 .hs-slot-bonus {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px 14px;
-  background: linear-gradient(to right, transparent, rgba(26,45,106,0.06), transparent);
-  border: 1px solid var(--border-mid);
+  gap: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #1a2d6a 0%, #243a88 100%);
+  border: 2px solid #3a54a8;
   border-radius: var(--radius);
-  justify-content: center;
+  overflow: hidden;
 }
 
 .slot-bonus-label {
   font-family: var(--font-title);
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: var(--text-muted);
+  font-size: 8px;
+  letter-spacing: 2.5px;
+  color: rgba(255,255,255,0.55);
+  padding: 10px 14px;
+  border-right: 1px solid rgba(255,255,255,0.15);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
+
+.slot-bonus-items {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+  flex: 1;
+}
+
+.slot-bonus-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.slot-bonus-item:last-child { border-right: none; }
 
 .slot-bonus-val {
   font-family: var(--font-title);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
-  color: var(--accent-navy);
+  color: #f0d060;
+  letter-spacing: 0.5px;
 }
 
-.slot-bonus-desc { font-size: 10px; color: var(--text-dim); font-style: italic; }
+.slot-bonus-desc {
+  font-size: 10px;
+  color: rgba(255,255,255,0.7);
+  font-style: italic;
+}
+
+.slot-bonus-sep { display: none; }
 
 /* ═══════════════════════════════════════════════════════════════════════
    ARSENAL TABLE

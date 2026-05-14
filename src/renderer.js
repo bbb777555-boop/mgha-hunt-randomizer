@@ -487,6 +487,7 @@ const TRANSLATIONS = {
     nav_home:'HOME', nav_history:'HISTORIK', nav_settings:'EINSTELLUNGEN', nav_arsenal:'ARSENAL',
     // Stats bar
     sb_rounds:'RUNDEN',
+    sb_run_label:'AKT. RUN', sb_run_kills:'KILLS', sb_run_deaths:'TODE',
     // Home
     home_rnd_sub:'Loadout auswürfeln', home_active:'✦ AKTIVER LAUF ✦',
     home_rnd_played:'Runden gespielt', home_end_run:'LAUF BEENDEN',
@@ -499,7 +500,7 @@ const TRANSLATIONS = {
     lo_tools:'TOOLS', lo_consumables:'CONSUMABLES', lo_slot_bonus:'SLOT BONUS',
     lo_free_slot:'freier Slot', lo_free_slots:'freie Slots', lo_qm:'QM',
     lo_reroll:'↺ NEU WÜRFELN',
-    res_foreign_tip:'Aufgehobene Fremdwaffe — +80 Basispunkte pro Kill, zählt zusätzlich zum progressiven Kill-Bonus.',
+    res_foreign_tip:'Kill mit einer nicht im Loadout vorgesehenen Waffe (aufgehoben von Toten/Welt). Gibt +80 Basispunkte + Progressiv-Kill-Bonus.',
     // Results
     res_title:'RUNDEN ERGEBNIS', res_hint:'Auf Waffe/Item klicken = +1 · Rechtsklick = −1',
     res_stylish:'Stylish Kill', res_foreign:'Fremde Waffe', res_headshots:'Headshots',
@@ -533,21 +534,22 @@ const TRANSLATIONS = {
     // Settings
     set_title:'EINSTELLUNGEN',
     set_req_title:'PFLICHTAUSRÜSTUNG', set_req_desc:'Beeinflusst den Loadout und den Score-Multiplikator',
-    set_medkit_n:'Medkit verpflichtend', set_medkit_d:'EIN: Medkit garantiert im Loadout — kein Bonus, du hast die Sicherheit schon. AUS: +100 Pts statischer Bonus, weil du auf das Netz verzichtest.',
-    set_melee_n:'Nahkampf-Tool verpflichtend', set_melee_d:'EIN: Nahkampf-Tool garantiert — kein Bonus. AUS: +100 Pts statischer Bonus für das Risiko ohne Garantie. (Beide können trotzdem zufällig gewürfelt werden.)',
-    set_choke_n:'Choke-Bombe verpflichtend', set_choke_d:'Choke Bomb garantiert im Loadout. Kann ohne diese Option weiterhin zufällig erscheinen. Kein Einfluss auf den Score.',
-    set_heal_n:'Heilspritze verpflichtend', set_heal_d:'EIN: Vitality Shot (weak o. normal) garantiert — kostet −25 Pts statisch. AUS: Kein Abzug, kann aber weiterhin zufällig rollen.',
-    set_regen_n:'Regenshot verpflichtend', set_regen_d:'EIN: Regen Shot (weak o. normal) garantiert — kostet −50 Pts statisch. AUS: Kein Abzug, kann aber weiterhin zufällig rollen.',
+    set_medkit_n:'Medkit verpflichtend', set_medkit_d:'EIN: Medkit garantiert — kein Bonus. AUS: +100 Pts Bonus fürs Risiko ohne Netz.',
+    set_melee_n:'Nahkampf-Tool verpflichtend', set_melee_d:'EIN: Nahkampf-Tool garantiert — kein Bonus. AUS: +100 Pts Bonus fürs Risiko. (Kann trotzdem zufällig rollen.)',
+    set_choke_n:'Choke-Bombe verpflichtend', set_choke_d:'Garantiert eine Choke Bomb im Loadout. Kann ohne diese Option trotzdem zufällig rollen. Kein Score-Einfluss.',
+    set_heal_n:'Heilspritze verpflichtend', set_heal_d:'EIN: Vitality Shot garantiert — kostet −25 Pts. AUS: Kein Abzug; kann trotzdem zufällig rollen.',
+    set_regen_n:'Regenshot verpflichtend', set_regen_d:'EIN: Regen Shot garantiert — kostet −50 Pts. AUS: Kein Abzug; kann trotzdem zufällig rollen.',
+    set_hailmary_n:'Heal Hailmary', set_hailmary_d:'EIN: Garantiert 1 zufälliges Heilmittel (Medkit, Regenshot oder Vitshot). Andere Heilmittel können trotzdem rollen. Deaktiviert: Medkit, Heilspritze & Regenshot verpflichtend. Kein Punkteinfluss.',
     set_mode_title:'SPIELMODUS',
-    set_solo_n:'Solo-Modus', set_solo_d:'Spiele alleine — alle variablen Scores werden mit ×1.5 multipliziert. Statische Boni (Medkit/Nahkampf-Einstellung) werden nicht multipliziert.',
-    set_qm_n:'Quartermaster', set_qm_d:'Large + Medium Loadout (5 Slots). Kein Bonus für freie Slots — der QM-Vorteil ist der Slot selbst.',
-    set_marcel_n:'Marcel-Hypermode', set_marcel_d:'Der Bogen erscheint häufiger im Pool. Bei aktivem Bogen im Loadout: +25 Punkte pro Kill.',
+    set_solo_n:'Solo-Modus', set_solo_d:'Alle variablen Kill-Punkte ×1.5. Statische Boni (Medkit-/Nahkampf-Setting) werden nicht multipliziert.',
+    set_qm_n:'Quartermaster', set_qm_d:'Large + Medium Loadout (5 Slots). Kein Bonus für freie Slots — der Extra-Slot ist der Vorteil.',
+    set_marcel_n:'Marcel-Hypermode', set_marcel_d:'Hunting Bow erscheint häufiger im Pool. Bogen im Loadout: +25 Pts pro Kill.',
     set_pool_title:'WAFFENPOOL', set_pool_desc:'Event- und optionale Waffen in den Zufalls-Pool einschließen',
-    set_shredder_n:'Shredder einschließen', set_shredder_d:'Shredder (Event-Waffe) im Waffenpool verfügbar',
-    set_flame_n:'Flame Rifle einschließen', set_flame_d:'Flame Rifle (Event-Waffe) im Waffenpool verfügbar',
-    set_wild_n:'Wildland &amp; Homestead einschließen', set_wild_d:'Wildland und Homestead im Waffenpool verfügbar',
-    set_tarot_n:'Tarot-Karten einschließen', set_tarot_d:'Tarot-Karten als Verbrauchsgüter in den Loadout-Pool aufnehmen',
-    set_scarce_n:'Scarce-Ammo einschließen', set_scarce_d:'Seltene Munitionstypen (Scarce) in den Munitionspool aufnehmen',
+    set_shredder_n:'Shredder einschließen', set_shredder_d:'Shredder (Event-Waffe) in den Waffenpool aufnehmen.',
+    set_flame_n:'Flame Rifle einschließen', set_flame_d:'Flame Rifle (Event-Waffe) in den Waffenpool aufnehmen.',
+    set_wild_n:'Wildland &amp; Homestead einschließen', set_wild_d:'Wildland & Homestead-Varianten in den Waffenpool aufnehmen.',
+    set_tarot_n:'Tarot-Karten einschließen', set_tarot_d:'Tarot-Karten als Consumables in den Loadout-Pool aufnehmen.',
+    set_scarce_n:'Scarce-Ammo einschließen', set_scarce_d:'Seltene Munitionstypen (Scarce) in den Munitionspool aufnehmen.',
     set_ammo_weight_title:'MUNITIONS-GEWICHTUNG',
     set_ammo_weight_desc:'Jeder Munitionsslot: 40% Chance auf Standard-Munition (pts 0) · 60% Chance auf Spezial-Munition (gleichmäßig aus dem restlichen Pool). Gilt auch für Dual-Ammo-Slots.',
     set_extract_info_title:'EXTRAKTION FEHLGESCHLAGEN',
@@ -596,6 +598,7 @@ const TRANSLATIONS = {
   en: {
     nav_home:'HOME', nav_history:'HISTORY', nav_settings:'SETTINGS', nav_arsenal:'ARSENAL',
     sb_rounds:'ROUNDS',
+    sb_run_label:'CUR. RUN', sb_run_kills:'KILLS', sb_run_deaths:'DEATHS',
     home_rnd_sub:'Roll a loadout', home_active:'✦ ACTIVE RUN ✦',
     home_rnd_played:'rounds played', home_end_run:'END RUN',
     home_loadouts:'Runs', home_last_run:'Last Run', home_total:'Total Score',
@@ -606,7 +609,7 @@ const TRANSLATIONS = {
     lo_tools:'TOOLS', lo_consumables:'CONSUMABLES', lo_slot_bonus:'SLOT BONUS',
     lo_free_slot:'free slot', lo_free_slots:'free slots', lo_qm:'QM',
     lo_reroll:'↺ REROLL',
-    res_foreign_tip:'Foreign weapon picked up — +80 base pts per kill, also counts toward the progressive kill bonus.',
+    res_foreign_tip:'Kill with a weapon not in your loadout (picked up from dead hunters/world). Gives +80 base pts + progressive kill bonus.',
     res_title:'ROUND RESULT', res_hint:'Click weapon/item = +1 · Right-click = −1',
     res_stylish:'Stylish Kill', res_foreign:'Foreign Weapon', res_headshots:'Headshots',
     res_deaths:'Deaths', res_bounties:'Bounties', res_first_kill:'First Kill (+50)', res_first_death:'First Death (−100)',
@@ -635,21 +638,22 @@ const TRANSLATIONS = {
     rd_round:'ROUND',
     set_title:'SETTINGS',
     set_req_title:'REQUIRED GEAR', set_req_desc:'Affects loadout and score multiplier',
-    set_medkit_n:'Medkit required', set_medkit_d:'ON: Medkit guaranteed in loadout — no bonus, you already have the safety net. OFF: +100 Pts static bonus for playing without the guarantee.',
-    set_melee_n:'Melee tool required', set_melee_d:'ON: Melee tool guaranteed — no bonus. OFF: +100 Pts static bonus for the risk of going without. (Either can still roll randomly.)',
-    set_choke_n:'Choke Bomb required', set_choke_d:'Choke Bomb guaranteed in loadout. Can still roll randomly without this option. No score effect.',
-    set_heal_n:'Healing Syringe required', set_heal_d:'ON: Vitality Shot (weak or normal) guaranteed — costs −25 Pts static. OFF: No penalty; can still roll randomly.',
-    set_regen_n:'Regen Shot required', set_regen_d:'ON: Regen Shot (weak or normal) guaranteed — costs −50 Pts static. OFF: No penalty; can still roll randomly.',
+    set_medkit_n:'Medkit required', set_medkit_d:'ON: Medkit guaranteed — no bonus. OFF: +100 Pts bonus for playing without.',
+    set_melee_n:'Melee tool required', set_melee_d:'ON: Melee tool guaranteed — no bonus. OFF: +100 Pts bonus for the risk. (Either can still roll randomly.)',
+    set_choke_n:'Choke Bomb required', set_choke_d:'Guarantees a Choke Bomb. Can still roll randomly without this. No score effect.',
+    set_heal_n:'Healing Syringe required', set_heal_d:'ON: Vitality Shot guaranteed — costs −25 Pts. OFF: No penalty; can still roll randomly.',
+    set_regen_n:'Regen Shot required', set_regen_d:'ON: Regen Shot guaranteed — costs −50 Pts. OFF: No penalty; can still roll randomly.',
+    set_hailmary_n:'Heal Hailmary', set_hailmary_d:'ON: Guarantees 1 random heal item (Medkit, Regen Shot, or Vit Shot). Other healing items can still roll randomly. Disables: Medkit, Syringe & Regen Shot required. No score impact.',
     set_mode_title:'GAME MODE',
-    set_solo_n:'Solo Mode', set_solo_d:'Play alone — all variable scores are multiplied by ×1.5. Static bonuses (Medkit/Melee setting) are not multiplied.',
-    set_qm_n:'Quartermaster', set_qm_d:'Large + Medium loadout (5 slots). No free-slot bonus — the extra slot is the advantage itself.',
-    set_marcel_n:'Marcel-Hypermode', set_marcel_d:'Hunting Bow appears much more often in the pool. If Bow is in your loadout: +25 pts per kill.',
+    set_solo_n:'Solo Mode', set_solo_d:'All variable kill scores ×1.5. Static bonuses (Medkit/Melee setting) are not multiplied.',
+    set_qm_n:'Quartermaster', set_qm_d:'Large + Medium loadout (5 slots). No free-slot bonus — the extra slot is the advantage.',
+    set_marcel_n:'Marcel-Hypermode', set_marcel_d:'Hunting Bow appears more often in the pool. Bow in loadout: +25 pts per kill.',
     set_pool_title:'WEAPON POOL', set_pool_desc:'Include event and optional weapons in the random pool',
-    set_shredder_n:'Include Shredder', set_shredder_d:'Shredder (event weapon) available in weapon pool',
-    set_flame_n:'Include Flame Rifle', set_flame_d:'Flame Rifle (event weapon) available in weapon pool',
-    set_wild_n:'Include Wildland &amp; Homestead', set_wild_d:'Wildland and Homestead available in weapon pool',
-    set_tarot_n:'Include Tarot Cards', set_tarot_d:'Include Tarot Cards as consumables in the loadout pool',
-    set_scarce_n:'Include Scarce Ammo', set_scarce_d:'Include rare ammo types (Scarce) in the ammo pool',
+    set_shredder_n:'Include Shredder', set_shredder_d:'Adds the Shredder (event weapon) to the weapon pool.',
+    set_flame_n:'Include Flame Rifle', set_flame_d:'Adds the Flame Rifle (event weapon) to the weapon pool.',
+    set_wild_n:'Include Wildland &amp; Homestead', set_wild_d:'Adds Wildland & Homestead variants to the weapon pool.',
+    set_tarot_n:'Include Tarot Cards', set_tarot_d:'Adds Tarot Cards as consumables in the loadout pool.',
+    set_scarce_n:'Include Scarce Ammo', set_scarce_d:'Adds rare ammo types (Scarce) to the ammo pool.',
     set_ammo_weight_title:'AMMO WEIGHTING',
     set_ammo_weight_desc:'Each ammo slot: 40% chance to roll Standard ammo (pts 0) · 60% chance to roll Special ammo (equally from remaining pool). Applies to Dual-Ammo slots too.',
     set_extract_info_title:'EXTRACTION FAILED',
@@ -755,6 +759,7 @@ const DEFAULT_SETTINGS = {
   chokeRequired:             false,
   healSyringeRequired:       false,
   regenShotRequired:         false,
+  healHailmary:              false,
   soloMode:                  false,
   quartermasterEnabled:      false,
   marcelHypermode:           false,
@@ -841,6 +846,10 @@ function showView(name) {
 
   const isSplash = name === 'splash'
   document.getElementById('stats-bar').classList.toggle('hidden', isSplash)
+  const runBarEl = document.getElementById('stats-bar-run')
+  const showRunBar = !isSplash && !!state.currentRun
+  if (runBarEl) runBarEl.classList.toggle('hidden', !showRunBar)
+  document.body.classList.toggle('run-bar-active', showRunBar)
   document.getElementById('main-nav').classList.toggle('hidden', isSplash)
   document.getElementById('corner-icon').classList.toggle('hidden', isSplash)
 
@@ -902,9 +911,9 @@ function calcLoadoutScore(loadout) {
   const emptySlots  = Math.max(0, (loadout.budget || 4) - weaponSlots)
   pts += emptySlots * 100
 
-  // Empty consumable slots bonus (+30 each)
+  // Empty consumable slots bonus (+50 each)
   const emptyCons = Math.max(0, 4 - (loadout.consumables?.length || 0))
-  pts += emptyCons * 30
+  pts += emptyCons * 50
 
   return pts
 }
@@ -1015,21 +1024,23 @@ function calcRoundScore(loadout, results) {
     total += pts
   }
   // Setting-based
-  if (!state.settings.medkitRequired) {
-    breakdown.push({ label:T('bk_medkit_off'), pts: 100, type:'good' })
-    total += 100
+  if (!state.settings.healHailmary) {
+    if (!state.settings.medkitRequired) {
+      breakdown.push({ label:T('bk_medkit_off'), pts: 100, type:'good' })
+      total += 100
+    }
+    if (state.settings.healSyringeRequired) {
+      breakdown.push({ label:T('bk_vit_forced'), pts: -25, type:'bad' })
+      total -= 25
+    }
+    if (state.settings.regenShotRequired) {
+      breakdown.push({ label:T('bk_regen_forced'), pts: -50, type:'bad' })
+      total -= 50
+    }
   }
   if (!state.settings.meleeRequired) {
     breakdown.push({ label:T('bk_melee_off'), pts: 100, type:'good' })
     total += 100
-  }
-  if (state.settings.healSyringeRequired) {
-    breakdown.push({ label:T('bk_vit_forced'), pts: -25, type:'bad' })
-    total -= 25
-  }
-  if (state.settings.regenShotRequired) {
-    breakdown.push({ label:T('bk_regen_forced'), pts: -50, type:'bad' })
-    total -= 50
   }
   // Marcel-Hypermode: +25 per kill when Hunting Bow is in loadout
   if (state.settings.marcelHypermode) {
@@ -1084,6 +1095,36 @@ function updateStatsBar() {
   document.getElementById('sb-avg').textContent     = s.totalRounds > 0 ? Math.round(s.totalScore / s.totalRounds) : 0
   document.getElementById('sb-rerolls').textContent      = state.rerolls
   document.getElementById('sb-gamble-tokens').textContent = state.gambleTokens
+
+  // Run bar — show/hide depending on active run
+  const runBar = document.getElementById('stats-bar-run')
+  if (runBar) {
+    const hasRun = !!state.currentRun
+    runBar.classList.toggle('hidden', !hasRun)
+    document.body.classList.toggle('run-bar-active', hasRun)
+    if (hasRun) {
+      const runKills = (state.currentRun.rounds || []).reduce((s, r) => {
+        const pk = r.results?.primaryKills
+        const sk = r.results?.secondaryKills
+        return s
+          + (typeof pk === 'object' ? Object.values(pk).reduce((a,v) => a+v, 0) : pk || 0)
+          + (typeof sk === 'object' ? Object.values(sk).reduce((a,v) => a+v, 0) : sk || 0)
+          + (r.results?.foreignKills       || 0)
+          + (r.results?.worldMeleeKills    || 0)
+          + (r.results?.foreignConsumables || 0)
+      }, 0)
+      const runDeaths = (state.currentRun.rounds || []).reduce((s,r) => s + (r.results?.deaths || 0), 0)
+      const runScore  = state.currentRun.totalScore || 0
+      const el_score  = document.getElementById('sb-run-score')
+      const el_kills  = document.getElementById('sb-run-kills')
+      const el_deaths = document.getElementById('sb-run-deaths')
+      const el_rounds = document.getElementById('sb-run-rounds')
+      if (el_score)  { el_score.textContent  = (runScore >= 0 ? '+' : '') + runScore; el_score.classList.toggle('negative', runScore < 0) }
+      if (el_kills)  el_kills.textContent  = runKills
+      if (el_deaths) el_deaths.textContent = runDeaths
+      if (el_rounds) el_rounds.textContent = (state.currentRun.rounds || []).length
+    }
+  }
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -1153,29 +1194,48 @@ function generateLoadout() {
     && (primary.slots + secondary.slots + 1) <= budget
     && Math.random() < 0.25
 
+  // Consumables — random 1-4, min 1
+  // healSyringe / regenShot required → pick ONE of weak/normal randomly
+  const reqCons = []
+  if (!state.settings.healHailmary && state.settings.healSyringeRequired) {
+    const opts = CONSUMABLES.filter(c => c.id === 'vitality_shot' || c.id === 'vitality_weak')
+    if (opts.length) reqCons.push(pick(opts))
+  }
+  if (!state.settings.healHailmary && state.settings.regenShotRequired) {
+    const opts = CONSUMABLES.filter(c => c.id === 'regen_shot' || c.id === 'regen_weak')
+    if (opts.length) reqCons.push(pick(opts))
+  }
+
+  // Heal Hailmary: pick one random heal item before building tool/cons arrays
+  let hailmaryTool = null
+  if (state.settings.healHailmary) {
+    const hailmaryPool = [
+      ...TOOLS.filter(t => t.id === 'first_aid_kit'),
+      ...CONSUMABLES.filter(c => ['vitality_shot','vitality_weak','regen_shot','regen_weak'].includes(c.id)),
+    ]
+    const chosen = pick(hailmaryPool)
+    const isConsumable = CONSUMABLES.some(c => c.id === chosen.id)
+    if (isConsumable) {
+      if (!reqCons.some(c => c.id === chosen.id)) reqCons.push(chosen)
+    } else {
+      hailmaryTool = chosen
+    }
+  }
+
   // Tools — always fill to 4
   // meleeRequired: force one random melee tool; handled separately from required_setting
   const meleeTools    = TOOLS.filter(t => MELEE_TOOL_IDS.has(t.id))
   const forcedMelee   = state.settings.meleeRequired && meleeTools.length ? { ...pick(meleeTools), _forced: true } : null
-  const reqTools      = TOOLS.filter(t => t.required_setting && state.settings[t.required_setting])
+  const reqTools      = state.settings.healHailmary
+    ? TOOLS.filter(t => t.required_setting && state.settings[t.required_setting] && t.id !== 'first_aid_kit')
+    : TOOLS.filter(t => t.required_setting && state.settings[t.required_setting])
+  if (hailmaryTool && !reqTools.some(t => t.id === hailmaryTool.id)) reqTools.push(hailmaryTool)
   // optTools: everything not already forced (allow required_setting tools when setting is off)
   const reqToolIds    = new Set([...(forcedMelee ? [forcedMelee.id] : []), ...reqTools.map(t => t.id)])
   const optTools      = TOOLS.filter(t => !reqToolIds.has(t.id))
     .sort(() => Math.random() - 0.5)
   const toolsBase     = [...(forcedMelee ? [forcedMelee] : []), ...reqTools]
   const tools         = [...toolsBase, ...optTools.slice(0, 4 - toolsBase.length)].slice(0, 4)
-
-  // Consumables — random 1-4, min 1
-  // healSyringe / regenShot required → pick ONE of weak/normal randomly
-  const reqCons = []
-  if (state.settings.healSyringeRequired) {
-    const opts = CONSUMABLES.filter(c => c.id === 'vitality_shot' || c.id === 'vitality_weak')
-    if (opts.length) reqCons.push(pick(opts))
-  }
-  if (state.settings.regenShotRequired) {
-    const opts = CONSUMABLES.filter(c => c.id === 'regen_shot' || c.id === 'regen_weak')
-    if (opts.length) reqCons.push(pick(opts))
-  }
   // Any other consumables with required_setting (none currently, but keeps extensible)
   CONSUMABLES.filter(c => c.required_setting && state.settings[c.required_setting] && !reqCons.some(r => r.id === c.id))
     .forEach(c => reqCons.push(c))
@@ -1384,12 +1444,12 @@ function renderLoadout(loadout) {
     if (emptySl > 0 || emptyCons > 0 || !state.settings.medkitRequired || !state.settings.meleeRequired) {
       const bon = document.createElement('div')
       bon.className = 'hs-slot-bonus'
-      const parts = []
-      if (emptySl > 0)   parts.push(`<span class="slot-bonus-val">+${emptySl * 100} PTS</span><span class="slot-bonus-desc">${emptySl} ${emptySl > 1 ? T('lo_free_slots') : T('lo_free_slot')}</span>`)
-      if (emptyCons > 0) parts.push(`<span class="slot-bonus-val">+${emptyCons * 50} PTS</span><span class="slot-bonus-desc">${emptyCons} ${T('bk_free_cons')}</span>`)
-      if (!state.settings.medkitRequired) parts.push(`<span class="slot-bonus-val">+100 PTS</span><span class="slot-bonus-desc">${T('bk_medkit_off')}</span>`)
-      if (!state.settings.meleeRequired)  parts.push(`<span class="slot-bonus-val">+100 PTS</span><span class="slot-bonus-desc">${T('bk_melee_off')}</span>`)
-      bon.innerHTML = `<span class="slot-bonus-label">${T('lo_slot_bonus')}</span>${parts.join('<span class="slot-bonus-sep"> · </span>')}`
+      const items = []
+      if (emptySl > 0)   items.push(`<div class="slot-bonus-item"><span class="slot-bonus-val">+${emptySl * 100} PTS</span><span class="slot-bonus-desc">${emptySl} ${emptySl > 1 ? T('lo_free_slots') : T('lo_free_slot')}</span></div>`)
+      if (emptyCons > 0) items.push(`<div class="slot-bonus-item"><span class="slot-bonus-val">+${emptyCons * 50} PTS</span><span class="slot-bonus-desc">${emptyCons} ${T('bk_free_cons')}</span></div>`)
+      if (!state.settings.medkitRequired && !state.settings.healHailmary) items.push(`<div class="slot-bonus-item"><span class="slot-bonus-val">+100 PTS</span><span class="slot-bonus-desc">${T('bk_medkit_off')}</span></div>`)
+      if (!state.settings.meleeRequired)  items.push(`<div class="slot-bonus-item"><span class="slot-bonus-val">+100 PTS</span><span class="slot-bonus-desc">${T('bk_melee_off')}</span></div>`)
+      bon.innerHTML = `<span class="slot-bonus-label">${T('lo_slot_bonus')}</span><div class="slot-bonus-items">${items.join('')}</div>`
       container.appendChild(bon)
     }
   }
@@ -1660,7 +1720,9 @@ function renderHistory() {
         return s
           + (typeof pk === 'object' ? Object.values(pk).reduce((a,v) => a+v, 0) : pk || 0)
           + (typeof sk === 'object' ? Object.values(sk).reduce((a,v) => a+v, 0) : sk || 0)
-          + (r.results?.foreignKills || 0)
+          + (r.results?.foreignKills       || 0)
+          + (r.results?.worldMeleeKills    || 0)
+          + (r.results?.foreignConsumables || 0)
           + (r.results?.kills || 0)
       }, 0)
       const deaths = run.rounds.reduce((s, r) => s + (r.results?.deaths || 0), 0)
@@ -1694,7 +1756,9 @@ function showRunDetail(runId) {
     return s
       + (typeof pk === 'object' ? Object.values(pk).reduce((a,v) => a+v, 0) : pk || 0)
       + (typeof sk === 'object' ? Object.values(sk).reduce((a,v) => a+v, 0) : sk || 0)
-      + (r.results?.foreignKills || 0)
+      + (r.results?.foreignKills       || 0)
+      + (r.results?.worldMeleeKills    || 0)
+      + (r.results?.foreignConsumables || 0)
       + (r.results?.kills || 0)
   }, 0)
   const deaths = run.rounds.reduce((s,r) => s + (r.results?.deaths    || 0), 0)
@@ -1734,6 +1798,8 @@ function renderRoundCard(round) {
           <div class="rd-result-item"><span>${T('rd_kills_secondary')}</span><span>${typeof r?.secondaryKills === 'object' ? Object.values(r.secondaryKills).reduce((s,v) => s+v, 0) : r?.secondaryKills ?? 0}</span></div>
           ${(r?.stylishKills || 0) > 0 ? `<div class="rd-result-item"><span>Stylish Kills</span><span>${r.stylishKills}</span></div>` : ''}
           ${(r?.foreignKills || 0) > 0 ? `<div class="rd-result-item"><span>${T('rd_foreign')}</span><span>${r.foreignKills}</span></div>` : ''}
+          ${(r?.worldMeleeKills || 0) > 0 ? `<div class="rd-result-item"><span>${T('bk_world_melee')}</span><span>${r.worldMeleeKills}</span></div>` : ''}
+          ${(r?.foreignConsumables || 0) > 0 ? `<div class="rd-result-item"><span>${T('bk_foreign_cons')}</span><span>${r.foreignConsumables}</span></div>` : ''}
           <div class="rd-result-item"><span>Headshots</span><span>${r?.headshots ?? 0}</span></div>
           <div class="rd-result-item"><span>${T('rd_deaths_label')}</span><span>${r?.deaths ?? 0}</span></div>
           ${r?.firstDeath ? `<div class="rd-result-item text-bad"><span>${T('rd_first_death_label')}</span><span>−100</span></div>` : ''}
@@ -1754,6 +1820,7 @@ function applySettingsToUI() {
   set('set-choke',          state.settings.chokeRequired)
   set('set-healsyringe',    state.settings.healSyringeRequired)
   set('set-regenshot',      state.settings.regenShotRequired)
+  set('set-hailmary',       state.settings.healHailmary)
   set('set-solo',           state.settings.soloMode)
   set('set-quartermaster',  state.settings.quartermasterEnabled)
   set('set-marcel',         state.settings.marcelHypermode)
@@ -1762,11 +1829,30 @@ function applySettingsToUI() {
   set('set-wildland',       state.settings.includeWildlandHomestead)
   set('set-tarotcards',     state.settings.includeTarotCards)
   set('set-scarceammo',     state.settings.includeScarceAmmo)
+  updateHailmaryDependents()
 }
 
 async function saveSetting(key, value) {
   state.settings[key] = value
   await saveSettings()
+}
+
+async function saveSettingHailmary(val) {
+  state.settings.healHailmary = val
+  updateHailmaryDependents()
+  await saveSettings()
+}
+
+function updateHailmaryDependents() {
+  const active = state.settings.healHailmary
+  const rows = ['set-medkit', 'set-healsyringe', 'set-regenshot']
+  rows.forEach(id => {
+    const inp = document.getElementById(id)
+    if (!inp) return
+    inp.disabled = active
+    const row = inp.closest('.setting-row')
+    if (row) row.classList.toggle('setting-disabled', active)
+  })
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
