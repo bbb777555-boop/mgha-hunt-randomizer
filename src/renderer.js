@@ -366,7 +366,7 @@ const TOOLS = [
 
 // Tarot cards (only in pool when setting enabled)
 const TAROT_CARDS = [
-  'The Chariot','The Devil','The Empress','The Fool','The Hanged Man',
+  'The Chariot','The Devil','The Empress','The Fool','The Garden','The Hanged Man',
   'The High Priestess','The Judgement','The Magician','The Pathfinder',
   'The Sun','The Tower','The World',
 ].map((name,i) => ({ id:`tarot_${i}`, name, required_setting:null, tarot:true, killPts:300 }))
@@ -539,7 +539,7 @@ const TRANSLATIONS = {
     set_choke_n:'Choke-Bombe verpflichtend', set_choke_d:'Garantiert eine Choke Bomb im Loadout. Kann ohne diese Option trotzdem zufällig rollen. Kein Score-Einfluss.',
     set_heal_n:'Heilspritze verpflichtend', set_heal_d:'EIN: Vitality Shot garantiert — kostet −25 Pts. AUS: Kein Abzug; kann trotzdem zufällig rollen.',
     set_regen_n:'Regenshot verpflichtend', set_regen_d:'EIN: Regen Shot garantiert — kostet −50 Pts. AUS: Kein Abzug; kann trotzdem zufällig rollen.',
-    set_hailmary_n:'Heal Mary', set_hailmary_d:'EIN: Garantiert 1 zufälliges Heilmittel (Medkit, Regenshot oder Vitshot) +25 Pts. Andere Heilmittel können trotzdem rollen. Deaktiviert: Medkit, Heilspritze & Regenshot verpflichtend.',
+    set_hailmary_n:'Heal Mary', set_hailmary_d:'EIN: Garantiert 1 zufälliges Heilmittel (First Aid Kit, Regenshot, Vitshot — bei aktiven Tarot-Karten auch The Sun & The Garden) +25 Pts. Andere Heilmittel können trotzdem rollen. Deaktiviert: Medkit, Heilspritze & Regenshot verpflichtend.',
     set_mode_title:'SPIELMODUS',
     set_solo_n:'Solo-Modus', set_solo_d:'Alle variablen Kill-Punkte ×1.5. Statische Boni (Medkit-/Nahkampf-Setting) werden nicht multipliziert.',
     set_qm_n:'Quartermaster', set_qm_d:'Large + Medium Loadout (5 Slots). Kein Bonus für freie Slots — der Extra-Slot ist der Vorteil.',
@@ -568,7 +568,7 @@ const TRANSLATIONS = {
     round_label:'Runde', dual_badge:'2x',
     // Breakdown labels
     bk_kill:'Kill', bk_kill_bonus:'Bonus', bk_first_kill:'Erster Kill', bk_stylish:'Stylish Kill', bk_foreign:'Fremde Waffe', bk_world_melee:'World-Melee Kill', bk_foreign_cons:'Fremde Consumable', bk_teamkill:'Teamkill', bk_marcel:'Marcel-Hypermode Bonus', bk_gamble:'Glücksspiel-Multiplikator',
-    gamble_btn:'GAMBLE', gamble_tip:'Würfle einen globalen Punktmultiplikator (0.50× – 2.00×) für diese Runde. Token: alle 4 extrahierten Bounties. Einmal pro Runde verwendbar.',
+    gamble_btn:'GAMBLE', gamble_tip:'Würfle einen globalen Punktmultiplikator (0.50× – 2.00×) für diese Runde. Token: alle 4 Bounties (Solo-Modus: alle 2). Einmal pro Runde verwendbar.',
     bk_headshot:'Headshot', bk_death:'Tod', bk_first_death:'Erster Tod',
     bk_bounty:'Bounty', bk_melee:'Nahkampf', bk_medkit:'Medkit',
     bk_heal_syringe:'Heilspritze', bk_regen_shot:'Regenshot',
@@ -644,7 +644,7 @@ const TRANSLATIONS = {
     set_choke_n:'Choke Bomb required', set_choke_d:'Guarantees a Choke Bomb. Can still roll randomly without this. No score effect.',
     set_heal_n:'Healing Syringe required', set_heal_d:'ON: Vitality Shot guaranteed — costs −25 Pts. OFF: No penalty; can still roll randomly.',
     set_regen_n:'Regen Shot required', set_regen_d:'ON: Regen Shot guaranteed — costs −50 Pts. OFF: No penalty; can still roll randomly.',
-    set_hailmary_n:'Heal Mary', set_hailmary_d:'ON: Guarantees 1 random heal item (Medkit, Regen Shot, or Vit Shot) +25 Pts. Other healing items can still roll randomly. Disables: Medkit, Syringe & Regen Shot required.',
+    set_hailmary_n:'Heal Mary', set_hailmary_d:'ON: Guarantees 1 random heal item (First Aid Kit, Regen Shot, Vit Shot — with Tarot Cards active also The Sun & The Garden) +25 Pts. Other healing items can still roll randomly. Disables: Medkit, Syringe & Regen Shot required.',
     set_mode_title:'GAME MODE',
     set_solo_n:'Solo Mode', set_solo_d:'All variable kill scores ×1.5. Static bonuses (Medkit/Melee setting) are not multiplied.',
     set_qm_n:'Quartermaster', set_qm_d:'Large + Medium loadout (5 slots). No free-slot bonus — the extra slot is the advantage.',
@@ -670,7 +670,7 @@ const TRANSLATIONS = {
     round_label:'Round', dual_badge:'2x',
     // Breakdown labels
     bk_kill:'Kill', bk_kill_bonus:'Bonus', bk_first_kill:'First Kill', bk_stylish:'Stylish Kill', bk_foreign:'Foreign Weapon', bk_world_melee:'World Melee Kill', bk_foreign_cons:'Foreign Consumable', bk_teamkill:'Teamkill', bk_marcel:'Marcel-Hypermode Bonus', bk_gamble:'Gamble Multiplier',
-    gamble_btn:'GAMBLE', gamble_tip:'Roll a global point multiplier (0.50× – 2.00×) for this round. Token: every 4 extracted bounties. Once per round.',
+    gamble_btn:'GAMBLE', gamble_tip:'Roll a global point multiplier (0.50× – 2.00×) for this round. Token: every 4 bounties (Solo mode: every 2). Once per round.',
     bk_headshot:'Headshot', bk_death:'Death', bk_first_death:'First Death',
     bk_bounty:'Bounty', bk_melee:'Melee', bk_medkit:'Medkit',
     bk_heal_syringe:'Healing Syringe', bk_regen_shot:'Regen Shot',
@@ -1216,16 +1216,20 @@ function generateLoadout() {
     if (opts.length) reqCons.push(pick(opts))
   }
 
-  // Heal Hailmary: pick one random heal item before building tool/cons arrays
+  // Heal Mary: pick one random heal item before building tool/cons arrays
   let hailmaryTool = null
   if (state.settings.healHailmary) {
     const hailmaryPool = [
       ...TOOLS.filter(t => t.id === 'first_aid_kit'),
       ...CONSUMABLES.filter(c => ['vitality_shot','vitality_weak','regen_shot','regen_weak'].includes(c.id)),
     ]
+    if (state.settings.includeTarotCards) {
+      hailmaryPool.push(...TAROT_CARDS.filter(t => t.name === 'The Sun' || t.name === 'The Garden'))
+    }
     const chosen = pick(hailmaryPool)
     const isConsumable = CONSUMABLES.some(c => c.id === chosen.id)
-    if (isConsumable) {
+    const isTarot = TAROT_CARDS.some(t => t.id === chosen.id)
+    if (isConsumable || isTarot) {
       if (!reqCons.some(c => c.id === chosen.id)) reqCons.push(chosen)
     } else {
       hailmaryTool = chosen
@@ -2130,11 +2134,12 @@ async function submitResults() {
   const curr = Math.floor(state.totalRoundsCompleted / 3)
   if (curr > prev) state.rerolls++
 
-  // Award gamble tokens: 1 token per 4 extracted bounties (cumulative)
+  // Award gamble tokens: 1 per 4 bounties (solo: 1 per 2 bounties), cumulative
+  const tokenEvery   = state.settings.soloMode ? 2 : 4
   const roundBounties = Math.min(results.bounties || 0, state.settings.soloMode ? 2 : 4)
-  const prevMilestone = Math.floor(state.totalBountiesExtracted / 4)
+  const prevMilestone = Math.floor(state.totalBountiesExtracted / tokenEvery)
   state.totalBountiesExtracted += roundBounties
-  const newMilestone  = Math.floor(state.totalBountiesExtracted / 4)
+  const newMilestone  = Math.floor(state.totalBountiesExtracted / tokenEvery)
   state.gambleTokens += (newMilestone - prevMilestone)
 
   // Accumulate kills and deaths

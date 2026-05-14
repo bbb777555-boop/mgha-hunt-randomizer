@@ -1,6 +1,6 @@
 {
   "name": "hunt-randomizer",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Hunt: Showdown Loadout Randomizer",
   "main": "main.js",
   "scripts": {
